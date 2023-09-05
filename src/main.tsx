@@ -12,6 +12,7 @@ import store from './redux/store';
 // Composants
 import App from './components/App/App';
 import Layout from './components/Layout/Layout';
+import './styles/index.css';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
