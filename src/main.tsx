@@ -1,14 +1,25 @@
+// Modules
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from 'react-router-dom';
+// Reducers & Stores
+import store from './redux/store';
+// Composants
+import App from './components/App/App';
+import Layout from './components/Layout/Layout';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<Layout />} errorElement={''}>
+    <Route path="/" element={<Layout />} errorElement={''}>
       <Route errorElement={''}>
         <Route index element={<App />} />
-       {/* Compléter le router avec d'autres pages à partir de là*/}
-       {/* Oubliez pas d'ajouter Outlet dans le composant Layout*/}
+        {/* Compléter le router avec d'autres pages à partir de là*/}
+        {/* Oubliez pas d'ajouter Outlet dans le composant Layout*/}
       </Route>
     </Route>
   )
