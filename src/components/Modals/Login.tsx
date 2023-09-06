@@ -1,11 +1,11 @@
 import { useRef } from 'react';
 
 function Login() {
-  const registerModalRef = useRef<HTMLDialogElement>(null);
+  const loginModalRef = useRef<HTMLDialogElement>(null);
 
   function openModal() {
-    if (registerModalRef.current) {
-      registerModalRef.current.showModal();
+    if (loginModalRef.current) {
+      loginModalRef.current.showModal();
     }
   }
 
@@ -15,19 +15,19 @@ function Login() {
       <button className="btn btn-ghost w-full" onClick={openModal}>
         Se connecter
       </button>
-      <dialog ref={registerModalRef} className="modal">
+      <dialog ref={loginModalRef} className="modal">
         <div className="modal-box">
           <form>
             <div className="mb-6">
               <label
-                htmlFor="email"
+                htmlFor="text"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Votre identifiant
               </label>
               <input
-                type="email"
-                id="email"
+                type="text"
+                id="text"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="pseudo"
                 required
@@ -44,11 +44,9 @@ function Login() {
                 type="password"
                 id="password"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder='mot de passe'
+                placeholder="mot de passe"
                 required
               />
-            </div>
-            <div className="flex items-start mb-6">
             </div>
             <button
               type="submit"
