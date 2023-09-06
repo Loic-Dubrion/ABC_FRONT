@@ -16,8 +16,8 @@ import './styles/index.css';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />} errorElement={''}>
-      <Route errorElement={''}>
+    <Route path="/" element={<Layout />} errorElement={'Rien à afficher 404'}>
+      <Route errorElement={'Rien à afficher 404'}>
         <Route index element={<App />} />
         {/* Compléter le router avec d'autres pages à partir de là*/}
         {/* Oubliez pas d'ajouter Outlet dans le composant Layout*/}
