@@ -1,11 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Login from '../Modals/Login';
 import Register from '../Modals/Register';
+import { useAppSelector } from '../../redux/hooks';
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
-
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const username = useAppSelector((state) => state.user.username);
+  const isLogged = useAppSelector((state) => state.user.isLogged);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -36,6 +38,7 @@ function Header() {
       </div>
       <div className="flex justify-end flex-1 px-2">
         <div className="flex items-stretch">
+          <p className="mr-10 font-bold">{username}</p>
           <div className="dropdown dropdown-end" ref={dropdownRef}>
             <button
               type="button"
@@ -63,8 +66,23 @@ function Header() {
                 tabIndex={0}
                 className={`menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4`}
               >
-                <Login />
-                <Register />
+                {!isLogged && (
+                  <React.Fragment>
+                    <Login />
+                    <Register />
+                  </React.Fragment>
+                )}
+                {isLogged && (
+                  <React.Fragment>
+                    <button className="btn btn-ghost w-full">
+                      Créer un scénario
+                    </button>
+                    <button className="btn btn-ghost w-full">Profil</button>
+                    <button className="btn btn-ghost w-full">
+                      Déconnexion
+                    </button>
+                  </React.Fragment>
+                )}
               </div>
             )}
           </div>
