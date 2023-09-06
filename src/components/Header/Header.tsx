@@ -1,10 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Login from '../Modals/Login';
 import Register from '../Modals/Register';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { toggleDropDown } from '../../redux/store/reducers/user';
+import WhenIsLogged from '../Modals/whenIsLogged';
 
 function Header() {
-  const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useAppDispatch();
+  const isOpen = useAppSelector((state) => state.user.isOpen);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const username = useAppSelector((state) => state.user.username);
   const isLogged = useAppSelector((state) => state.user.isLogged);
@@ -15,18 +18,19 @@ function Header() {
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
       ) {
-        setIsOpen(false);
+        dispatch(toggleDropDown(!isOpen));
       }
     }
     window.addEventListener('click', handleClickOutside);
     return () => {
       window.removeEventListener('click', handleClickOutside);
     };
-  }, []);
+  }, [dispatch, isOpen]);
 
   function handleMenu() {
-    setIsOpen(!isOpen);
+    dispatch(toggleDropDown(!isOpen));
   }
+
   return (
     <div className="navbar bg-base-300 rounded-box">
       <div className="flex-1 px-2 lg:flex-none">
@@ -38,7 +42,7 @@ function Header() {
       </div>
       <div className="flex justify-end flex-1 px-2">
         <div className="flex items-stretch">
-          <p className="mr-10 font-bold">{username}</p>
+          {username && <p className="mr-10 font-bold">Hi {username}</p>}
           <div className="dropdown dropdown-end" ref={dropdownRef}>
             <button
               type="button"
@@ -72,17 +76,7 @@ function Header() {
                     <Register />
                   </React.Fragment>
                 )}
-                {isLogged && (
-                  <React.Fragment>
-                    <button className="btn btn-ghost w-full">
-                      Créer un scénario
-                    </button>
-                    <button className="btn btn-ghost w-full">Profil</button>
-                    <button className="btn btn-ghost w-full">
-                      Déconnexion
-                    </button>
-                  </React.Fragment>
-                )}
+                {isLogged && <WhenIsLogged />}
               </div>
             )}
           </div>

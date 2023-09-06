@@ -1,9 +1,10 @@
 import { useRef, useState } from 'react';
-import { useAppDispatch } from '../../redux/hooks';
 import { login } from '../../redux/store/reducers/user';
+import { useAppDispatch } from '../../redux/hooks';
 
 function Login() {
   const dispatch = useAppDispatch();
+
   const loginModalRef = useRef<HTMLDialogElement | null>(null);
   const [formData, setFormData] = useState({ username: '', password: '' });
 
@@ -62,10 +63,7 @@ function Login() {
                 required
               />
             </div>
-            <button
-              type="submit"
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full m-auto block sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
+            <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full m-auto block sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
               Connexion
             </button>
           </form>

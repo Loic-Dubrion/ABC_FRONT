@@ -1,4 +1,8 @@
-import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
+import {
+  createAction,
+  createAsyncThunk,
+  createReducer,
+} from '@reduxjs/toolkit';
 import axiosInstance from '../../../utils/axios';
 import jwtDecode from 'jwt-decode';
 import { DecodedToken } from '../../../components/@types/decodedToken';
@@ -11,6 +15,7 @@ interface UserState {
   permissions: string[] | null;
   accessToken: string;
   refreshToken: string | null;
+  isOpen: boolean;
 }
 
 const initialState: UserState = {
@@ -21,6 +26,7 @@ const initialState: UserState = {
   permissions: null,
   accessToken: '',
   refreshToken: null,
+  isOpen: false,
 };
 
 export const login = createAsyncThunk(
@@ -50,6 +56,9 @@ export const login = createAsyncThunk(
   }
 );
 
+export const logout = createAction('user/logout');
+export const toggleDropDown = createAction<boolean>('Toggle Dropdown Menu');
+
 const userReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(login.pending, (state) => {
@@ -59,11 +68,30 @@ const userReducer = createReducer(initialState, (builder) => {
       state.isLogged = true;
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
+      state.isOpen = false;
       const { data }: DecodedToken = jwtDecode(state.accessToken);
       state.id = data.id.toString();
       state.username = data.username;
       state.roles = data.roles;
       state.permissions = data.permissions;
+    })
+    .addCase(logout, (state) => {
+      state.isLogged = false;
+      state.username = null;
+      state.id = null;
+      state.accessToken = '';
+      state.refreshToken = '';
+      state.permissions = null;
+      state.roles = null;
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('roles');
+      localStorage.removeItem('permissions');
+      localStorage.removeItem('userId');
+      localStorage.removeItem('username');
+    })
+    .addCase(toggleDropDown, (state) => {
+      state.isOpen = !state.isOpen;
     });
 });
 
