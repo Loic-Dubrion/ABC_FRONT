@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
+import Login from '../Modals/Login';
+import Register from '../Modals/Register';
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -57,17 +59,13 @@ function Header() {
               ></span>
             </button>
             {isOpen && (
-              <ul
+              <div
                 tabIndex={0}
-                className="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4"
+                className={`menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4`}
               >
-                <li>
-                  <a>Se connecter</a>
-                </li>
-                <li>
-                  <a>S'enregistrer</a>
-                </li>
-              </ul>
+                <Login />
+                <Register />
+              </div>
             )}
           </div>
         </div>
