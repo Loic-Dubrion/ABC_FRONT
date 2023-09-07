@@ -40,11 +40,13 @@ function App() {
           </p>
           <input
             type="checkbox"
-            className="toggle toggle-lg"
+            className="toggle toggle-error toggle-lg"
             checked={isChecked}
             onChange={handleCheckboxChange}
           />
-          <p className={`${isChecked ? 'font-bold' : ''}`}>Expert</p>
+          <p className={`${isChecked ? 'font-bold text-[#f87272]' : ''}`}>
+            Expert
+          </p>
         </section>
       )}
       <section className="cards flex m-3 gap-2">
