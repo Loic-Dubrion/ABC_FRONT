@@ -1,11 +1,15 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useAppSelector } from '../../redux/hooks';
 
 function App() {
   const cardRef = useRef(null);
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const cards = useAppSelector((state) => state.card.cards);
-  console.log('cards :', cards);
+  const [isChecked, setIsChecked] = useState(false);
+
+  function handleCheckboxChange() {
+    setIsChecked(!isChecked);
+  }
 
   return (
     <div className="home">
@@ -29,7 +33,21 @@ function App() {
           </div>
         </section>
       )}
-      <section className="cards flex gap-2">
+      {cards && (
+        <section className="flex justify-center items-center gap-3 mt-3">
+          <p className={`${!isChecked ? 'font-bold text-[#8f949b]' : ''}`}>
+            Novice
+          </p>
+          <input
+            type="checkbox"
+            className="toggle toggle-lg"
+            checked={isChecked}
+            onChange={handleCheckboxChange}
+          />
+          <p className={`${isChecked ? 'font-bold' : ''}`}>Expert</p>
+        </section>
+      )}
+      <section className="cards flex m-3 gap-2">
         {cards &&
           cards.map((card) => (
             <div className="card card-compact w-96 bg-base-100 shadow-xl">
@@ -37,7 +55,7 @@ function App() {
                 <h2 className="card-title">{card.name}</h2>
                 <p>{card.comments}</p>
                 <div className="card-actions justify-end">
-                  <button className="btn btn-primary">Buy Now</button>
+                  <button className="btn">Open</button>
                 </div>
               </div>
             </div>
