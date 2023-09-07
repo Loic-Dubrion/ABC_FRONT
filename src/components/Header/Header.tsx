@@ -1,17 +1,21 @@
+// Modules
 import React, { useRef } from 'react';
+
+// Composants
 import Login from '../Modals/Login';
 import Register from '../Modals/Register';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { toggleDropDown } from '../../redux/store/reducers/user';
 import WhenIsLogged from '../Modals/WhenIsLogged';
 
+//Redux
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { toggleDropDown } from '../../redux/store/reducers/user';
 
 function Header() {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.user.isOpen);
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
   const username = useAppSelector((state) => state.user.username);
   const isLogged = useAppSelector((state) => state.user.isLogged);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   function handleMenu() {
     dispatch(toggleDropDown(!isOpen));

@@ -1,24 +1,26 @@
 import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 import axiosInstance from '../../../utils/axios';
+import { ICards } from '../../../components/@types/cards';
 
 interface CardState {
-  cards: [];
+  cards: ICards[] | null;
 }
 
 const initialState: CardState = {
-  cards: [],
+  cards: null,
 };
 
 export const getAllCards = createAsyncThunk(
-  'card/fetch all cards', // nom de l'action
+  'card/fetch all cards',
   async () => {
     const response = await axiosInstance.get('/storyBoard/cards');
-    return response.data.data;
+    console.log('response :', response);
+    return response.data;
   }
 );
 
 const cardReducer = createReducer(initialState, (builder) => {
-  builder.addCase(getAllCards.pending, (state, action) => {
+  builder.addCase(getAllCards.fulfilled, (state, action) => {
     state.cards = action.payload;
   });
 });

@@ -19,7 +19,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />} errorElement={'Rien à afficher 404'}>
       <Route errorElement={'Rien à afficher 404'}>
-        <Route index element={<App />} />
+        <Route path="/" element={<App />} />
       </Route>
     </Route>
   )
