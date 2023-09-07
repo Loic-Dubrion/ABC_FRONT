@@ -4,11 +4,11 @@ import {
   createReducer,
 } from '@reduxjs/toolkit';
 import axiosInstance from '../../../utils/axios';
-import jwtDecode from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 import { DecodedToken } from '../../../components/@types/decodedToken';
 
 interface UserState {
-  isLogged: boolean;
+  isLogged: string | boolean;
   username: string | null;
   id: string | null;
   roles: string[] | null;
@@ -19,13 +19,21 @@ interface UserState {
 }
 
 const initialState: UserState = {
-  isLogged: false,
-  username: null,
-  id: null,
-  roles: null,
-  permissions: null,
-  accessToken: '',
-  refreshToken: null,
+  isLogged: localStorage.getItem('accessToken') || false,
+  username: localStorage.getItem('username') || null,
+  id: localStorage.getItem('userId') || null,
+  roles:
+    typeof localStorage !== 'undefined' &&
+    localStorage.getItem('roles') !== null
+      ? localStorage.getItem('roles')!.split(',')
+      : [],
+  permissions:
+    typeof localStorage !== 'undefined' &&
+    localStorage.getItem('permission') !== null
+      ? localStorage.getItem('permission')!.split(',')
+      : [],
+  accessToken: localStorage.getItem('accessToken') || '',
+  refreshToken: localStorage.getItem('refreshToken') || null,
   isOpen: false,
 };
 
@@ -34,21 +42,6 @@ export const login = createAsyncThunk(
   async (formData: { username: string; password: string }) => {
     try {
       const response = await axiosInstance.post('/log/in', formData);
-      if (response.data.status === 'success') {
-        const { accessToken, refreshToken } = response.data.data;
-
-        // Décodage du token d'acces
-        const decodedToken: DecodedToken = jwtDecode(accessToken);
-        const { id, username, roles, permissions } = decodedToken.data;
-
-        // Stockage des tokens et des données
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
-        localStorage.setItem('userId', id.toString());
-        localStorage.setItem('username', username);
-        localStorage.setItem('roles', JSON.stringify(roles));
-        localStorage.setItem('permissions', JSON.stringify(permissions));
-      }
       return response.data.data;
     } catch (error) {
       console.log('error :', error);
@@ -65,15 +58,18 @@ const userReducer = createReducer(initialState, (builder) => {
       state.isLogged = false;
     })
     .addCase(login.fulfilled, (state, action) => {
-      state.isLogged = true;
-      state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
       state.isOpen = false;
-      const { data }: DecodedToken = jwtDecode(state.accessToken);
-      state.id = data.id.toString();
-      state.username = data.username;
-      state.roles = data.roles;
-      state.permissions = data.permissions;
+      state.isLogged = true;
+      const accessToken: DecodedToken = jwt_decode(action.payload.accessToken);
+      const { id, username, roles, permissions } = accessToken.data;
+      localStorage.setItem('accessToken', action.payload.accessToken);
+      localStorage.setItem('refreshToken', action.payload.refreshToken);
+      localStorage.setItem('id', id);
+      localStorage.setItem('username', username);
+      localStorage.setItem('roles', roles as string);
+      localStorage.setItem('permissions', permissions as string);
+      state.username = username;
+      state.roles = roles as string[];
     })
     .addCase(logout, (state) => {
       state.isLogged = false;
@@ -82,7 +78,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.accessToken = '';
       state.refreshToken = '';
       state.permissions = null;
-      state.roles = null;
+      state.roles = [];
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
       localStorage.removeItem('roles');

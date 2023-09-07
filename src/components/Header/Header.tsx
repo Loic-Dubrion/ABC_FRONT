@@ -3,7 +3,7 @@ import Login from '../Modals/Login';
 import Register from '../Modals/Register';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { toggleDropDown } from '../../redux/store/reducers/user';
-import WhenIsLogged from '../Modals/whenIsLogged';
+import WhenIsLogged from '../Modals/WhenIsLogged';
 
 function Header() {
   const dispatch = useAppDispatch();

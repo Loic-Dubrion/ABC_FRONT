@@ -6,8 +6,8 @@ export interface DecodedToken {
 
 export interface Data {
   ip: string;
-  id: number;
+  id: string;
   username: string;
-  roles: string[];
-  permissions: string[];
+  roles: string | string[];
+  permissions: string | string[];
 }
