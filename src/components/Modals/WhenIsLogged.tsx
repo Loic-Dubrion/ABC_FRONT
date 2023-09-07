@@ -11,7 +11,7 @@ function WhenIsLogged() {
   return (
     <div className="whenIsLogged">
       <button className="btn btn-ghost w-full">
-        <a href="#">Créer un scénario</a>
+        <a href="/create-sequence">Créer un scénario</a>
       </button>
       <button className="btn btn-ghost w-full">
         <a href="#">Profil</a>

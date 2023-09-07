@@ -12,6 +12,8 @@ import store from './redux/store';
 // Composants
 import App from './components/App/App';
 import Layout from './components/Layout/Layout';
+import CreateSequence from './components/CreateSequence/CreateSequence';
+// Styles
 import './styles/index.css';
 
 const router = createBrowserRouter(
@@ -19,8 +21,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<Layout />} errorElement={'Rien à afficher 404'}>
       <Route errorElement={'Rien à afficher 404'}>
         <Route index element={<App />} />
-        {/* Compléter le router avec d'autres pages à partir de là*/}
-        {/* Oubliez pas d'ajouter Outlet dans le composant Layout*/}
+        <Route path="/create-sequence" element={<CreateSequence />} />
       </Route>
     </Route>
   )
