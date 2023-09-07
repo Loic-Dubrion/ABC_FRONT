@@ -72,6 +72,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.roles = roles as string[];
     })
     .addCase(logout, (state) => {
+      state.isOpen = false;
       state.isLogged = false;
       state.username = null;
       state.id = null;

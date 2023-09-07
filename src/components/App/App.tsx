@@ -1,6 +1,4 @@
 import { useRef } from 'react';
-import Footer from '../Footer/Footer';
-import Header from '../Header/Header';
 import { useAppSelector } from '../../redux/hooks';
 
 function App() {
@@ -9,7 +7,6 @@ function App() {
 
   return (
     <div className="home">
-      <Header />
       <section className="container m-auto">
         {!isLogged && (
           <div
@@ -30,8 +27,6 @@ function App() {
           </div>
         )}
       </section>
-
-      <Footer />
     </div>
   );
 }

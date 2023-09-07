@@ -12,7 +12,6 @@ import store from './redux/store';
 // Composants
 import App from './components/App/App';
 import Layout from './components/Layout/Layout';
-import CreateSequence from './components/CreateSequence/CreateSequence';
 // Styles
 import './styles/index.css';
 
@@ -21,7 +20,6 @@ const router = createBrowserRouter(
     <Route path="/" element={<Layout />} errorElement={'Rien à afficher 404'}>
       <Route errorElement={'Rien à afficher 404'}>
         <Route index element={<App />} />
-        <Route path="/create-sequence" element={<CreateSequence />} />
       </Route>
     </Route>
   )

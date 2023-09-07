@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './reducers/user';
+import cardReducer from './reducers/card';
 
 const store = configureStore({
   reducer: {
     user: userReducer,
+    card: cardReducer
   },
 });
 

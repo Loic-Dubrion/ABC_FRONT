@@ -1,4 +1,5 @@
 import { useAppDispatch } from '../../redux/hooks';
+import { getAllCards } from '../../redux/store/reducers/card';
 import { logout } from '../../redux/store/reducers/user';
 
 function WhenIsLogged() {
@@ -7,11 +8,14 @@ function WhenIsLogged() {
   function handleLogout() {
     dispatch(logout());
   }
+  function fetchCards() {
+    dispatch(getAllCards());
+  }
 
   return (
     <div className="whenIsLogged">
-      <button className="btn btn-ghost w-full">
-        <a href="/create-sequence">Créer un scénario</a>
+      <button className="btn btn-ghost w-full" onClick={fetchCards}>
+        Créer un scénario
       </button>
       <button className="btn btn-ghost w-full">
         <a href="#">Profil</a>

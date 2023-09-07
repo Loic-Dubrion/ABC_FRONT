@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import Login from '../Modals/Login';
 import Register from '../Modals/Register';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { toggleDropDown } from '../../redux/store/reducers/user';
 import WhenIsLogged from '../Modals/WhenIsLogged';
+
 
 function Header() {
   const dispatch = useAppDispatch();
@@ -11,21 +12,6 @@ function Header() {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const username = useAppSelector((state) => state.user.username);
   const isLogged = useAppSelector((state) => state.user.isLogged);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        dispatch(toggleDropDown(!isOpen));
-      }
-    }
-    window.addEventListener('click', handleClickOutside);
-    return () => {
-      window.removeEventListener('click', handleClickOutside);
-    };
-  }, [dispatch, isOpen]);
 
   function handleMenu() {
     dispatch(toggleDropDown(!isOpen));
