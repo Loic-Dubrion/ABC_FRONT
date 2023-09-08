@@ -14,12 +14,14 @@ import App from './components/App/App';
 import Layout from './components/Layout/Layout';
 // Styles
 import './styles/index.css';
+import CreateSequence from './components/CreateSequence/CreateSequence';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />} errorElement={'Rien à afficher 404'}>
       <Route errorElement={'Rien à afficher 404'}>
         <Route path="/" element={<App />} />
+        <Route path="/create-sequence" element={<CreateSequence />} />
       </Route>
     </Route>
   )

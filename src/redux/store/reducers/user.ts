@@ -8,7 +8,7 @@ import jwt_decode from 'jwt-decode';
 import { DecodedToken } from '../../../components/@types/decodedToken';
 
 interface UserState {
-  isLogged: string | boolean;
+  isLogged: string | null;
   username: string | null;
   id: string | null;
   roles: string[] | null;
@@ -19,7 +19,7 @@ interface UserState {
 }
 
 const initialState: UserState = {
-  isLogged: localStorage.getItem('accessToken') || false,
+  isLogged: localStorage.getItem('accessToken') || null,
   username: localStorage.getItem('username') || null,
   id: localStorage.getItem('userId') || null,
   roles:
@@ -55,11 +55,11 @@ export const toggleDropDown = createAction<boolean>('Toggle Dropdown Menu');
 const userReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(login.pending, (state) => {
-      state.isLogged = false;
+      state.isLogged = null;
     })
     .addCase(login.fulfilled, (state, action) => {
       state.isOpen = false;
-      state.isLogged = true;
+      state.isLogged = action.payload.accessToken;
       const accessToken: DecodedToken = jwt_decode(action.payload.accessToken);
       const { id, username, roles, permissions } = accessToken.data;
       localStorage.setItem('accessToken', action.payload.accessToken);
@@ -73,7 +73,7 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(logout, (state) => {
       state.isOpen = false;
-      state.isLogged = false;
+      state.isLogged = null;
       state.username = null;
       state.id = null;
       state.accessToken = '';

@@ -9,6 +9,7 @@ import WhenIsLogged from '../Modals/WhenIsLogged';
 //Redux
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { toggleDropDown } from '../../redux/store/reducers/user';
+import { Link } from 'react-router-dom';
 
 function Header() {
   const dispatch = useAppDispatch();
@@ -24,9 +25,9 @@ function Header() {
   return (
     <div className="navbar bg-base-300 rounded-box">
       <div className="flex-1 px-2 lg:flex-none">
-        <a className="text-lg font-bold">
+        <Link to="/" className="text-lg font-bold">
           <img src="src/assets/logo.png" alt="logo" width={50} />
-        </a>
+        </Link>
         <p className="font-bold ml-5">ABC Learning</p>
         <p className="font-bold ml-10">Création de scénario d'apprentissage</p>
       </div>

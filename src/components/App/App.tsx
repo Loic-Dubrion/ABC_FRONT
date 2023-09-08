@@ -1,21 +1,29 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useAppSelector } from '../../redux/hooks';
+import { motion } from 'framer-motion';
 
 function App() {
   const cardRef = useRef(null);
   const isLogged = useAppSelector((state) => state.user.isLogged);
-  const cards = useAppSelector((state) => state.card.cards);
-  const [isChecked, setIsChecked] = useState(false);
 
-  function handleCheckboxChange() {
-    setIsChecked(!isChecked);
-  }
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        duration: 1,
+      },
+    },
+  };
 
   return (
     <div className="home">
       {!isLogged && (
         <section className="container m-auto">
-          <div
+          <motion.div
+            animate="show"
+            variants={container}
+            initial="hidden"
             className="card card-compact w-3/6 bg-base-100 shadow-xl m-auto"
             ref={cardRef}
           >
@@ -30,39 +38,9 @@ function App() {
                 Learning » peuvent vous aider.
               </p>
             </div>
-          </div>
+          </motion.div>
         </section>
       )}
-      {cards && (
-        <section className="flex justify-center items-center gap-3 mt-3">
-          <p className={`${!isChecked ? 'font-bold text-[#8f949b]' : ''}`}>
-            Novice
-          </p>
-          <input
-            type="checkbox"
-            className="toggle toggle-error toggle-lg"
-            checked={isChecked}
-            onChange={handleCheckboxChange}
-          />
-          <p className={`${isChecked ? 'font-bold text-[#f87272]' : ''}`}>
-            Expert
-          </p>
-        </section>
-      )}
-      <section className="cards flex m-3 gap-2">
-        {cards &&
-          cards.map((card) => (
-            <div className="card card-compact w-96 bg-base-100 shadow-xl">
-              <div className="card-body">
-                <h2 className="card-title">{card.name}</h2>
-                <p>{card.comments}</p>
-                <div className="card-actions justify-end">
-                  <button className="btn">Open</button>
-                </div>
-              </div>
-            </div>
-          ))}
-      </section>
     </div>
   );
 }
