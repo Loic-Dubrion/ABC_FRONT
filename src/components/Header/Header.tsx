@@ -10,6 +10,8 @@ import WhenIsLogged from '../Modals/WhenIsLogged';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { toggleDropDown } from '../../redux/store/reducers/user';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGraduationCap, faBookOpen } from '@fortawesome/free-solid-svg-icons';
 
 function Header() {
   const dispatch = useAppDispatch();
@@ -31,7 +33,19 @@ function Header() {
         <p className="font-bold ml-5">ABC Learning</p>
         <p className="font-bold ml-10">Création de scénario d'apprentissage</p>
       </div>
+
       <div className="flex justify-end flex-1 px-2">
+        <div className="liens flex gap-5 mr-10">
+          <Link to={'https://moodletoolguide.net/fr/'} target="_blank">
+            Guide des outils Moodle <FontAwesomeIcon icon={faGraduationCap} />
+          </Link>
+          <Link
+            to={'https://h5p.org/content-types-and-applications'}
+            target="_blank"
+          >
+            Exemples H5P <FontAwesomeIcon icon={faBookOpen} />
+          </Link>
+        </div>
         <div className="flex items-stretch">
           {username && <p className="mr-10 font-bold">Hi {username}</p>}
           <div className="dropdown dropdown-end" ref={dropdownRef}>
