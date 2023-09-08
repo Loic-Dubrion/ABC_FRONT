@@ -61,11 +61,12 @@ function CreateSequence() {
                 animate="show"
                 variants={container}
                 initial="hidden"
-                className="card card-compact w-96 bg-base-100 shadow-xl"
+                style={{ background: `${card.color}` }}
+                className={`card card-compact w-96 bg-base-100 shadow-xl`}
               >
-                <div className="card-body">
-                  <h2 className="card-title">{card.name}</h2>
-                  <p>{card.comments}</p>
+                <div className={`card-body`}>
+                  <h2 className="card-title text-white">{card.name}</h2>
+                  <p className="card-text text-white">{card.comments}</p>
                   <div className="card-actions justify-end">
                     <button
                       onClick={() => {
