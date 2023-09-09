@@ -8,6 +8,7 @@ export interface GetActivities {
   card_id: number;
   card_name: string;
   activities: string[];
+  color: string;
   tool_categories: ToolCategory[];
 }
 
