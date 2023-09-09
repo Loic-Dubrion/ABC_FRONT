@@ -1,4 +1,8 @@
-import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
+import {
+  createAction,
+  createAsyncThunk,
+  createReducer,
+} from '@reduxjs/toolkit';
 import axiosInstance from '../../../utils/axios';
 import { ICards } from '../../../components/@types/cards';
 import { ICard } from '../../../components/@types/card';
@@ -6,11 +10,13 @@ import { ICard } from '../../../components/@types/card';
 interface CardState {
   cards: ICards[] | null;
   card: ICard[] | null;
+  isChecked: boolean;
 }
 
 const initialState: CardState = {
   cards: null,
   card: null,
+  isChecked: false,
 };
 
 export const getAllCards = createAsyncThunk(
@@ -29,6 +35,10 @@ export const getOneCard = createAsyncThunk(
   }
 );
 
+export const togglerCheckbox = createAction<boolean>(
+  'card/Toggle checkbox bouton'
+);
+
 const cardReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(getAllCards.fulfilled, (state, action) => {
@@ -36,7 +46,9 @@ const cardReducer = createReducer(initialState, (builder) => {
     })
     .addCase(getOneCard.fulfilled, (state, action) => {
       state.card = action.payload;
-      console.log('state.card :', state.card);
+    })
+    .addCase(togglerCheckbox, (state) => {
+      state.isChecked = !state.isChecked;
     });
 });
 

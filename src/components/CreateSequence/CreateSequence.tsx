@@ -1,13 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { motion } from 'framer-motion';
-import { getAllCards, getOneCard } from '../../redux/store/reducers/card';
+import {
+  getAllCards,
+  getOneCard,
+  togglerCheckbox,
+} from '../../redux/store/reducers/card';
 
 function CreateSequence() {
   const dispatch = useAppDispatch();
-  const cards = useAppSelector((state) => state.card.cards);
+  const allCards = useAppSelector((state) => state.card.cards);
+  const oneCard = useAppSelector((state) => state.card.card);
+  const cardRef = useRef<HTMLDialogElement | null>(null);
   const isLogged = useAppSelector((state) => state.user.isLogged);
-  const [isChecked, setIsChecked] = useState(false);
+  const isChecked = useAppSelector((state) => state.card.isChecked);
 
   const container = {
     hidden: { opacity: 0 },
@@ -20,17 +26,23 @@ function CreateSequence() {
   };
 
   useEffect(() => {
-    if (!cards && isLogged) {
+    if (!allCards && isLogged) {
       dispatch(getAllCards());
     }
-  }, [dispatch, cards, isLogged]);
+  }, [dispatch, allCards, isLogged]);
 
   function handleCheckboxChange() {
-    setIsChecked(!isChecked);
+    dispatch(togglerCheckbox(isChecked));
+  }
+
+  function openModal() {
+    if (cardRef.current) {
+      cardRef.current.showModal();
+    }
   }
   return (
     <div className="CreateSequence">
-      {cards && isLogged && (
+      {allCards && isLogged && (
         <motion.div
           animate="show"
           variants={container}
@@ -53,9 +65,9 @@ function CreateSequence() {
       )}
       {isLogged && (
         <section className="cards flex m-3 gap-2">
-          {cards &&
+          {allCards &&
             isLogged &&
-            cards.map((card) => (
+            allCards.map((card) => (
               <motion.div
                 key={card.id}
                 animate="show"
@@ -71,11 +83,30 @@ function CreateSequence() {
                     <button
                       onClick={() => {
                         dispatch(getOneCard(card.id.toString()));
+                        openModal();
                       }}
                       className={`btn ${isChecked && 'bg-[#f87272]'}`}
                     >
                       Open
                     </button>
+                    {oneCard &&
+                      oneCard.map((current) => (
+                        <dialog id="my_modal_2" className="modal" ref={cardRef}>
+                          <div className="modal-box w-11/12 max-w-5xl">
+                            <h3 className="font-bold text-lg">
+                              {current.get_activities.card_name}
+                            </h3>
+                            {current.get_activities.activities.map(
+                              (activies) => (
+                                <p className="py-2">{activies}</p>
+                              )
+                            )}
+                          </div>
+                          <form method="dialog" className="modal-backdrop">
+                            <button>close</button>
+                          </form>
+                        </dialog>
+                      ))}
                   </div>
                 </div>
               </motion.div>
