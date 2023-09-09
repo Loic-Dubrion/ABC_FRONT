@@ -11,7 +11,6 @@ function CreateSequence() {
   const dispatch = useAppDispatch();
   const allCards = useAppSelector((state) => state.card.cards);
   const oneCard = useAppSelector((state) => state.card.card);
-  console.log('oneCard :', oneCard);
   const cardRef = useRef<HTMLDialogElement | null>(null);
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const isChecked = useAppSelector((state) => state.card.isChecked);
@@ -36,11 +35,6 @@ function CreateSequence() {
     dispatch(togglerCheckbox(isChecked));
   }
 
-  function openModal() {
-    if (cardRef.current) {
-      cardRef.current.showModal();
-    }
-  }
   return (
     <div className="CreateSequence">
       {allCards && isLogged && (
@@ -68,31 +62,39 @@ function CreateSequence() {
         <section className="cards flex m-3 gap-2">
           {allCards &&
             isLogged &&
-            allCards.map((card) => (
+            allCards.map((card, index) => (
               <motion.div
-                key={card.id}
                 animate="show"
+                key={index}
                 variants={container}
                 initial="hidden"
                 style={{ background: `${card.color}` }}
                 className={`card card-compact w-96 bg-base-100 shadow-xl md:w-full`}
               >
-                <div className="card-body">
+                <div className="card-body" key={card.id}>
                   <h2 className="card-title text-white">{card.name}</h2>
                   <p className="card-text text-white">{card.comments}</p>
                   <div className="card-actions justify-end">
                     <button
                       onClick={() => {
                         dispatch(getOneCard(card.id.toString()));
-                        openModal();
+                        setTimeout(() => {
+                          cardRef.current?.showModal();
+                        }, 100);
                       }}
                       className={`btn ${isChecked && 'bg-[#f87272]'}`}
                     >
                       Open
                     </button>
+
                     {oneCard &&
-                      oneCard.map((current) => (
-                        <dialog id="my_modal_2" className="modal" ref={cardRef}>
+                      oneCard.map((current, index) => (
+                        <dialog
+                          id="my_modal_2"
+                          className="modal"
+                          key={index}
+                          ref={cardRef}
+                        >
                           <div
                             className="modal-box w-full max-w-5xl flex gap-2"
                             id={current.get_activities.card_id}
@@ -141,7 +143,7 @@ function CreateSequence() {
                                           .map((e) => (
                                             <button
                                               key={e.tool_name} // Assurez-vous d'ajouter une clé unique à chaque élément dans la liste.
-                                              className="btn btn-sm mr-2"
+                                              className="btn btn-sm m-1"
                                               type="button"
                                             >
                                               {e.tool_name}
@@ -151,7 +153,7 @@ function CreateSequence() {
                                         tool.tools.map((e) => (
                                           <button
                                             key={e.tool_name} // Assurez-vous d'ajouter une clé unique à chaque élément dans la liste.
-                                            className="btn btn-sm mr-2"
+                                            className="btn btn-sm m-1"
                                             type="button"
                                           >
                                             {e.tool_name}
