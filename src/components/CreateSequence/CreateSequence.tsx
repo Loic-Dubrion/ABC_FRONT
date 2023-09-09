@@ -94,24 +94,77 @@ function CreateSequence() {
                       oneCard.map((current) => (
                         <dialog id="my_modal_2" className="modal" ref={cardRef}>
                           <div
-                            className="modal-box w-11/12 max-w-5xl"
+                            className="modal-box w-full max-w-5xl flex gap-2"
+                            id={current.get_activities.card_id}
                             style={{ background: current.get_activities.color }}
                           >
-                            <h3 className="font-bold text-lg text-white">
-                              {current.get_activities.card_name}
-                            </h3>
-                            <ul>
-                              {current.get_activities.activities.map(
-                                (activies, index) => (
-                                  <li className="py-2 text-white" key={index}>
-                                    {activies}
-                                  </li>
+                            <div
+                              className="card w-96 bg-base-100"
+                              style={{
+                                background: current.get_activities.color,
+                              }}
+                            >
+                              <div className="card-body">
+                                <h2 className="card-title text-white">
+                                  {current.get_activities.card_name}
+                                </h2>
+                                <ul>
+                                  {current.get_activities.activities.map(
+                                    (activities, index) => (
+                                      <li
+                                        className="py-2 text-white"
+                                        key={index}
+                                      >
+                                        {activities}
+                                      </li>
+                                    )
+                                  )}
+                                </ul>
+                              </div>
+                            </div>
+                            <div
+                              className="card bg-base-100  w-full flex flex-col justify-between content-between"
+                              style={{
+                                background: current.get_activities.color,
+                              }}
+                            >
+                              {current.get_activities.tool_categories.map(
+                                (tool, index) => (
+                                  <div className="card-body flex" key={index}>
+                                    <strong className="card-title text-sm text-white">
+                                      {tool.tool_category_name}
+                                    </strong>
+                                    <p>
+                                      {!isChecked &&
+                                        tool.tools
+                                          .filter((e) => e.level_id === 1)
+                                          .map((e) => (
+                                            <button
+                                              key={e.tool_name} // Assurez-vous d'ajouter une clé unique à chaque élément dans la liste.
+                                              className="btn btn-sm mr-2"
+                                              type="button"
+                                            >
+                                              {e.tool_name}
+                                            </button>
+                                          ))}
+                                      {isChecked &&
+                                        tool.tools.map((e) => (
+                                          <button
+                                            key={e.tool_name} // Assurez-vous d'ajouter une clé unique à chaque élément dans la liste.
+                                            className="btn btn-sm mr-2"
+                                            type="button"
+                                          >
+                                            {e.tool_name}
+                                          </button>
+                                        ))}
+                                    </p>
+                                  </div>
                                 )
                               )}
-                            </ul>
+                            </div>
                           </div>
                           <form method="dialog" className="modal-backdrop">
-                            <button>{}</button>
+                            <button></button>
                           </form>
                         </dialog>
                       ))}
