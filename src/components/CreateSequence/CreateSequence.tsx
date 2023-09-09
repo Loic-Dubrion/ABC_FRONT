@@ -7,6 +7,9 @@ import {
   togglerCheckbox,
 } from '../../redux/store/reducers/card';
 
+import { getToolName, showTable } from '../../redux/store/reducers/table';
+import Table from '../Table/Table';
+
 function CreateSequence() {
   const dispatch = useAppDispatch();
   const allCards = useAppSelector((state) => state.card.cards);
@@ -14,6 +17,8 @@ function CreateSequence() {
   const cardRef = useRef<HTMLDialogElement | null>(null);
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const isChecked = useAppSelector((state) => state.card.isChecked);
+  const tableIsOpen = useAppSelector((state) => state.table.showTable);
+  const toolName = useAppSelector((state) => state.table.tool);
 
   const container = {
     hidden: { opacity: 0 },
@@ -36,7 +41,7 @@ function CreateSequence() {
   }
 
   return (
-    <div className="CreateSequence">
+    <div className="CreateSequence flex flex-col flex-nowrap items-center gap-5">
       {allCards && isLogged && (
         <motion.div
           animate="show"
@@ -142,9 +147,16 @@ function CreateSequence() {
                                           .filter((e) => e.level_id === 1)
                                           .map((e) => (
                                             <button
-                                              key={e.tool_name} // Assurez-vous d'ajouter une clé unique à chaque élément dans la liste.
+                                              key={e.tool_name}
                                               className="btn btn-sm m-1"
                                               type="button"
+                                              onClick={() => {
+                                                cardRef.current?.close();
+                                                dispatch(showTable(true));
+                                                dispatch(
+                                                  getToolName(e.tool_name)
+                                                );
+                                              }}
                                             >
                                               {e.tool_name}
                                             </button>
@@ -152,9 +164,13 @@ function CreateSequence() {
                                       {isChecked &&
                                         tool.tools.map((e) => (
                                           <button
-                                            key={e.tool_name} // Assurez-vous d'ajouter une clé unique à chaque élément dans la liste.
+                                            key={e.tool_name}
                                             className="btn btn-sm m-1"
                                             type="button"
+                                            onClick={() => {
+                                              cardRef.current?.close();
+                                              dispatch(showTable(true));
+                                            }}
                                           >
                                             {e.tool_name}
                                           </button>
@@ -176,6 +192,13 @@ function CreateSequence() {
             ))}
         </section>
       )}
+      {tableIsOpen ? (
+        <Table
+          name={oneCard ? oneCard[0].get_activities.card_name : ''}
+          color={oneCard ? oneCard[0].get_activities.color : ''}
+          tool={toolName}
+        />
+      ) : null}
     </div>
   );
 }
