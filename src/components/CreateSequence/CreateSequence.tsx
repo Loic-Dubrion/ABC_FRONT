@@ -7,7 +7,11 @@ import {
   togglerCheckbox,
 } from '../../redux/store/reducers/card';
 
-import { getToolName, showTable } from '../../redux/store/reducers/table';
+import {
+  createTable,
+  getToolName,
+  showTable,
+} from '../../redux/store/reducers/table';
 import Table from '../Table/Table';
 
 function CreateSequence() {
@@ -18,7 +22,7 @@ function CreateSequence() {
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const isChecked = useAppSelector((state) => state.card.isChecked);
   const tableIsOpen = useAppSelector((state) => state.table.showTable);
-  const toolName = useAppSelector((state) => state.table.tool);
+  const tables = useAppSelector((state) => state.table.tables);
 
   const container = {
     hidden: { opacity: 0 },
@@ -156,6 +160,16 @@ function CreateSequence() {
                                                 dispatch(
                                                   getToolName(e.tool_name)
                                                 );
+                                                dispatch(
+                                                  createTable({
+                                                    name: current.get_activities
+                                                      .card_name,
+                                                    color:
+                                                      current.get_activities
+                                                        .color,
+                                                    tool: e.tool_name,
+                                                  })
+                                                );
                                               }}
                                             >
                                               {e.tool_name}
@@ -170,6 +184,19 @@ function CreateSequence() {
                                             onClick={() => {
                                               cardRef.current?.close();
                                               dispatch(showTable(true));
+                                              dispatch(
+                                                getToolName(e.tool_name)
+                                              );
+                                              dispatch(
+                                                createTable({
+                                                  name: current.get_activities
+                                                    .card_name,
+                                                  color:
+                                                    current.get_activities
+                                                      .color,
+                                                  tool: e.tool_name,
+                                                })
+                                              );
                                             }}
                                           >
                                             {e.tool_name}
@@ -192,13 +219,45 @@ function CreateSequence() {
             ))}
         </section>
       )}
-      {tableIsOpen ? (
-        <Table
-          name={oneCard ? oneCard[0].get_activities.card_name : ''}
-          color={oneCard ? oneCard[0].get_activities.color : ''}
-          tool={toolName}
-        />
-      ) : null}
+      <div className="overflow-y-auto w-full">
+        {tables.length > 0 && (
+          <table className="table w-full">
+            {/* head */}
+            <colgroup>
+              <col style={{ width: '3%' }} />
+              <col style={{ width: '15%' }} />
+              <col style={{ width: '10%' }} />
+              <col style={{ width: '30%' }} />
+              <col style={{ width: '7%' }} />
+              <col style={{ width: '10%' }} />
+              <col style={{ width: '10%' }} />
+              <col style={{ width: '15%' }} />
+            </colgroup>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Mon scénario</th>
+                <th>Activités</th>
+                <th>Remarques</th>
+                <th>Durée</th>
+                <th>Présentiel / Distanciel</th>
+                <th>Individuel / Groupe</th>
+                <th>Matériel</th>
+              </tr>
+            </thead>
+            {tableIsOpen
+              ? tables.map((table, index) => (
+                  <Table
+                    key={index}
+                    name={table.name}
+                    color={table.color}
+                    tool={table.tool}
+                  />
+                ))
+              : null}
+          </table>
+        )}
+      </div>
     </div>
   );
 }
