@@ -22,35 +22,23 @@ function Scenarios() {
         {/* head */}
         <thead>
           <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Job</th>
-            <th>Favorite Color</th>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Date de création</th>
+            <th>Date de mise à jour</th>
           </tr>
         </thead>
-        <tbody>
-          {/* row 1 */}
-          <tr>
-            <th>1</th>
-            <td>Cy Ganderton</td>
-            <td>Quality Control Specialist</td>
-            <td>Blue</td>
-          </tr>
-          {/* row 2 */}
-          <tr>
-            <th>2</th>
-            <td>Hart Hagerty</td>
-            <td>Desktop Support Technician</td>
-            <td>Purple</td>
-          </tr>
-          {/* row 3 */}
-          <tr>
-            <th>3</th>
-            <td>Brice Swyre</td>
-            <td>Tax Accountant</td>
-            <td>Red</td>
-          </tr>
-        </tbody>
+        {scenarios.length &&
+          scenarios.map((scenario) => (
+            <tbody>
+              <tr>
+                <th>{scenario.id}</th>
+                <td>{scenario.name}</td>
+                <td>{scenario.created_at}</td>
+                <td>{scenario.updated_at || 'Pas de mise à jour'}</td>
+              </tr>
+            </tbody>
+          ))}
       </table>
     </div>
   );
