@@ -26,7 +26,7 @@ function Header() {
   }
 
   return (
-    <header className="navbar bg-base-300 rounded-box md: w-full sticky top-0 z-10">
+    <header className="navbar bg-base-300 rounded-box mb-5 w-full sticky top-0 z-10">
       <div className="flex-1 px-2 lg:flex-none">
         <Link to="/" className="text-lg font-bold">
           <img src="src/assets/logo.png" alt="logo" width={50} />
