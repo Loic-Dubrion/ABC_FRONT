@@ -34,7 +34,6 @@ export const getAllScenarios = createAsyncThunk(
     const { data } = await axiosInstance.get(
       `/user/${localStorage.getItem('id')}/sequence/`
     );
-    console.log('data :', data);
     return data;
   }
 );
