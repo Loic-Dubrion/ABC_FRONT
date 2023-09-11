@@ -12,7 +12,6 @@ function Scenarios() {
   const dispatch = useAppDispatch();
   const message = useAppSelector((state) => state.scenario.message);
   const scenarios = useAppSelector((state) => state.scenario.scenarios);
-  console.log('scenarios :', scenarios);
   const isLogged = useAppSelector((state) => state.user.isLogged);
 
   useEffect(() => {

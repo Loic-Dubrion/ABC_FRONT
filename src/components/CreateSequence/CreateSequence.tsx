@@ -9,9 +9,23 @@ import { getAllCards, togglerCheckbox } from '../../redux/store/reducers/card';
 // Components
 import Cards from '../Cards/Cards';
 import Tables from '../Table/Tables';
+import { useLocation } from 'react-router-dom';
 
 function CreateSequence() {
+  const location = useLocation();
+  const scenarioId = useAppSelector((state) => state.scenario.scenarioId);
   const dispatch = useAppDispatch();
+
+  if (location.pathname === '/sequence') {
+    history.pushState(
+      { name: 'Example' },
+      'pushState example',
+      `/sequence/${scenarioId?.toString()}`
+    );
+  }
+
+  // // Now state has a value.
+  // console.log('History.state after pushState: ', history.state);
 
   const allCards = useAppSelector((state) => state.card.cards);
   const isLogged = useAppSelector((state) => state.user.isLogged);

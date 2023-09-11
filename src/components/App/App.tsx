@@ -11,7 +11,6 @@ function App() {
   const cardRef = useRef(null);
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const scenarios = useAppSelector((state) => state.scenario.scenarios);
-  console.log('scenarios :', scenarios);
 
   const container = {
     hidden: { opacity: 0 },
