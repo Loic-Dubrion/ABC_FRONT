@@ -1,6 +1,11 @@
+// Module & Libraray
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+// Redux
 import { useAppDispatch } from '../../redux/hooks';
+
+// Reducers Actions
 import { deleteTable } from '../../redux/store/reducers/table';
 
 interface ITable {

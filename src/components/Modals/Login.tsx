@@ -1,5 +1,8 @@
+// React Hooks
 import { useRef, useState } from 'react';
+// Reducers
 import { login } from '../../redux/store/reducers/user';
+// Redux
 import { useAppDispatch } from '../../redux/hooks';
 
 function Login() {

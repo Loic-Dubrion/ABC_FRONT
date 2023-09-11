@@ -1,9 +1,12 @@
+// React Hooks
 import { useEffect } from 'react';
+// Module & Library
 import { motion } from 'framer-motion';
-
+// Redux functions
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+// Reducers actions
 import { getAllCards, togglerCheckbox } from '../../redux/store/reducers/card';
-
+// Components
 import Cards from '../Cards/Cards';
 import Tables from '../Table/Tables';
 

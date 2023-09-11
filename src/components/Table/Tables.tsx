@@ -1,4 +1,7 @@
+// Redux
 import { useAppSelector } from '../../redux/hooks';
+
+// Components
 import Table from './Table';
 
 function Tables() {

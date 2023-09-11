@@ -1,5 +1,8 @@
+// React Hooks
 import { useRef } from 'react';
+// Redux
 import { useAppSelector } from '../../redux/hooks';
+// Module & Library
 import { motion } from 'framer-motion';
 
 function App() {

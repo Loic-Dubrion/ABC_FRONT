@@ -1,17 +1,18 @@
-// Modules
+// React Hooks
 import React, { useRef } from 'react';
-
+// React Router
+import { Link } from 'react-router-dom';
+//Redux
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+// Reducers actions
+import { toggleDropDown } from '../../redux/store/reducers/user';
+// Module & Library
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGraduationCap, faBookOpen } from '@fortawesome/free-solid-svg-icons';
 // Composants
 import Login from '../Modals/Login';
 import Register from '../Modals/Register';
 import WhenIsLogged from '../Modals/WhenIsLogged';
-
-//Redux
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { toggleDropDown } from '../../redux/store/reducers/user';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGraduationCap, faBookOpen } from '@fortawesome/free-solid-svg-icons';
 
 function Header() {
   const dispatch = useAppDispatch();

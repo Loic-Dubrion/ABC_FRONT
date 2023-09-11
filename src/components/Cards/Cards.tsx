@@ -1,8 +1,11 @@
+// React Hooks
 import { useEffect, useRef } from 'react';
+// Redux functions
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+// Module & Library
 import { motion } from 'framer-motion';
+// Reducers actions
 import { getAllCards, getOneCard } from '../../redux/store/reducers/card';
-
 import { createTable, showTable } from '../../redux/store/reducers/table';
 
 function Cards() {
