@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { useAppSelector } from '../../redux/hooks';
 // Module & Library
 import { motion } from 'framer-motion';
-import Scenario from '../Scenario/Scenarios';
+// Components
 import Scenarios from '../Scenario/Scenarios';
 
 function App() {

@@ -1,11 +1,12 @@
 // React hooks
 import { useEffect } from 'react';
 // Redux
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getAllScenarios } from '../../redux/store/reducers/scenario';
 
 function Scenarios() {
   const dispatch = useAppDispatch();
+  const scenarios = useAppSelector((state) => state.scenario.scenarios);
 
   useEffect(() => {
     function fetchScenarios() {

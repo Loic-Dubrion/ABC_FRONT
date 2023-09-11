@@ -4,7 +4,7 @@ import axiosInstance from '../../../utils/axios';
 interface ScenarioState {
   scenarioName: string | null;
   scenarioId: number | null;
-  scenarios: [];
+  scenarios: IScenarios[];
 }
 
 const initialState: ScenarioState = {
@@ -31,19 +31,17 @@ export const createScenario = createAsyncThunk(
 export const getAllScenarios = createAsyncThunk(
   'Scenario reducer /getAllScenarios', // nom de l'action
   async () => {
-    const response = await axiosInstance.get(
+    const { data } = await axiosInstance.get(
       `/user/${localStorage.getItem('id')}/sequence/`
     );
-    console.log('response :', response);
-    return response.data;
+    return data;
   }
 );
 
 const scenarioReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(getAllScenarios.fulfilled, (state, action) => {
-      console.log('action :', action);
-      console.log('state :', state);
+      state.scenarios = action.payload;
     })
     .addCase(createScenario.fulfilled, (state, action) => {
       state.scenarioId = action.payload[0].id;
