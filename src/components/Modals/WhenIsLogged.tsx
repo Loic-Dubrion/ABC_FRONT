@@ -3,11 +3,32 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getAllCards } from '../../redux/store/reducers/card';
 import { logout, toggleDropDown } from '../../redux/store/reducers/user';
 import { motion } from 'framer-motion';
+import { useRef, useState } from 'react';
+import { createScenario } from '../../redux/store/reducers/scenario';
 
 function WhenIsLogged() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const [scenarioData, setScenarioData] = useState({
+    name: '',
+    user_id: localStorage.getItem('id') || '',
+  });
+
+  console.log('scenarioData :', scenarioData);
+
   const isOpen = useAppSelector((state) => state.user.isOpen);
+
+  function openModal() {
+    if (dialogRef.current) {
+      dialogRef.current.showModal();
+    }
+  }
+
+  function handleSubmit(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    dispatch(createScenario(scenarioData));
+  }
 
   const container = {
     hidden: { opacity: 0 },
@@ -29,12 +50,42 @@ function WhenIsLogged() {
       <button
         className="btn btn-ghost w-full"
         onClick={() => {
-          dispatch(toggleDropDown(isOpen));
-          dispatch(getAllCards());
+          openModal();
         }}
       >
-        <Link to={'/create-sequence'}>Créer un scénario</Link>
+        Créer un scénario
       </button>
+      <dialog id="my_modal_2" className="modal" ref={dialogRef}>
+        <div className="modal-box">
+          <form action="post">
+            <h3 className="font-bold text-lg mb-2">Créer un scénario</h3>
+            <input
+              type="text"
+              name="name"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setScenarioData({ ...scenarioData, name: event.target.value });
+              }}
+              placeholder="Entrez le nom de scénario"
+              className="input input-bordered w-full max-w-xs"
+            />
+            <button
+              className="btn btn-success ml-5 text-white"
+              onClick={(event) => {
+                dispatch(toggleDropDown(isOpen));
+                dispatch(getAllCards());
+                dialogRef.current?.close();
+                handleSubmit(event);
+                navigate('/create-sequence');
+              }}
+            >
+              Valider
+            </button>
+          </form>
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
       <button className="btn btn-ghost w-full">
         <a href="#">Profil</a>
       </button>
