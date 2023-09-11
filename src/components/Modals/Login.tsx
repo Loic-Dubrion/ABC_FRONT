@@ -24,7 +24,6 @@ function Login() {
 
   return (
     <div className="Login">
-      {/* Open the modal using the openModal function */}
       <button className="btn btn-ghost w-full" onClick={openModal}>
         Se connecter
       </button>

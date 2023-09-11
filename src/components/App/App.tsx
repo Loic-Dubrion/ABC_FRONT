@@ -4,6 +4,8 @@ import { useRef } from 'react';
 import { useAppSelector } from '../../redux/hooks';
 // Module & Library
 import { motion } from 'framer-motion';
+import Scenario from '../Scenario/Scenarios';
+import Scenarios from '../Scenario/Scenarios';
 
 function App() {
   const cardRef = useRef(null);
@@ -44,6 +46,15 @@ function App() {
           </motion.div>
         </section>
       )}
+      <motion.div
+        animate="show"
+        variants={container}
+        initial="hidden"
+        className="card card-compact w-3/6 bg-base-100 shadow-xl m-auto"
+        ref={cardRef}
+      >
+        <Scenarios />
+      </motion.div>
     </div>
   );
 }
