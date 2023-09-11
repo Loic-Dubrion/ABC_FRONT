@@ -80,7 +80,7 @@ function WhenIsLogged() {
                 dispatch(getAllCards());
                 dialogRef.current?.close();
                 handleSubmit(event);
-                navigate('/create-sequence');
+                navigate('/sequence');
               }}
             >
               Valider

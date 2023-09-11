@@ -1,26 +1,37 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getAllScenarios } from '../../redux/store/reducers/scenario';
+import {
+  deleteScenario,
+  getAllScenarios,
+} from '../../redux/store/reducers/scenario';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 function Scenarios() {
   const dispatch = useAppDispatch();
+  const message = useAppSelector((state) => state.scenario.message);
   const scenarios = useAppSelector((state) => state.scenario.scenarios);
+  console.log('scenarios :', scenarios);
   const isLogged = useAppSelector((state) => state.user.isLogged);
 
   useEffect(() => {
     function fetchScenarios() {
       dispatch(getAllScenarios());
     }
-
     fetchScenarios();
-  }, [dispatch]);
+    if (message !== null) {
+      dispatch(getAllScenarios());
+    }
+  }, [dispatch, message]);
+
+  const handleDeleteScenario = (scenarioId: number) => {
+    dispatch(deleteScenario(scenarioId));
+  };
 
   return (
     <div className="overflow-x-auto">
-      {isLogged && (
+      {isLogged && scenarios.length > 0 && (
         <table className="table">
           <thead>
             <tr>
@@ -36,13 +47,18 @@ function Scenarios() {
               scenarios.map((scenario) => (
                 <tr key={scenario.id}>
                   <td>
-                    <button className="btn bg-transparent border-none">
+                    <button
+                      className="btn bg-transparent border-none"
+                      onClick={() => {
+                        handleDeleteScenario(scenario.id as number);
+                      }}
+                    >
                       <FontAwesomeIcon icon={faTrashCan} size="lg" />
                     </button>
                   </td>
                   <td>
                     <Link
-                      to={`/scenario/${scenario.id}`}
+                      to={`/sequence/${scenario.id}`}
                       className="table-row-link"
                     >
                       {scenario.id}

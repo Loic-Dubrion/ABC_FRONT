@@ -12,6 +12,7 @@ import Tables from '../Table/Tables';
 
 function CreateSequence() {
   const dispatch = useAppDispatch();
+
   const allCards = useAppSelector((state) => state.card.cards);
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const isChecked = useAppSelector((state) => state.card.isChecked);
