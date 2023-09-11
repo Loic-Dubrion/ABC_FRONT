@@ -38,6 +38,15 @@ export const getAllScenarios = createAsyncThunk(
   }
 );
 
+export const getOneScenarios = createAsyncThunk(
+  'Scenario reducer / Read one scenario', // nom de l'action
+  async (scenarioId) => {
+    const { data } = await axiosInstance.get(
+      `/user/${localStorage.getItem('id')}/sequence/${scenarioId}`
+    );
+    return data;
+  }
+);
 const scenarioReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(getAllScenarios.fulfilled, (state, action) => {

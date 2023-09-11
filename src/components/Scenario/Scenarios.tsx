@@ -1,8 +1,9 @@
-// React hooks
 import { useEffect } from 'react';
-// Redux
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getAllScenarios } from '../../redux/store/reducers/scenario';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 function Scenarios() {
   const dispatch = useAppDispatch();
@@ -23,23 +24,57 @@ function Scenarios() {
         <table className="table">
           <thead>
             <tr>
+              <th></th>
               <th>ID</th>
               <th>Nom</th>
               <th>Date de création</th>
               <th>Date de mise à jour</th>
             </tr>
           </thead>
-          {scenarios.length &&
-            scenarios.map((scenario) => (
-              <tbody>
-                <tr>
-                  <th>{scenario.id}</th>
-                  <td>{scenario.name}</td>
-                  <td>{scenario.created_at}</td>
-                  <td>{scenario.updated_at || 'Pas de mise à jour'}</td>
+          <tbody>
+            {scenarios.length > 0 &&
+              scenarios.map((scenario) => (
+                <tr key={scenario.id}>
+                  <td>
+                    <button className="btn bg-transparent border-none">
+                      <FontAwesomeIcon icon={faTrashCan} size="lg" />
+                    </button>
+                  </td>
+                  <td>
+                    <Link
+                      to={`/scenario/${scenario.id}`}
+                      className="table-row-link"
+                    >
+                      {scenario.id}
+                    </Link>
+                  </td>
+                  <td>
+                    <Link
+                      to={`/scenario/${scenario.id}`}
+                      className="table-row-link"
+                    >
+                      {scenario.name}
+                    </Link>
+                  </td>
+                  <td>
+                    <Link
+                      to={`/scenario/${scenario.id}`}
+                      className="table-row-link"
+                    >
+                      {scenario.created_at}
+                    </Link>
+                  </td>
+                  <td>
+                    <Link
+                      to={`/scenario/${scenario.id}`}
+                      className="table-row-link"
+                    >
+                      {scenario.updated_at || 'Pas de mise à jour'}
+                    </Link>
+                  </td>
                 </tr>
-              </tbody>
-            ))}
+              ))}
+          </tbody>
         </table>
       )}
     </div>
