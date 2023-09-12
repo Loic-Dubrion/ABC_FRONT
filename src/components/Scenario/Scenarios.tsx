@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
@@ -7,6 +8,7 @@ import {
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import 'moment/locale/fr';
 
 function Scenarios() {
   const dispatch = useAppDispatch();
@@ -76,7 +78,9 @@ function Scenarios() {
                       to={`/sequence/${scenario.id}`}
                       className="table-row-link"
                     >
-                      {scenario.created_at}
+                      {moment(scenario.created_at).format(
+                        'DD/MM/YYYY HH:mm:ss'
+                      )}
                     </Link>
                   </td>
                   <td>
@@ -84,7 +88,9 @@ function Scenarios() {
                       to={`/sequence/${scenario.id}`}
                       className="table-row-link"
                     >
-                      {scenario.updated_at || 'Pas de mise à jour'}
+                      {scenario.updated_at
+                        ? moment(scenario.updated_at).format('DD/MM/YYYY HH:mm')
+                        : 'Pas de mise à jour'}
                     </Link>
                   </td>
                 </tr>

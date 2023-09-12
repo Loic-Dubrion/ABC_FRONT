@@ -26,7 +26,7 @@ function Table({ name, color, tool, id }: ITable) {
           <button
             className="btn"
             onClick={() => {
-              dispatch(deleteTable(id));
+              dispatch(deleteTable(id as number));
             }}
           >
             <FontAwesomeIcon icon={faTrashCan} size="lg" />

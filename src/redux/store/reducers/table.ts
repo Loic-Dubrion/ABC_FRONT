@@ -19,7 +19,9 @@ export const getTableId = createAction<number>('Table reducer / Get table id');
 export const createTable = createAction<ITables>(
   'Table reducer / Creating a new table'
 );
-export const deleteTable = createAction('Table reducer / Table was deleted');
+export const deleteTable = createAction<number>(
+  'Table reducer / Table was deleted'
+);
 
 const tableReducer = createReducer(initialState, (builder) => {
   builder
