@@ -18,7 +18,6 @@ function Tables() {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const tableIsOpen = useAppSelector((state) => state.table.showTable);
   const tables = useAppSelector((state) => state.table.tables);
-  const tableId = useAppSelector((state) => state.table.tableId);
   const scenarioName = useAppSelector((state) => state.scenario.scenarioName);
   const [scenarioData, setScenarioData] = useState({
     name: '',
@@ -117,7 +116,6 @@ function Tables() {
             ? tables.map((table, index) => (
                 <Table
                   key={index}
-                  id={tableId}
                   name={table.name}
                   color={table.color}
                   tool={table.tool}

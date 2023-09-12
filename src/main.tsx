@@ -21,7 +21,6 @@ const router = createBrowserRouter(
     <Route path="/" element={<Layout />} errorElement={'Rien à afficher 404'}>
       <Route errorElement={'Rien à afficher 404'}>
         <Route path="/" element={<App />} />
-        <Route path="/sequence" element={<CreateSequence />} />
         <Route path="/sequence/:id" element={<CreateSequence />} />
       </Route>
     </Route>

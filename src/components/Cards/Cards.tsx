@@ -5,7 +5,11 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 // Module & Library
 import { motion } from 'framer-motion';
 // Reducers actions
-import { getAllCards, getOneCard } from '../../redux/store/reducers/card';
+import {
+  getAllCards,
+  getOneCard,
+  getOneTool,
+} from '../../redux/store/reducers/card';
 import { createTable, showTable } from '../../redux/store/reducers/table';
 
 function Cards() {
@@ -13,7 +17,6 @@ function Cards() {
   const oneCard = useAppSelector((state) => state.card.card);
   const cardRef = useRef<HTMLDialogElement | null>(null);
   const isChecked = useAppSelector((state) => state.card.isChecked);
-  const tableId = useAppSelector((state) => state.table.tableId);
   const allCards = useAppSelector((state) => state.card.cards);
   const isLogged = useAppSelector((state) => state.user.isLogged);
 
@@ -64,6 +67,7 @@ function Cards() {
                   </button>
 
                   {oneCard &&
+                    oneCard.length > 0 &&
                     oneCard.map((current) => (
                       <dialog
                         id="my_modal_2"
@@ -120,9 +124,9 @@ function Cards() {
                                             onClick={() => {
                                               cardRef.current?.close();
                                               dispatch(showTable(true));
+                                              dispatch(getOneTool(e.tool_id));
                                               dispatch(
                                                 createTable({
-                                                  id: tableId,
                                                   name: current.get_activities
                                                     .card_name,
                                                   color:
@@ -147,7 +151,6 @@ function Cards() {
                                             dispatch(showTable(true));
                                             dispatch(
                                               createTable({
-                                                id: tableId,
                                                 name: current.get_activities
                                                   .card_name,
                                                 color:
