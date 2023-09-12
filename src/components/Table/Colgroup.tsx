@@ -3,8 +3,8 @@ function Colgroup() {
     <colgroup>
       <col style={{ width: '3%' }} />
       <col style={{ width: '3%' }} />
-      <col style={{ width: '3%' }} />
-      <col style={{ width: '15%' }} />
+      <col style={{ width: '5%' }} />
+      <col style={{ width: '10%' }} />
       <col style={{ width: '10%' }} />
       <col style={{ width: '27%' }} />
       <col style={{ width: '7%' }} />

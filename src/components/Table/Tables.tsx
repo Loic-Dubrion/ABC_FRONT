@@ -18,52 +18,39 @@ import Tbody from './Tbody';
 function Tables() {
   const dispatch = useAppDispatch();
   const { id } = useParams();
-  const tableIsOpen = useAppSelector((state) => state.table.showTable);
-  const tables = useAppSelector((state) => state.table.tables);
-  const scenarioName = useAppSelector((state) => state.scenario.scenarioName);
+  const sequence = useAppSelector((state) => state.scenario.scenario);
 
   useEffect(() => {
-    function fetchOneSequence(id: string) {
-      dispatch(getOneScenario(id));
-    }
-    fetchOneSequence(id as string);
+    dispatch(getOneScenario(id as string));
   }, [dispatch, id]);
 
-  const handleClick = () => {};
   return (
     <div className="overflow-y-auto w-full">
-      {scenarioName && (
-        <div className="flex gap-3 items-center">
-          <h2 className="text-4xl m-3 font-bold">{scenarioName}</h2>
-          <button
-            onClick={() => {
-              handleClick();
-            }}
-          >
-            <FontAwesomeIcon
-              icon={faPencil}
-              beat
-              size="lg"
-              style={{ color: '#000000' }}
-            />
-          </button>
-          <Sequence />
-        </div>
-      )}
-      {tables.length > 0 && (
+      <div className="flex gap-3 items-center">
+        <h2 className="text-4xl m-3 font-bold">{sequence[0]?.sequence_name}</h2>
+        <button>
+          <FontAwesomeIcon
+            icon={faPencil}
+            beat
+            size="lg"
+            style={{ color: '#000000' }}
+          />
+        </button>
+        <Sequence />
+      </div>
+
+      {sequence.length > 0 && (
         <table className="table w-full">
           <Colgroup />
           <Thead />
-          {tableIsOpen
-            ? tables.map((table, index) => (
-                <Tbody
-                  key={index}
-                  card={table.name}
-                  color={table.color}
-                  tool={table.tool}
-                />
-              ))
-            : null}
+          {sequence.map((e, index) => (
+            <Tbody
+              key={index}
+              sequence_id={e.sequence_id}
+              sequence_name={e.sequence_name}
+              sessions={e.sessions}
+            />
+          ))}
         </table>
       )}
     </div>

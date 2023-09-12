@@ -1,16 +1,16 @@
 // React Hooks
 import { useEffect } from 'react';
 // Module & Library
-import { motion } from 'framer-motion';
+
 // Redux functions
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 // Reducers actions
-import { getAllCards, togglerCheckbox } from '../../redux/store/reducers/card';
+import { getAllCards } from '../../redux/store/reducers/card';
 // Components
 import Cards from '../Cards/Cards';
 import Tables from '../Table/Tables';
 import { useLocation, useParams } from 'react-router-dom';
-import { container } from '../../utils/motion-container';
+
 import { getOneScenario } from '../../redux/store/reducers/sequence';
 import TogglerLevelButton from './TogglerLevelButton';
 
