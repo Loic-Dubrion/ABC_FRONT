@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 // Reducers actions
-import { updateScenario } from '../../redux/store/reducers/scenario';
+import { updateScenario } from '../../redux/store/reducers/sequence';
 import { useAppDispatch } from '../../redux/hooks';
 
 function Sequence() {

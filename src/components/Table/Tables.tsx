@@ -8,9 +8,9 @@ import { useParams } from 'react-router-dom';
 // Redux
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 // Reducers
-import { getOneScenario } from '../../redux/store/reducers/scenario';
+import { getOneScenario } from '../../redux/store/reducers/sequence';
 // Components
-import Sequence from '../Modals/Sequence';
+import Sequence from '../Modals/SequenceModal';
 import Colgroup from './Colgroup';
 import Thead from './Thead';
 import Tbody from './Tbody';

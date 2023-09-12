@@ -5,8 +5,8 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 // Module & Library
 import { motion } from 'framer-motion';
 // Components
-import Scenarios from '../Scenario/Scenarios';
-import { getAllScenarios } from '../../redux/store/reducers/scenario';
+import Scenarios from '../Sequences/Sequences';
+import { getAllScenarios } from '../../redux/store/reducers/sequence';
 
 function App() {
   const dispatch = useAppDispatch();

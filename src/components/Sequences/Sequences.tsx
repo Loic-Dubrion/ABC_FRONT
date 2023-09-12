@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
   deleteScenario,
   getAllScenarios,
-} from '../../redux/store/reducers/scenario';
+} from '../../redux/store/reducers/sequence';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';

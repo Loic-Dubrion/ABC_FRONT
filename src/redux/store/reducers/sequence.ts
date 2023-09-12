@@ -5,6 +5,7 @@ interface ScenarioState {
   scenarioName: string | null;
   scenarioId: number | null;
   scenarios: IScenarios[];
+  scenario: [];
   message: string | null;
 }
 
@@ -12,6 +13,7 @@ const initialState: ScenarioState = {
   scenarioName: null,
   scenarioId: null,
   scenarios: [],
+  scenario: [],
   message: null,
 };
 
@@ -44,12 +46,13 @@ export const getAllScenarios = createAsyncThunk(
 export const getOneScenario = createAsyncThunk(
   'Scenario reducer / Read one scenario', // nom de l'action
   async (scenarioId: string) => {
-    if (scenarioId) {
+    try {
       const response = await axiosInstance.get(
         `/user/${localStorage.getItem('id')}/sequence/${scenarioId}`
       );
-      console.log('response :', response);
-      return response;
+      return response.data;
+    } catch (error) {
+      console.log('error :', error);
     }
   }
 );
@@ -90,8 +93,8 @@ const scenarioReducer = createReducer(initialState, (builder) => {
       state.scenarios = action.payload;
       state.message = null;
     })
-    .addCase(getOneScenario.fulfilled, (action) => {
-      console.log('action :', action);
+    .addCase(getOneScenario.fulfilled, (state, action) => {
+      state.scenario = action.payload;
     })
     .addCase(createScenario.fulfilled, (state, action) => {
       action.payload.map(

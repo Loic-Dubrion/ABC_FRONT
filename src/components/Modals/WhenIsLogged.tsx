@@ -8,7 +8,7 @@ import { logout, toggleDropDown } from '../../redux/store/reducers/user';
 import { motion } from 'framer-motion';
 // React Hooks
 import { useRef, useState } from 'react';
-import { createScenario } from '../../redux/store/reducers/scenario';
+import { createScenario } from '../../redux/store/reducers/sequence';
 
 function WhenIsLogged() {
   const dispatch = useAppDispatch();
