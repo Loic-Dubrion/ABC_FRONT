@@ -11,6 +11,7 @@ import {
   getOneTool,
 } from '../../redux/store/reducers/card';
 import { createTable, showTable } from '../../redux/store/reducers/table';
+import { container } from '../../utils/motion-container';
 
 function Cards() {
   const dispatch = useAppDispatch();
@@ -19,16 +20,6 @@ function Cards() {
   const isChecked = useAppSelector((state) => state.card.isChecked);
   const allCards = useAppSelector((state) => state.card.cards);
   const isLogged = useAppSelector((state) => state.user.isLogged);
-
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        duration: 1,
-      },
-    },
-  };
 
   useEffect(() => {
     if (!allCards && isLogged) {

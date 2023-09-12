@@ -10,6 +10,7 @@ import { getAllCards, togglerCheckbox } from '../../redux/store/reducers/card';
 import Cards from '../Cards/Cards';
 import Tables from '../Table/Tables';
 import { useLocation } from 'react-router-dom';
+import { container } from '../../utils/motion-container';
 
 function CreateSequence() {
   const location = useLocation();
@@ -18,7 +19,7 @@ function CreateSequence() {
 
   if (location.pathname === '/sequence') {
     history.pushState(
-      { name: "sequenceId" },
+      { name: 'sequenceId' },
       'pushState sequenceId',
       `/sequence/${scenarioId?.toString()}`
     );
@@ -28,25 +29,12 @@ function CreateSequence() {
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const isChecked = useAppSelector((state) => state.card.isChecked);
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        duration: 1,
-      },
-    },
-  };
-
   useEffect(() => {
     if (!allCards && isLogged) {
       dispatch(getAllCards());
     }
   }, [dispatch, allCards, isLogged]);
 
-  function handleCheckboxChange() {
-    dispatch(togglerCheckbox(isChecked));
-  }
 
   return (
     <div className="CreateSequence flex flex-col flex-nowrap items-center gap-5">
@@ -64,7 +52,9 @@ function CreateSequence() {
             type="checkbox"
             className="toggle toggle-error toggle-lg"
             checked={isChecked}
-            onChange={handleCheckboxChange}
+            onChange={() => {
+              dispatch(togglerCheckbox(isChecked));
+            }}
           />
           <p className={`${isChecked ? 'font-bold text-[#f87272]' : ''}`}>
             Expert

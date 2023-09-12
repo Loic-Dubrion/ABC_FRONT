@@ -1,11 +1,12 @@
 import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 import axiosInstance from '../../../utils/axios';
+import { ISequence } from '../../../components/@types/sequence';
 
 interface ScenarioState {
   scenarioName: string | null;
   scenarioId: number | null;
   scenarios: IScenarios[];
-  scenario: [];
+  scenario: ISequence[];
   message: string | null;
 }
 
@@ -45,11 +46,12 @@ export const getAllScenarios = createAsyncThunk(
 
 export const getOneScenario = createAsyncThunk(
   'Scenario reducer / Read one scenario', // nom de l'action
-  async (scenarioId: string) => {
+  async (sequenceId: string) => {
     try {
       const response = await axiosInstance.get(
-        `/user/${localStorage.getItem('id')}/sequence/${scenarioId}`
+        `/user/${localStorage.getItem('id')}/sequence/${sequenceId}`
       );
+      console.log('response.data :', response.data);
       return response.data;
     } catch (error) {
       console.log('error :', error);

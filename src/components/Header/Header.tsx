@@ -19,7 +19,6 @@ import logo from '../../assets/logo.png';
 function Header() {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.user.isOpen);
-  console.log('isOpen :', isOpen);
   const username = useAppSelector((state) => state.user.username);
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
