@@ -84,7 +84,7 @@ const userReducer = createReducer(initialState, (builder) => {
       localStorage.removeItem('refreshToken');
       localStorage.removeItem('roles');
       localStorage.removeItem('permissions');
-      localStorage.removeItem('userId');
+      localStorage.removeItem('id');
       localStorage.removeItem('username');
     })
     .addCase(toggleDropDown, (state) => {

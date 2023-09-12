@@ -65,7 +65,7 @@ function Scenarios() {
                   </td>
                   <td>
                     <Link
-                      to={`/scenario/${scenario.id}`}
+                      to={`/sequence/${scenario.id}`}
                       className="table-row-link"
                     >
                       {scenario.name}
@@ -73,7 +73,7 @@ function Scenarios() {
                   </td>
                   <td>
                     <Link
-                      to={`/scenario/${scenario.id}`}
+                      to={`/sequence/${scenario.id}`}
                       className="table-row-link"
                     >
                       {scenario.created_at}
@@ -81,7 +81,7 @@ function Scenarios() {
                   </td>
                   <td>
                     <Link
-                      to={`/scenario/${scenario.id}`}
+                      to={`/sequence/${scenario.id}`}
                       className="table-row-link"
                     >
                       {scenario.updated_at || 'Pas de mise à jour'}

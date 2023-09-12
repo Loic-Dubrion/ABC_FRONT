@@ -1,5 +1,5 @@
 // Module & Libraray
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // Redux
@@ -32,6 +32,16 @@ function Table({ name, color, tool, id }: ITable) {
             <FontAwesomeIcon icon={faTrashCan} size="lg" />
           </button>
         </th>
+        <td>
+          <button className="btn">
+            <FontAwesomeIcon
+              icon={faCheck}
+              beat
+              size="lg"
+              style={{ color: '#000000' }}
+            />
+          </button>
+        </td>
         <td
           style={{
             background: color,
