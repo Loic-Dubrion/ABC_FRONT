@@ -86,6 +86,7 @@ const userReducer = createReducer(initialState, (builder) => {
       localStorage.removeItem('permissions');
       localStorage.removeItem('id');
       localStorage.removeItem('username');
+      localStorage.removeItem('tool_id');
     })
     .addCase(toggleDropDown, (state) => {
       state.isOpen = !state.isOpen;

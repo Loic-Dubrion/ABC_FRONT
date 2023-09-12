@@ -1,5 +1,5 @@
 // React Hooks
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 // React Router
 import { Link } from 'react-router-dom';
 //Redux
@@ -26,6 +26,24 @@ function Header() {
   function handleMenu() {
     dispatch(toggleDropDown(!isOpen));
   }
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        dispatch(toggleDropDown(!isOpen));
+      }
+    };
+    // Ajoute l'écouteur d'événements lorsque le composant est monté
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // Nettoie l'écouteur d'événements lorsque le composant est démonté
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [dispatch, isOpen]);
 
   return (
     <header className="navbar bg-base-300 rounded-box mb-5 w-full sticky top-0 z-10">

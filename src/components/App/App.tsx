@@ -12,8 +12,8 @@ function App() {
   return (
     <div className="home">
       {!isLogged && <NotLogged />}
-      {scenarios.length === 0 && <NotSequences />}
-      {scenarios.length > 0 && <HasSequences />}
+      {isLogged && scenarios.length === 0 && <NotSequences />}
+      {isLogged && scenarios.length > 0 && <HasSequences />}
     </div>
   );
 }
