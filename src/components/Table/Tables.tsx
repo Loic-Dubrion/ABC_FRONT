@@ -1,28 +1,24 @@
-// Redux
-import React, { useEffect, useRef, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-
-// Components
-import Table from './Table';
-import { useParams } from 'react-router-dom';
-import {
-  getOneScenario,
-  updateScenario,
-} from '../../redux/store/reducers/scenario';
+// React hooks
+import { useEffect } from 'react';
+// Module && Library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
+// React router
+import { useParams } from 'react-router-dom';
+// Redux
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+// Reducers
+import { getOneScenario } from '../../redux/store/reducers/scenario';
+// Components
+import Table from './Table';
+import Sequence from '../Modals/Sequence';
 
 function Tables() {
   const dispatch = useAppDispatch();
   const { id } = useParams();
-  const dialogRef = useRef<HTMLDialogElement | null>(null);
   const tableIsOpen = useAppSelector((state) => state.table.showTable);
   const tables = useAppSelector((state) => state.table.tables);
   const scenarioName = useAppSelector((state) => state.scenario.scenarioName);
-  const [scenarioData, setScenarioData] = useState({
-    name: '',
-    sequenceId: '',
-  });
 
   useEffect(() => {
     function fetchOneSequence(id: string) {
@@ -31,6 +27,7 @@ function Tables() {
     fetchOneSequence(id as string);
   }, [dispatch, id]);
 
+  const handleClick = () => {};
   return (
     <div className="overflow-y-auto w-full">
       {scenarioName && (
@@ -38,7 +35,7 @@ function Tables() {
           <h2 className="text-4xl m-3 font-bold">{scenarioName}</h2>
           <button
             onClick={() => {
-              dialogRef.current?.showModal();
+              handleClick();
             }}
           >
             <FontAwesomeIcon
@@ -48,41 +45,7 @@ function Tables() {
               style={{ color: '#000000' }}
             />
           </button>
-          <dialog id="sqfqsfqsaz" className="modal" ref={dialogRef}>
-            <div className="modal-box">
-              <form action="post">
-                <h3 className="font-bold text-lg mb-2">
-                  Modifier le nom du scénario
-                </h3>
-                <input
-                  type="text"
-                  name="name"
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setScenarioData({
-                      ...scenarioData,
-                      name: event.target.value,
-                      sequenceId: id as string,
-                    });
-                  }}
-                  placeholder="Entrez le nom de scénario"
-                  className="input input-bordered w-full max-w-xs"
-                />
-                <button
-                  className="btn btn-success ml-5 text-white"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    dialogRef.current?.close();
-                    dispatch(updateScenario(scenarioData));
-                  }}
-                >
-                  Valider
-                </button>
-              </form>
-            </div>
-            <form method="dialog" className="modal-backdrop">
-              <button>close</button>
-            </form>
-          </dialog>
+          <Sequence />
         </div>
       )}
       {tables.length > 0 && (
