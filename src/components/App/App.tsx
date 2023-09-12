@@ -1,15 +1,13 @@
 // React Hooks
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 // Redux
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useAppSelector } from '../../redux/hooks';
 // Module & Library
 import { motion } from 'framer-motion';
 // Components
 import Scenarios from '../Sequences/Sequences';
-import { getAllScenarios } from '../../redux/store/reducers/sequence';
 
 function App() {
-  const dispatch = useAppDispatch();
   const cardRef = useRef(null);
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const scenarios = useAppSelector((state) => state.scenario.scenarios);
@@ -23,14 +21,6 @@ function App() {
       },
     },
   };
-
-  useEffect(() => {
-    function fetchSequences() {
-      dispatch(getAllScenarios());
-    }
-
-    fetchSequences();
-  }, [dispatch]);
 
   return (
     <div className="home">

@@ -25,7 +25,6 @@ export const createScenario = createAsyncThunk(
         `/user/${localStorage.getItem('id')}/sequence`,
         scenarioData
       );
-      console.log('response :', response);
       return response.data;
     } catch (error) {
       console.log('error :', error);
@@ -79,8 +78,7 @@ export const updateScenario = createAsyncThunk(
         `/user/${localStorage.getItem('id')}/sequence/${sequenceId}`,
         { name }
       );
-      console.log('response :', response);
-      return response;
+      return response.data;
     } catch (error) {
       console.log('error :', error);
     }
