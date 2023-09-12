@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import 'moment/locale/fr';
 
-function Scenarios() {
+function Sequences() {
   const dispatch = useAppDispatch();
   const message = useAppSelector((state) => state.scenario.message);
   const scenarios = useAppSelector((state) => state.scenario.scenarios);
@@ -102,4 +102,4 @@ function Scenarios() {
   );
 }
 
-export default Scenarios;
+export default Sequences;

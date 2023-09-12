@@ -19,8 +19,6 @@ function WhenIsLogged() {
     user_id: localStorage.getItem('id') || '',
   });
 
-  console.log('scenarioData :', scenarioData);
-
   const isOpen = useAppSelector((state) => state.user.isOpen);
 
   function openModal() {
