@@ -23,6 +23,7 @@ export const createScenario = createAsyncThunk(
         `/user/${localStorage.getItem('id')}/sequence`,
         scenarioData
       );
+      console.log('response :', response);
       return response.data;
     } catch (error) {
       console.log('error :', error);
@@ -40,23 +41,46 @@ export const getAllScenarios = createAsyncThunk(
   }
 );
 
-export const getOneScenarios = createAsyncThunk(
+export const getOneScenario = createAsyncThunk(
   'Scenario reducer / Read one scenario', // nom de l'action
-  async (scenarioId) => {
-    const { data } = await axiosInstance.get(
-      `/user/${localStorage.getItem('id')}/sequence/${scenarioId}`
-    );
-    return data;
+  async (scenarioId: string) => {
+    if (scenarioId) {
+      const response = await axiosInstance.get(
+        `/user/${localStorage.getItem('id')}/sequence/${scenarioId}`
+      );
+      console.log('response :', response);
+      return response;
+    }
   }
 );
 
 export const deleteScenario = createAsyncThunk(
   'Scenario reducer / The scenario was deleted', // nom de l'action
   async (scenarioId: number) => {
-    const { data } = await axiosInstance.delete(
-      `/user/${localStorage.getItem('id')}/sequence/${scenarioId}`
-    );
-    return data;
+    try {
+      const { data } = await axiosInstance.delete(
+        `/user/${localStorage.getItem('id')}/sequence/${scenarioId}`
+      );
+      return data;
+    } catch (error) {
+      console.log('error :', error);
+    }
+  }
+);
+
+export const updateScenario = createAsyncThunk(
+  'Scenario reducer / The scenario was updated',
+  async ({ name, sequenceId }: { name: string; sequenceId: string }) => {
+    try {
+      const response = await axiosInstance.put(
+        `/user/${localStorage.getItem('id')}/sequence/${sequenceId}`,
+        { name }
+      );
+      console.log('response :', response);
+      return response;
+    } catch (error) {
+      console.log('error :', error);
+    }
   }
 );
 
@@ -66,12 +90,21 @@ const scenarioReducer = createReducer(initialState, (builder) => {
       state.scenarios = action.payload;
       state.message = null;
     })
+    .addCase(getOneScenario.fulfilled, (action) => {
+      console.log('action :', action);
+    })
     .addCase(createScenario.fulfilled, (state, action) => {
-      state.scenarioId = action.payload[0].id;
-      state.scenarioName = action.payload[0].name;
+      action.payload.map(
+        (e: { id: number | null; name: string | null }) => (
+          (state.scenarioId = e.id), (state.scenarioName = e.name)
+        )
+      );
     })
     .addCase(deleteScenario.fulfilled, (state, action) => {
       state.message = action.payload;
+    })
+    .addCase(updateScenario.fulfilled, (action) => {
+      console.log('action :', action);
     });
 });
 

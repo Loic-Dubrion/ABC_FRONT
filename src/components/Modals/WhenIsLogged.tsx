@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 // Redux
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 // Reducers actions
-import { getAllCards } from '../../redux/store/reducers/card';
 import { logout, toggleDropDown } from '../../redux/store/reducers/user';
 // Module & Library
 import { motion } from 'framer-motion';
@@ -30,8 +29,7 @@ function WhenIsLogged() {
     }
   }
 
-  function handleSubmit(event: React.MouseEvent<HTMLButtonElement>) {
-    event.preventDefault();
+  function handleSubmit() {
     dispatch(createScenario(scenarioData));
   }
 
@@ -62,7 +60,16 @@ function WhenIsLogged() {
       </button>
       <dialog id="my_modal_2" className="modal" ref={dialogRef}>
         <div className="modal-box">
-          <form action="post">
+          <form
+            action="post"
+            onSubmit={(e) => {
+              e.preventDefault();
+              dispatch(toggleDropDown(isOpen));
+              dialogRef.current?.close();
+              handleSubmit();
+              window.location.reload();
+            }}
+          >
             <h3 className="font-bold text-lg mb-2">Créer un scénario</h3>
             <input
               type="text"
@@ -73,18 +80,7 @@ function WhenIsLogged() {
               placeholder="Entrez le nom de scénario"
               className="input input-bordered w-full max-w-xs"
             />
-            <button
-              className="btn btn-success ml-5 text-white"
-              onClick={(event) => {
-                dispatch(toggleDropDown(isOpen));
-                dispatch(getAllCards());
-                dialogRef.current?.close();
-                handleSubmit(event);
-                navigate('/sequence');
-              }}
-            >
-              Valider
-            </button>
+            <button className="btn btn-success ml-5 text-white">Valider</button>
           </form>
         </div>
         <form method="dialog" className="modal-backdrop">

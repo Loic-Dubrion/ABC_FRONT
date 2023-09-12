@@ -18,14 +18,11 @@ function CreateSequence() {
 
   if (location.pathname === '/sequence') {
     history.pushState(
-      { name: 'Example' },
-      'pushState example',
+      { name: "sequenceId" },
+      'pushState sequenceId',
       `/sequence/${scenarioId?.toString()}`
     );
   }
-
-  // // Now state has a value.
-  // console.log('History.state after pushState: ', history.state);
 
   const allCards = useAppSelector((state) => state.card.cards);
   const isLogged = useAppSelector((state) => state.user.isLogged);
