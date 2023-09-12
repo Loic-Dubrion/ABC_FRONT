@@ -27,10 +27,6 @@ function WhenIsLogged() {
     }
   }
 
-  function handleSubmit() {
-    dispatch(createScenario(scenarioData));
-  }
-
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -64,7 +60,7 @@ function WhenIsLogged() {
               e.preventDefault();
               dispatch(toggleDropDown(isOpen));
               dialogRef.current?.close();
-              handleSubmit();
+              dispatch(createScenario(scenarioData));
               window.location.reload();
             }}
           >

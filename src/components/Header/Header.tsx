@@ -19,6 +19,7 @@ import logo from '../../assets/logo.png';
 function Header() {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.user.isOpen);
+  console.log('isOpen :', isOpen);
   const username = useAppSelector((state) => state.user.username);
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -28,22 +29,22 @@ function Header() {
   }
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    function handleOutsideClick(event: MouseEvent) {
       if (
+        isOpen &&
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
       ) {
-        dispatch(toggleDropDown(!isOpen));
+        dispatch(toggleDropDown(false));
       }
-    };
-    // Ajoute l'écouteur d'événements lorsque le composant est monté
-    document.addEventListener('mousedown', handleClickOutside);
+    }
 
-    // Nettoie l'écouteur d'événements lorsque le composant est démonté
+    document.addEventListener('mousedown', handleOutsideClick);
+
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('mousedown', handleOutsideClick);
     };
-  }, [dispatch, isOpen]);
+  }, [isOpen, dispatch]);
 
   return (
     <header className="navbar bg-base-300 rounded-box mb-5 w-full sticky top-0 z-10">

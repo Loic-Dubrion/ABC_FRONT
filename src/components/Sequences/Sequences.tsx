@@ -13,7 +13,8 @@ import 'moment/locale/fr';
 function Sequences() {
   const dispatch = useAppDispatch();
   const message = useAppSelector((state) => state.scenario.message);
-  const scenarios = useAppSelector((state) => state.scenario.scenarios);
+  const sequences = useAppSelector((state) => state.scenario.scenarios);
+  console.log('scenar :', sequences);
   const isLogged = useAppSelector((state) => state.user.isLogged);
 
   useEffect(() => {
@@ -26,13 +27,13 @@ function Sequences() {
     }
   }, [dispatch, message]);
 
-  const handleDeleteScenario = (scenarioId: number) => {
+  const handleDeleteSequence = (scenarioId: number) => {
     dispatch(deleteScenario(scenarioId));
   };
 
   return (
     <div className="overflow-x-auto">
-      {isLogged && scenarios.length > 0 && (
+      {isLogged && sequences.length > 0 && (
         <table className="table">
           <thead>
             <tr>
@@ -44,14 +45,14 @@ function Sequences() {
             </tr>
           </thead>
           <tbody>
-            {scenarios.length > 0 &&
-              scenarios.map((scenario) => (
-                <tr key={scenario.id}>
+            {sequences.length > 0 &&
+              sequences.map((sequence) => (
+                <tr key={sequence.id}>
                   <td>
                     <button
                       className="btn bg-transparent border-none"
                       onClick={() => {
-                        handleDeleteScenario(scenario.id as number);
+                        handleDeleteSequence(sequence.id as number);
                       }}
                     >
                       <FontAwesomeIcon icon={faTrashCan} size="lg" />
@@ -59,37 +60,37 @@ function Sequences() {
                   </td>
                   <td>
                     <Link
-                      to={`/sequence/${scenario.id}`}
+                      to={`/sequence/${sequence.id}`}
                       className="table-row-link"
                     >
-                      {scenario.id}
+                      {sequence.id}
                     </Link>
                   </td>
                   <td>
                     <Link
-                      to={`/sequence/${scenario.id}`}
+                      to={`/sequence/${sequence.id}`}
                       className="table-row-link"
                     >
-                      {scenario.name}
+                      {sequence.name}
                     </Link>
                   </td>
                   <td>
                     <Link
-                      to={`/sequence/${scenario.id}`}
+                      to={`/sequence/${sequence.id}`}
                       className="table-row-link"
                     >
-                      {moment(scenario.created_at).format(
+                      {moment(sequence.created_at).format(
                         'DD/MM/YYYY HH:mm:ss'
                       )}
                     </Link>
                   </td>
                   <td>
                     <Link
-                      to={`/sequence/${scenario.id}`}
+                      to={`/sequence/${sequence.id}`}
                       className="table-row-link"
                     >
-                      {scenario.updated_at
-                        ? moment(scenario.updated_at).format('DD/MM/YYYY HH:mm')
+                      {sequence.updated_at
+                        ? moment(sequence.updated_at).format('DD/MM/YYYY HH:mm')
                         : 'Pas de mise à jour'}
                     </Link>
                   </td>

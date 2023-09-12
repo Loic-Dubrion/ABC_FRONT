@@ -5,7 +5,10 @@ import Sequences from '../Sequences/Sequences';
 // Utiles
 import { container } from '../../utils/motion-container';
 
+
 function HasSequences() {
+
+
   return (
     <motion.div
       animate="show"
