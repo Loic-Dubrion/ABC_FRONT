@@ -10,8 +10,10 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 // Reducers
 import { getOneScenario } from '../../redux/store/reducers/scenario';
 // Components
-import Table from './Table';
 import Sequence from '../Modals/Sequence';
+import Colgroup from './Colgroup';
+import Thead from './Thead';
+import Tbody from './Tbody';
 
 function Tables() {
   const dispatch = useAppDispatch();
@@ -50,36 +52,13 @@ function Tables() {
       )}
       {tables.length > 0 && (
         <table className="table w-full">
-          {/* head */}
-          <colgroup>
-            <col style={{ width: '3%' }} />
-            <col style={{ width: '3%' }} />
-            <col style={{ width: '15%' }} />
-            <col style={{ width: '10%' }} />
-            <col style={{ width: '27%' }} />
-            <col style={{ width: '7%' }} />
-            <col style={{ width: '10%' }} />
-            <col style={{ width: '10%' }} />
-            <col style={{ width: '15%' }} />
-          </colgroup>
-          <thead>
-            <tr>
-              <th></th>
-              <th></th>
-              <th>Mon scénario</th>
-              <th>Activités</th>
-              <th>Remarques</th>
-              <th>Durée</th>
-              <th>Présentiel / Distanciel</th>
-              <th>Individuel / Groupe</th>
-              <th>Matériel</th>
-            </tr>
-          </thead>
+          <Colgroup />
+          <Thead />
           {tableIsOpen
             ? tables.map((table, index) => (
-                <Table
+                <Tbody
                   key={index}
-                  name={table.name}
+                  card={table.name}
                   color={table.color}
                   tool={table.tool}
                 />

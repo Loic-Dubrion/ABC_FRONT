@@ -9,12 +9,12 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { createSession } from '../../redux/store/reducers/session';
 
 interface ITable {
-  name: string;
+  card: string;
   color: string;
   tool: string;
 }
 
-function Table({ name, color, tool }: ITable) {
+function Tbody({ card, color, tool }: ITable) {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const oneCard = useAppSelector((state) => state.card.card);
@@ -22,7 +22,7 @@ function Table({ name, color, tool }: ITable) {
     oneCard && oneCard.length > 0 && oneCard[0].get_activities.card_id;
 
   const [sessionData, setSessionData] = useState({
-    name: name,
+    name: '',
     sequence_id: Number(id),
     card_id: Number(cardId),
     tool_id: Number(localStorage.getItem('tool_id')),
@@ -32,8 +32,6 @@ function Table({ name, color, tool }: ITable) {
     is_group_work: false,
     equipment: '',
   });
-
-  console.log('sessionData :', sessionData);
 
   // Gestionnaire d'événement pour la suppression
   const handleDeleteClick = () => {
@@ -72,7 +70,16 @@ function Table({ name, color, tool }: ITable) {
             borderRadius: '1rem',
           }}
         >
-          <p className="text-white font-bold">{name}</p>
+          <p className="text-white font-bold">{card}</p>
+        </td>
+        <td>
+          <textarea
+            onChange={(e) =>
+              setSessionData({ ...sessionData, name: e.target.value })
+            }
+            placeholder="Ecrivez le nom de la session"
+            className="input input-bordered w-full mt-1 align-middle"
+          />
         </td>
         <td>{tool}</td>
         <td>
@@ -142,4 +149,4 @@ function Table({ name, color, tool }: ITable) {
   );
 }
 
-export default Table;
+export default Tbody;
