@@ -150,6 +150,7 @@ function Cards() {
                       </dialog>
                     ))}
                   <CreateSession
+                    color={oneCard && oneCard[0].get_activities.color}
                     isOpen={isCreateSessionOpen}
                     onClose={() => setIsCreateSessionOpen(false)}
                   />

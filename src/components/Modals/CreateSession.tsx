@@ -1,15 +1,19 @@
 interface ICreateSession {
   isOpen: boolean;
   onClose: () => void;
+  color: string | null;
 }
 
-function CreateSession({ isOpen, onClose }: ICreateSession) {
+function CreateSession({ isOpen, onClose, color }: ICreateSession) {
   return (
     <dialog id="my_modal_2" className="modal" open={isOpen}>
-      <div className="modal-box w-full max-w-5xl">
+      <div
+        className="modal-box w-full max-w-5xl"
+        style={{ backgroundColor: color as string }}
+      >
         <label
           htmlFor="name"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          className="block mb-2 text-sm font-medium text-white"
         >
           Nom de la session
         </label>
@@ -20,7 +24,7 @@ function CreateSession({ isOpen, onClose }: ICreateSession) {
         />
         <label
           htmlFor="comments"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          className="block mb-2 text-sm font-medium text-white"
         >
           Remarques
         </label>
@@ -31,7 +35,7 @@ function CreateSession({ isOpen, onClose }: ICreateSession) {
         />
         <label
           htmlFor="number"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          className="block mb-2 text-sm font-medium  text-white"
         >
           Durée en minutes
         </label>
@@ -43,7 +47,7 @@ function CreateSession({ isOpen, onClose }: ICreateSession) {
           placeholder="Minutes"
           className="input input-bordered w-full max-w-xs"
         />
-        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+        <label className="block mb-2 text-sm font-medium text-white">
           Présentiel / Distanciel
         </label>
         <select
@@ -53,7 +57,7 @@ function CreateSession({ isOpen, onClose }: ICreateSession) {
           <option>Présentiel</option>
           <option>Distanciel</option>
         </select>
-        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+        <label className="block mb-2 text-sm font-medium  text-white">
           Individuel / Groupe
         </label>
         <select
