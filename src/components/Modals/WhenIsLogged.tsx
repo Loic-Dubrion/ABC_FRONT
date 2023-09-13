@@ -8,7 +8,7 @@ import { logout, toggleDropDown } from '../../redux/store/reducers/user';
 import { motion } from 'framer-motion';
 // React Hooks
 import { useRef, useState } from 'react';
-import { createScenario } from '../../redux/store/reducers/sequence';
+import { createSequence } from '../../redux/store/reducers/sequence';
 
 function WhenIsLogged() {
   const dispatch = useAppDispatch();
@@ -18,7 +18,7 @@ function WhenIsLogged() {
     name: '',
     user_id: localStorage.getItem('id') || '',
   });
-
+  
   const isOpen = useAppSelector((state) => state.user.isOpen);
 
   function openModal() {
@@ -60,7 +60,7 @@ function WhenIsLogged() {
               e.preventDefault();
               dispatch(toggleDropDown(isOpen));
               dialogRef.current?.close();
-              dispatch(createScenario(scenarioData));
+              dispatch(createSequence(scenarioData));
               window.location.reload();
             }}
           >

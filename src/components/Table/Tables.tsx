@@ -1,5 +1,5 @@
 // React hooks
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 // Module && Library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
@@ -8,9 +8,9 @@ import { useParams } from 'react-router-dom';
 // Redux
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 // Reducers
-import { getOneScenario } from '../../redux/store/reducers/sequence';
+import { getOneSequence } from '../../redux/store/reducers/sequence';
 // Components
-import Sequence from '../Modals/SequenceModal';
+import SequenceModal from '../Modals/SequenceModal';
 import Colgroup from './Colgroup';
 import Thead from './Thead';
 import Tbody from './Tbody';
@@ -19,12 +19,12 @@ function Tables() {
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const { id } = useParams();
-  const sequence = useAppSelector((state) => state.scenario.scenario);
-  console.log('sequence :', sequence);
+  const sequence = useAppSelector((state) => state.sequence.sequence);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (isLogged) {
-      dispatch(getOneScenario(id as string));
+      dispatch(getOneSequence(id as string));
     }
   }, [dispatch, id, isLogged]);
 
@@ -40,9 +40,12 @@ function Tables() {
             beat
             size="lg"
             style={{ color: '#000000' }}
+            onClick={() => {
+              setIsOpen(true);
+            }}
           />
         </button>
-        <Sequence />
+        <SequenceModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
       </div>
 
       {sequence.length > 0 && (

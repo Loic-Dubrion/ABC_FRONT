@@ -2,29 +2,29 @@ import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 import axiosInstance from '../../../utils/axios';
 import { ISequence } from '../../../components/@types/sequence';
 
-interface ScenarioState {
-  scenarioName: string | null;
-  scenarioId: number | null;
-  scenarios: IScenarios[];
-  scenario: ISequence[];
+interface SequenceState {
+  sequenceName: string | null;
+  sequenceId: number | null;
+  sequences: ISequences[];
+  sequence: ISequence[];
   message: string | null;
 }
 
-const initialState: ScenarioState = {
-  scenarioName: null,
-  scenarioId: null,
-  scenarios: [],
-  scenario: [],
+const initialState: SequenceState = {
+  sequenceName: null,
+  sequenceId: null,
+  sequences: [],
+  sequence: [],
   message: null,
 };
 
-export const createScenario = createAsyncThunk(
-  'Scenario reducer / Creating a new sequence',
-  async (scenarioData: { name: string; user_id: string }) => {
+export const createSequence = createAsyncThunk(
+  'sequence reducer / Creating a new sequence',
+  async (sequenceData: { name: string; user_id: string }) => {
     try {
       const response = await axiosInstance.post(
         `/user/${localStorage.getItem('id')}/sequence`,
-        scenarioData
+        sequenceData
       );
 
       return response.data;
@@ -34,8 +34,8 @@ export const createScenario = createAsyncThunk(
   }
 );
 
-export const getAllScenarios = createAsyncThunk(
-  'Scenario reducer /getAllScenarios', // nom de l'action
+export const getAllSequences = createAsyncThunk(
+  'Sequence reducer/Get all sequences', // nom de l'action
   async () => {
     try {
       const { data } = await axiosInstance.get(
@@ -48,14 +48,13 @@ export const getAllScenarios = createAsyncThunk(
   }
 );
 
-export const getOneScenario = createAsyncThunk(
-  'Scenario reducer / Read one scenario', // nom de l'action
+export const getOneSequence = createAsyncThunk(
+  'Sequence reducer / Get one sequence', // nom de l'action
   async (sequenceId: string) => {
     try {
       const response = await axiosInstance.get(
         `/user/${localStorage.getItem('id')}/sequence/${sequenceId}`
       );
-
       return response.data;
     } catch (error) {
       console.log('error :', error);
@@ -63,12 +62,12 @@ export const getOneScenario = createAsyncThunk(
   }
 );
 
-export const deleteScenario = createAsyncThunk(
-  'Scenario reducer / The scenario was deleted', // nom de l'action
-  async (scenarioId: number) => {
+export const deleteSequence = createAsyncThunk(
+  'Sequence reducer / Sequence was deleted', // nom de l'action
+  async (sequenceId: number) => {
     try {
       const { data } = await axiosInstance.delete(
-        `/user/${localStorage.getItem('id')}/sequence/${scenarioId}`
+        `/user/${localStorage.getItem('id')}/sequence/${sequenceId}`
       );
       return data;
     } catch (error) {
@@ -77,8 +76,8 @@ export const deleteScenario = createAsyncThunk(
   }
 );
 
-export const updateScenario = createAsyncThunk(
-  'Scenario reducer / The scenario was updated',
+export const updateSequence = createAsyncThunk(
+  'Sequence reducer / Sequence was updated',
   async ({ name, sequenceId }: { name: string; sequenceId: string }) => {
     try {
       const response = await axiosInstance.put(
@@ -93,28 +92,28 @@ export const updateScenario = createAsyncThunk(
   }
 );
 
-const scenarioReducer = createReducer(initialState, (builder) => {
+const sequenceReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(getAllScenarios.fulfilled, (state, action) => {
-      state.scenarios = action.payload;
+    .addCase(getAllSequences.fulfilled, (state, action) => {
+      state.sequences = action.payload;
       state.message = null;
     })
-    .addCase(getOneScenario.fulfilled, (state, action) => {
-      state.scenario = action.payload;
+    .addCase(getOneSequence.fulfilled, (state, action) => {
+      state.sequence = action.payload;
     })
-    .addCase(createScenario.fulfilled, (state, action) => {
+    .addCase(createSequence.fulfilled, (state, action) => {
       action.payload.map((e: { id: number; name: string }) => {
-        state.scenarioId = e.id;
-        state.scenarioName = e.name;
+        state.sequenceId = e.id;
+        state.sequenceName = e.name;
       });
     })
 
-    .addCase(deleteScenario.fulfilled, (state, action) => {
+    .addCase(deleteSequence.fulfilled, (state, action) => {
       state.message = action.payload;
     })
-    .addCase(updateScenario.fulfilled, (action) => {
+    .addCase(updateSequence.fulfilled, (action) => {
       console.log('action :', action);
     });
 });
 
-export default scenarioReducer;
+export default sequenceReducer;

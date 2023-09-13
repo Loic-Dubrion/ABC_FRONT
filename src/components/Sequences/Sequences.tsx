@@ -2,8 +2,8 @@ import moment from 'moment';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
-  deleteScenario,
-  getAllScenarios,
+  deleteSequence,
+  getAllSequences,
 } from '../../redux/store/reducers/sequence';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,23 +12,23 @@ import 'moment/locale/fr';
 
 function Sequences() {
   const dispatch = useAppDispatch();
-  const message = useAppSelector((state) => state.scenario.message);
-  const sequences = useAppSelector((state) => state.scenario.scenarios);
+  const message = useAppSelector((state) => state.sequence.message);
+  const sequences = useAppSelector((state) => state.sequence.sequences);
   console.log('scenar :', sequences);
   const isLogged = useAppSelector((state) => state.user.isLogged);
 
   useEffect(() => {
-    function fetchScenarios() {
-      dispatch(getAllScenarios());
+    function fetchSequences() {
+      dispatch(getAllSequences());
     }
-    fetchScenarios();
+    fetchSequences();
     if (message !== null) {
-      dispatch(getAllScenarios());
+      dispatch(getAllSequences());
     }
   }, [dispatch, message]);
 
-  const handleDeleteSequence = (scenarioId: number) => {
-    dispatch(deleteScenario(scenarioId));
+  const handleDeleteSequence = (sequenceId: number) => {
+    dispatch(deleteSequence(sequenceId));
   };
 
   return (

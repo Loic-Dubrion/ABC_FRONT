@@ -1,4 +1,4 @@
-interface IScenarios {
+interface ISequences {
   id: number | null;
   name: string | null;
   user_id: number | null;

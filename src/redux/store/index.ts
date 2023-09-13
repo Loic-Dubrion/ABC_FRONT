@@ -8,7 +8,7 @@ const store = configureStore({
   reducer: {
     user: userReducer,
     card: cardReducer,
-    scenario: scenarioReducer,
+    sequence: scenarioReducer,
     session: sessionReducer,
   },
 });

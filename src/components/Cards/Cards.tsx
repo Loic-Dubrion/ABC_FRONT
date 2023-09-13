@@ -134,6 +134,7 @@ function Cards() {
                                             cardRef.current?.close();
                                             cardRef.current?.close();
                                             dispatch(getOneTool(e.tool_id));
+                                            setIsCreateSessionOpen(true);
                                           }}
                                         >
                                           {e.tool_name}

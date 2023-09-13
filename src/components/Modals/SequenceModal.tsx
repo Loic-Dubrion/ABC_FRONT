@@ -2,10 +2,15 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 // Reducers actions
-import { updateScenario } from '../../redux/store/reducers/sequence';
+import { updateSequence } from '../../redux/store/reducers/sequence';
 import { useAppDispatch } from '../../redux/hooks';
 
-function Sequence() {
+interface ISequenceModal {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+function SequenceModal({ isOpen, onClose }: ISequenceModal) {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const [scenarioData, setScenarioData] = useState({
@@ -14,7 +19,7 @@ function Sequence() {
   });
 
   return (
-    <dialog id="sqfqsfqsaz" className="modal">
+    <dialog id="sqfqsfqsaz" className="modal" open={isOpen}>
       <div className="modal-box">
         <form action="post">
           <h3 className="font-bold text-lg mb-2">
@@ -29,6 +34,7 @@ function Sequence() {
                 name: event.target.value,
                 sequenceId: id as string,
               });
+              localStorage.setItem('sequence_name', event.target.value);
             }}
             placeholder="Entrez le nom de scénario"
             className="input input-bordered w-full max-w-xs"
@@ -37,7 +43,8 @@ function Sequence() {
             className="btn btn-success ml-5 text-white"
             onClick={(event) => {
               event.preventDefault();
-              dispatch(updateScenario(scenarioData));
+              dispatch(updateSequence(scenarioData));
+              onClose();
             }}
           >
             Valider
@@ -51,4 +58,4 @@ function Sequence() {
   );
 }
 
-export default Sequence;
+export default SequenceModal;
