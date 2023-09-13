@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 interface ICreateSession {
   isOpen: boolean;
   onClose: () => void;
-  color: string;
+  color: string | null;
 }
 
 function CreateSession({ isOpen, onClose, color }: ICreateSession) {
@@ -28,7 +28,7 @@ function CreateSession({ isOpen, onClose, color }: ICreateSession) {
     <dialog id="my_modal_2" className="modal" open={isOpen}>
       <div
         className="modal-box w-full max-w-5xl"
-        style={{ backgroundColor: color }}
+        style={{ backgroundColor: color || null }}
       >
         <label
           htmlFor="name"
