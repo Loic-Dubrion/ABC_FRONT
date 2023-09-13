@@ -1,5 +1,5 @@
 // React Hooks
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 // Redux functions
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 // Module & Library
@@ -10,13 +10,15 @@ import {
   getOneCard,
   getOneTool,
 } from '../../redux/store/reducers/card';
-import { createTable, showTable } from '../../redux/store/reducers/table';
+
 import { container } from '../../utils/motion-container';
+import CreateSession from '../Modals/CreateSession';
 
 function Cards() {
   const dispatch = useAppDispatch();
   const oneCard = useAppSelector((state) => state.card.card);
   const cardRef = useRef<HTMLDialogElement | null>(null);
+  const [isCreateSessionOpen, setIsCreateSessionOpen] = useState(false);
   const isChecked = useAppSelector((state) => state.card.isChecked);
   const allCards = useAppSelector((state) => state.card.cards);
   const isLogged = useAppSelector((state) => state.user.isLogged);
@@ -114,18 +116,8 @@ function Cards() {
                                             type="button"
                                             onClick={() => {
                                               cardRef.current?.close();
-                                              dispatch(showTable(true));
                                               dispatch(getOneTool(e.tool_id));
-                                              dispatch(
-                                                createTable({
-                                                  name: current.get_activities
-                                                    .card_name,
-                                                  color:
-                                                    current.get_activities
-                                                      .color,
-                                                  tool: e.tool_name,
-                                                })
-                                              );
+                                              setIsCreateSessionOpen(true);
                                             }}
                                           >
                                             {e.tool_name}
@@ -139,16 +131,8 @@ function Cards() {
                                           type="button"
                                           onClick={() => {
                                             cardRef.current?.close();
-                                            dispatch(showTable(true));
-                                            dispatch(
-                                              createTable({
-                                                name: current.get_activities
-                                                  .card_name,
-                                                color:
-                                                  current.get_activities.color,
-                                                tool: e.tool_name,
-                                              })
-                                            );
+                                            cardRef.current?.close();
+                                            dispatch(getOneTool(e.tool_id));
                                           }}
                                         >
                                           {e.tool_name}
@@ -165,6 +149,10 @@ function Cards() {
                         </form>
                       </dialog>
                     ))}
+                  <CreateSession
+                    isOpen={isCreateSessionOpen}
+                    onClose={() => setIsCreateSessionOpen(false)}
+                  />
                 </div>
               </div>
             </motion.div>

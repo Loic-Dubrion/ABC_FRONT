@@ -1,11 +1,18 @@
 // Module & Library
-import { faTrashCan, faCheck } from '@fortawesome/free-solid-svg-icons';
+import {
+  faTrashCan,
+  faCheck,
+  faPencil,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 
 // Redux
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { createSession } from '../../redux/store/reducers/session';
+import {
+  createSession,
+  deleteSession,
+} from '../../redux/store/reducers/session';
 import { ISession } from '../@types/session';
 
 interface ITbody {
@@ -19,6 +26,8 @@ function Tbody({ sequence_id, sequence_name, sessions }: ITbody) {
   const oneCard = useAppSelector((state) => state.card.card);
   const cardId =
     oneCard && oneCard.length > 0 && oneCard[0].get_activities.card_id;
+  const color =
+    oneCard && oneCard.length > 0 && oneCard[0].get_activities.color;
 
   const [sessionData, setSessionData] = useState({
     name: '',
@@ -32,13 +41,6 @@ function Tbody({ sequence_id, sequence_name, sessions }: ITbody) {
     equipment: '',
   });
 
-  // Gestionnaire d'événement pour la suppression
-  const handleDeleteClick = () => {
-    // Mettez ici la logique de suppression que vous souhaitez effectuer
-    // par exemple, vous pouvez appeler une fonction qui supprime cet élément
-    // de la liste.
-  };
-
   // Gestionnaire d'événement pour la validation
   const handleCheckClick = () => {
     dispatch(createSession(sessionData));
@@ -50,11 +52,27 @@ function Tbody({ sequence_id, sequence_name, sessions }: ITbody) {
         <tbody key={index}>
           <tr>
             <th>
-              <button className="btn" onClick={handleDeleteClick}>
+              <button
+                className="btn"
+                onClick={() => {
+                  dispatch(deleteSession(session.session_id));
+                  window.location.reload();
+                }}
+              >
                 <FontAwesomeIcon icon={faTrashCan} size="lg" />
               </button>
             </th>
             <td>
+              {session.session_id && (
+                <button className="btn" onClick={handleCheckClick}>
+                  <FontAwesomeIcon
+                    icon={faPencil}
+                    beat
+                    size="lg"
+                    style={{ color: '#000000' }}
+                  />
+                </button>
+              )}
               <button className="btn" onClick={handleCheckClick}>
                 <FontAwesomeIcon
                   icon={faCheck}
@@ -66,7 +84,7 @@ function Tbody({ sequence_id, sequence_name, sessions }: ITbody) {
             </td>
             <td
               style={{
-                background: '#f0f',
+                background: color as string,
                 borderRadius: '1rem',
               }}
             >

@@ -14,8 +14,10 @@ function App() {
   const scenarios = useAppSelector((state) => state.scenario.scenarios);
 
   useEffect(() => {
-    dispatch(getAllScenarios());
-  }, [dispatch]);
+    if (isLogged) {
+      dispatch(getAllScenarios());
+    }
+  }, [dispatch, isLogged]);
 
   return (
     <div className="home">

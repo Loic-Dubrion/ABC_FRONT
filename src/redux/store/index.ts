@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './reducers/user';
 import cardReducer from './reducers/card';
-import tableReducer from './reducers/table';
 import scenarioReducer from './reducers/sequence';
 import sessionReducer from './reducers/session';
 
@@ -9,7 +8,6 @@ const store = configureStore({
   reducer: {
     user: userReducer,
     card: cardReducer,
-    table: tableReducer,
     scenario: scenarioReducer,
     session: sessionReducer,
   },

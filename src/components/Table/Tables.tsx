@@ -17,12 +17,15 @@ import Tbody from './Tbody';
 
 function Tables() {
   const dispatch = useAppDispatch();
+  const isLogged = useAppSelector((state) => state.user.isLogged);
   const { id } = useParams();
   const sequence = useAppSelector((state) => state.scenario.scenario);
 
   useEffect(() => {
-    dispatch(getOneScenario(id as string));
-  }, [dispatch, id]);
+    if (isLogged) {
+      dispatch(getOneScenario(id as string));
+    }
+  }, [dispatch, id, isLogged]);
 
   return (
     <div className="overflow-y-auto w-full">

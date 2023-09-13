@@ -37,11 +37,27 @@ export const createSession = createAsyncThunk(
   }
 );
 
+export const deleteSession = createAsyncThunk(
+  'Session reducer/The session was deleted ', // nom de l'action
+  async (sessionId: number) => {
+    const response = await axiosInstance.delete(
+      `/user/${localStorage.getItem('id')}/session/${sessionId}`
+    );
+    console.log('response :', response);
+    return response.data;
+  }
+);
+
 const sessionReducer = createReducer(initialState, (builder) => {
-  builder.addCase(createSession.fulfilled, (state, action) => {
-    console.log('state :', state);
-    console.log('action :', action);
-  });
+  builder
+    .addCase(createSession.fulfilled, (state, action) => {
+      console.log('state :', state);
+      console.log('action :', action);
+    })
+    .addCase(deleteSession.fulfilled, (state, action) => {
+      console.log('state :', state);
+      console.log('action :', action);
+    });
 });
 
 export default sessionReducer;

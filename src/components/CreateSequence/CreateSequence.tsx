@@ -17,8 +17,7 @@ import TogglerLevelButton from './TogglerLevelButton';
 function CreateSequence() {
   const location = useLocation();
   const scenarioId = useAppSelector((state) => state.scenario.scenarioId);
-  const sequence = useAppSelector((state) => state.scenario.scenario);
-  console.log('sequence :', sequence);
+
   const dispatch = useAppDispatch();
 
   if (location.pathname === '/sequence') {

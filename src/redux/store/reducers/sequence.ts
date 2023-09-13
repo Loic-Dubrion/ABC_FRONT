@@ -37,10 +37,14 @@ export const createScenario = createAsyncThunk(
 export const getAllScenarios = createAsyncThunk(
   'Scenario reducer /getAllScenarios', // nom de l'action
   async () => {
-    const { data } = await axiosInstance.get(
-      `/user/${localStorage.getItem('id')}/sequence/`
-    );
-    return data;
+    try {
+      const { data } = await axiosInstance.get(
+        `/user/${localStorage.getItem('id')}/sequence/`
+      );
+      return data;
+    } catch (error) {
+      console.log('error :', error);
+    }
   }
 );
 
@@ -51,7 +55,7 @@ export const getOneScenario = createAsyncThunk(
       const response = await axiosInstance.get(
         `/user/${localStorage.getItem('id')}/sequence/${sequenceId}`
       );
-      console.log('response.data :', response.data);
+
       return response.data;
     } catch (error) {
       console.log('error :', error);
@@ -81,6 +85,7 @@ export const updateScenario = createAsyncThunk(
         `/user/${localStorage.getItem('id')}/sequence/${sequenceId}`,
         { name }
       );
+      console.log('response :', response);
       return response.data;
     } catch (error) {
       console.log('error :', error);
