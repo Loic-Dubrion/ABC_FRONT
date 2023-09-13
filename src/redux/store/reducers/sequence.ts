@@ -84,7 +84,6 @@ export const updateSequence = createAsyncThunk(
         `/user/${localStorage.getItem('id')}/sequence/${sequenceId}`,
         { name }
       );
-      console.log('response :', response);
       return response.data;
     } catch (error) {
       console.log('error :', error);
@@ -111,9 +110,7 @@ const sequenceReducer = createReducer(initialState, (builder) => {
     .addCase(deleteSequence.fulfilled, (state, action) => {
       state.message = action.payload;
     })
-    .addCase(updateSequence.fulfilled, (action) => {
-      console.log('action :', action);
-    });
+    .addCase(updateSequence.fulfilled, () => {});
 });
 
 export default sequenceReducer;

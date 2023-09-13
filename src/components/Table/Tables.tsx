@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 // Module && Library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
+import { motion } from 'framer-motion';
 // React router
 import { useParams } from 'react-router-dom';
 // Redux
@@ -14,6 +15,7 @@ import SequenceModal from '../Modals/SequenceModal';
 import Colgroup from './Colgroup';
 import Thead from './Thead';
 import Tbody from './Tbody';
+import { container } from '../../utils/motion-container';
 
 function Tables() {
   const dispatch = useAppDispatch();
@@ -29,7 +31,12 @@ function Tables() {
   }, [dispatch, id, isLogged]);
 
   return (
-    <div className="overflow-y-auto w-full">
+    <motion.div
+      className="overflow-y-auto w-full"
+      animate="show"
+      variants={container}
+      initial="hidden"
+    >
       <div className="flex gap-3 items-center">
         <h2 className="text-4xl m-3 font-bold">
           {localStorage.getItem('sequence_name')}
@@ -53,16 +60,11 @@ function Tables() {
           <Colgroup />
           <Thead />
           {sequence.map((e, index) => (
-            <Tbody
-              key={index}
-              sequence_id={e.sequence_id}
-              sequence_name={e.sequence_name}
-              sessions={e.sessions}
-            />
+            <Tbody key={index} sessions={e.sessions} />
           ))}
         </table>
       )}
-    </div>
+    </motion.div>
   );
 }
 

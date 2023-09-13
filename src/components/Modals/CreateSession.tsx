@@ -105,13 +105,27 @@ function CreateSession({ isOpen, onClose, color }: ICreateSession) {
           <option>Individuel</option>
           <option>Groupe</option>
         </select>
+        <label
+          htmlFor="equipment"
+          className="block mb-2 text-sm font-medium text-white"
+        >
+          Matériel
+        </label>
+        <textarea
+          name="equipement"
+          placeholder="Ecrivez vos matériels"
+          className="input input-bordered w-2/5 mt-1 align-middle"
+          onChange={(e) =>
+            setSessionData({ ...sessionData, equipment: e.target.value })
+          }
+        />
         <label htmlFor="button"></label>
         <button
           className="btn float-right"
           onClick={() => {
             dispatch(createSession(sessionData));
-            onClose()
-            window.location.reload()
+            onClose();
+            window.location.reload();
           }}
         >
           Valider

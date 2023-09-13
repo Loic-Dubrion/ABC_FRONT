@@ -41,7 +41,6 @@ function Sequences() {
               <th>ID</th>
               <th>Nom</th>
               <th>Date de création</th>
-              <th>Date de mise à jour</th>
             </tr>
           </thead>
           <tbody>
@@ -88,11 +87,9 @@ function Sequences() {
                   <td>
                     <Link
                       to={`/sequence/${sequence.id}`}
-                      className="table-row-link"
+                      className="table-row-link text-blue-700"
                     >
-                      {sequence.updated_at
-                        ? moment(sequence.updated_at).format('DD/MM/YYYY HH:mm')
-                        : 'Pas de mise à jour'}
+                      Cliequez ici pour voir le scénario
                     </Link>
                   </td>
                 </tr>
