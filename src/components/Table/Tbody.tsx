@@ -1,14 +1,12 @@
-// Module & Library
-import {
-  faTrashCan,
-  faCheck,
-  faPencil,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// React Hooks
 import { useState } from 'react';
 
+// Module & Library
+import { faTrashCan, faPencil } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 // Redux
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useAppDispatch } from '../../redux/hooks';
 import {
   createSession,
   deleteSession,
@@ -21,18 +19,13 @@ interface ITbody {
   sessions: ISession[];
 }
 
-function Tbody({ sequence_id, sequence_name, sessions }: ITbody) {
+function Tbody({ sequence_id, sessions }: ITbody) {
   const dispatch = useAppDispatch();
-  const oneCard = useAppSelector((state) => state.card.card);
-  const cardId =
-    oneCard && oneCard.length > 0 && oneCard[0].get_activities.card_id;
-  const color =
-    oneCard && oneCard.length > 0 && oneCard[0].get_activities.color;
 
   const [sessionData, setSessionData] = useState({
     name: '',
     sequence_id: sequence_id,
-    card_id: Number(cardId),
+    card_id: Number(localStorage.getItem('card_id')),
     tool_id: Number(localStorage.getItem('tool_id')),
     comments: '',
     time: 0,
@@ -73,26 +66,18 @@ function Tbody({ sequence_id, sequence_name, sessions }: ITbody) {
                   />
                 </button>
               )}
-              <button className="btn" onClick={handleCheckClick}>
-                <FontAwesomeIcon
-                  icon={faCheck}
-                  beat
-                  size="lg"
-                  style={{ color: '#000000' }}
-                />
-              </button>
             </td>
             <td
               style={{
-                background: color as string,
+                background: '#f0f',
                 borderRadius: '1rem',
               }}
             >
               <p className="text-white font-bold">{session.card_name}</p>
             </td>
             <td>
-              {sequence_name ? (
-                <p>{sequence_name}</p>
+              {session.session_name ? (
+                <p>{session.session_name}</p>
               ) : (
                 <input
                   onChange={(e) =>
@@ -111,7 +96,10 @@ function Tbody({ sequence_id, sequence_name, sessions }: ITbody) {
               ) : (
                 <input
                   onChange={(e) =>
-                    setSessionData({ ...sessionData, comments: e.target.value })
+                    setSessionData({
+                      ...sessionData,
+                      comments: e.target.value,
+                    })
                   }
                   placeholder="Ecrivez vos remarques"
                   className="input input-bordered w-full mt-1 align-middle overflow-auto"

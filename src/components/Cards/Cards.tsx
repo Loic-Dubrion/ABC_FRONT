@@ -52,6 +52,7 @@ function Cards() {
                       dispatch(getOneCard(card.id.toString()));
                       setTimeout(() => {
                         cardRef.current?.showModal();
+                        localStorage.setItem('card_id', card.id.toString());
                       }, 100);
                     }}
                     className={`btn ${isChecked && 'bg-[#f87272]'}`}

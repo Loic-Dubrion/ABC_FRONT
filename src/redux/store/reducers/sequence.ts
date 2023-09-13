@@ -26,7 +26,7 @@ export const createScenario = createAsyncThunk(
         `/user/${localStorage.getItem('id')}/sequence`,
         scenarioData
       );
-      console.log('response :', response);
+
       return response.data;
     } catch (error) {
       console.log('error :', error);
@@ -103,12 +103,12 @@ const scenarioReducer = createReducer(initialState, (builder) => {
       state.scenario = action.payload;
     })
     .addCase(createScenario.fulfilled, (state, action) => {
-      action.payload.map(
-        (e: { id: number | null; name: string | null }) => (
-          (state.scenarioId = e.id), (state.scenarioName = e.name)
-        )
-      );
+      action.payload.map((e: { id: number; name: string }) => {
+        state.scenarioId = e.id;
+        state.scenarioName = e.name;
+      });
     })
+
     .addCase(deleteScenario.fulfilled, (state, action) => {
       state.message = action.payload;
     })

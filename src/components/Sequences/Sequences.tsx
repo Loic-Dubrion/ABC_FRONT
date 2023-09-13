@@ -53,6 +53,7 @@ function Sequences() {
                       className="btn bg-transparent border-none"
                       onClick={() => {
                         handleDeleteSequence(sequence.id as number);
+                        localStorage.removeItem('sequence_name');
                       }}
                     >
                       <FontAwesomeIcon icon={faTrashCan} size="lg" />

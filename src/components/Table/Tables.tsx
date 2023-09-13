@@ -20,6 +20,7 @@ function Tables() {
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const { id } = useParams();
   const sequence = useAppSelector((state) => state.scenario.scenario);
+  console.log('sequence :', sequence);
 
   useEffect(() => {
     if (isLogged) {
@@ -30,7 +31,9 @@ function Tables() {
   return (
     <div className="overflow-y-auto w-full">
       <div className="flex gap-3 items-center">
-        <h2 className="text-4xl m-3 font-bold">{sequence[0]?.sequence_name}</h2>
+        <h2 className="text-4xl m-3 font-bold">
+          {localStorage.getItem('sequence_name')}
+        </h2>
         <button>
           <FontAwesomeIcon
             icon={faPencil}

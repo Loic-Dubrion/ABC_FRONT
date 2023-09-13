@@ -1,3 +1,8 @@
+import { useState } from 'react';
+import { createSession } from '../../redux/store/reducers/session';
+import { useAppDispatch } from '../../redux/hooks';
+import { useParams } from 'react-router-dom';
+
 interface ICreateSession {
   isOpen: boolean;
   onClose: () => void;
@@ -5,6 +10,20 @@ interface ICreateSession {
 }
 
 function CreateSession({ isOpen, onClose, color }: ICreateSession) {
+  const dispatch = useAppDispatch();
+  const { id } = useParams();
+  const [sessionData, setSessionData] = useState({
+    name: '',
+    sequence_id: Number(id),
+    card_id: Number(localStorage.getItem('card_id')),
+    tool_id: Number(localStorage.getItem('tool_id')),
+    comments: '',
+    time: 0,
+    is_face_to_face: true,
+    is_group_work: false,
+    equipment: '',
+  });
+
   return (
     <dialog id="my_modal_2" className="modal" open={isOpen}>
       <div
@@ -21,6 +40,9 @@ function CreateSession({ isOpen, onClose, color }: ICreateSession) {
           name="name"
           placeholder="Ecrivez le nom de la session"
           className="input input-bordered w-full mt-1 align-middle"
+          onChange={(e) =>
+            setSessionData({ ...sessionData, name: e.target.value })
+          }
         />
         <label
           htmlFor="comments"
@@ -32,6 +54,9 @@ function CreateSession({ isOpen, onClose, color }: ICreateSession) {
           name="comments"
           placeholder="Ecrivez vos commentaire"
           className="input input-bordered w-full mt-1 align-middle"
+          onChange={(e) =>
+            setSessionData({ ...sessionData, comments: e.target.value })
+          }
         />
         <label
           htmlFor="number"
@@ -46,13 +71,21 @@ function CreateSession({ isOpen, onClose, color }: ICreateSession) {
           max={100}
           placeholder="Minutes"
           className="input input-bordered w-full max-w-xs"
+          onChange={(e) =>
+            setSessionData({ ...sessionData, time: Number(e.target.value) })
+          }
         />
         <label className="block mb-2 text-sm font-medium text-white">
           Présentiel / Distanciel
         </label>
         <select
           className="select select-bordered w-full max-w-xs"
-          defaultValue={'Présentiel'}
+          onChange={(e) =>
+            setSessionData({
+              ...sessionData,
+              is_face_to_face: e.target.value === 'Présentiel',
+            })
+          }
         >
           <option>Présentiel</option>
           <option>Distanciel</option>
@@ -62,11 +95,27 @@ function CreateSession({ isOpen, onClose, color }: ICreateSession) {
         </label>
         <select
           className="select select-bordered w-full max-w-xs"
-          defaultValue={'individuel'}
+          onChange={(e) =>
+            setSessionData({
+              ...sessionData,
+              is_group_work: e.target.value === 'Groupe',
+            })
+          }
         >
           <option>Individuel</option>
           <option>Groupe</option>
         </select>
+        <label htmlFor="button"></label>
+        <button
+          className="btn float-right"
+          onClick={() => {
+            dispatch(createSession(sessionData));
+            onClose()
+            window.location.reload()
+          }}
+        >
+          Valider
+        </button>
       </div>
       <form method="dialog" className="modal-backdrop">
         <button onClick={onClose}></button>
