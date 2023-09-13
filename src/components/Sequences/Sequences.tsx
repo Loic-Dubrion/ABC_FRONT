@@ -89,7 +89,7 @@ function Sequences() {
                       to={`/sequence/${sequence.id}`}
                       className="table-row-link text-blue-700"
                     >
-                      Cliequez ici pour voir le scénario
+                      Cliquez ici pour voir le scénario
                     </Link>
                   </td>
                 </tr>

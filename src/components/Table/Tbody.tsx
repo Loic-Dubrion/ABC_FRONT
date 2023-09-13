@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAppDispatch } from '../../redux/hooks';
 import { deleteSession } from '../../redux/store/reducers/session';
 import { ISession } from '../@types/session';
+import CreateSession from '../Modals/CreateSession';
+import { useState } from 'react';
 
 interface ITbody {
   sessions: ISession[];
@@ -15,6 +17,7 @@ interface ITbody {
 
 function Tbody({ sessions }: ITbody) {
   const dispatch = useAppDispatch();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
@@ -34,7 +37,12 @@ function Tbody({ sessions }: ITbody) {
             </th>
             <td>
               {session.session_id && (
-                <button className="btn">
+                <button
+                  className="btn"
+                  onClick={() => {
+                    setIsOpen(true);
+                  }}
+                >
                   <FontAwesomeIcon
                     icon={faPencil}
                     beat
@@ -76,6 +84,12 @@ function Tbody({ sessions }: ITbody) {
           </tr>
         </tbody>
       ))}
+      <CreateSession
+        isOpen={isOpen}
+        onClose={() => {
+          setIsOpen(false);
+        }}
+      />
     </>
   );
 }
