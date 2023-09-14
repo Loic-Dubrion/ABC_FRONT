@@ -14,7 +14,6 @@ function Sequences() {
   const dispatch = useAppDispatch();
   const message = useAppSelector((state) => state.sequence.message);
   const sequences = useAppSelector((state) => state.sequence.sequences);
-  console.log('scenar :', sequences);
   const isLogged = useAppSelector((state) => state.user.isLogged);
 
   useEffect(() => {

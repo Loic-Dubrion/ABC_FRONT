@@ -82,14 +82,14 @@ function Tbody({ sessions }: ITbody) {
               <p>{session.equipment}</p>
             </td>
           </tr>
+          <CreateSession
+            isOpen={isOpen}
+            onClose={() => {
+              setIsOpen(false);
+            }}
+          />
         </tbody>
       ))}
-      <CreateSession
-        isOpen={isOpen}
-        onClose={() => {
-          setIsOpen(false);
-        }}
-      />
     </>
   );
 }

@@ -1,25 +1,40 @@
 // React Hooks
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 // Reducers actions
-import { updateSequence } from '../../redux/store/reducers/sequence';
+import {
+  toggleUpdateSequenceMenu,
+  updateSequence,
+} from '../../redux/store/reducers/sequence';
 import { useAppDispatch } from '../../redux/hooks';
 
-interface ISequenceModal {
+interface SequenceModal {
   isOpen: boolean;
-  onClose: () => void;
 }
 
-function SequenceModal({ isOpen, onClose }: ISequenceModal) {
+function SequenceModal({ isOpen }: SequenceModal) {
   const { id } = useParams();
+  const dialogRef = useRef(null);
   const dispatch = useAppDispatch();
   const [scenarioData, setScenarioData] = useState({
     name: '',
     sequenceId: '',
   });
 
+  function closeModal() {
+    isOpen === false;
+  }
+
   return (
-    <dialog id="sqfqsfqsaz" className="modal" open={isOpen}>
+    <dialog
+      id="sqfqsfqsaz"
+      className="modal"
+      open={isOpen}
+      ref={dialogRef}
+      onClick={() => {
+        closeModal();
+      }}
+    >
       <div className="modal-box">
         <form action="post">
           <h3 className="font-bold text-lg mb-2">
@@ -44,7 +59,6 @@ function SequenceModal({ isOpen, onClose }: ISequenceModal) {
             onClick={(event) => {
               event.preventDefault();
               dispatch(updateSequence(scenarioData));
-              onClose();
             }}
           >
             Valider
@@ -52,7 +66,13 @@ function SequenceModal({ isOpen, onClose }: ISequenceModal) {
         </form>
       </div>
       <form method="dialog" className="modal-backdrop">
-        <button>close</button>
+        <button
+          onClick={() => {
+            dispatch(toggleUpdateSequenceMenu(isOpen));
+          }}
+        >
+          close
+        </button>
       </form>
     </dialog>
   );

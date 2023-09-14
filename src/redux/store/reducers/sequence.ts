@@ -1,4 +1,8 @@
-import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
+import {
+  createAction,
+  createAsyncThunk,
+  createReducer,
+} from '@reduxjs/toolkit';
 import axiosInstance from '../../../utils/axios';
 import { ISequence } from '../../../components/@types/sequence';
 
@@ -8,6 +12,7 @@ interface SequenceState {
   sequences: ISequences[];
   sequence: ISequence[];
   message: string | null;
+  toggle: boolean;
 }
 
 const initialState: SequenceState = {
@@ -16,6 +21,7 @@ const initialState: SequenceState = {
   sequences: [],
   sequence: [],
   message: null,
+  toggle: false,
 };
 
 export const createSequence = createAsyncThunk(
@@ -26,7 +32,6 @@ export const createSequence = createAsyncThunk(
         `/user/${localStorage.getItem('id')}/sequence`,
         sequenceData
       );
-
       return response.data;
     } catch (error) {
       console.log('error :', error);
@@ -91,6 +96,10 @@ export const updateSequence = createAsyncThunk(
   }
 );
 
+export const toggleUpdateSequenceMenu = createAction<boolean>(
+  'Sequence reducer/Toggle modal state'
+);
+
 const sequenceReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(getAllSequences.fulfilled, (state, action) => {
@@ -106,11 +115,13 @@ const sequenceReducer = createReducer(initialState, (builder) => {
         state.sequenceName = e.name;
       });
     })
-
     .addCase(deleteSequence.fulfilled, (state, action) => {
       state.message = action.payload;
     })
-    .addCase(updateSequence.fulfilled, () => {});
+    .addCase(updateSequence.fulfilled, () => {})
+    .addCase(toggleUpdateSequenceMenu, (state) => {
+      state.toggle = !state.toggle;
+    });
 });
 
 export default sequenceReducer;
