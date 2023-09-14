@@ -10,8 +10,6 @@ interface ITbody {
 }
 
 function Tbody({ sessions }: ITbody) {
-  console.log('sessions :', sessions);
-  console.log('card_id :', localStorage.getItem('card_id'));
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.session.isOpen);
 
@@ -36,9 +34,7 @@ function Tbody({ sessions }: ITbody) {
                 className="btn"
                 onClick={() => {
                   dispatch(openModal(isOpen));
-                  dispatch(
-                    getOneCard(localStorage.getItem('card_id') as string)
-                  );
+                  dispatch(getOneCard(session.card_id.toString()));
                 }}
               >
                 <FontAwesomeIcon

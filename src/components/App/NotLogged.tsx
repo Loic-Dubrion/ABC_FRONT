@@ -1,3 +1,5 @@
+import Login from '../Modals/Login';
+
 function NotLogged() {
   return (
     <section className="container m-auto">
@@ -14,6 +16,9 @@ function NotLogged() {
               vous aider.
             </p>
           }
+        </div>
+        <div className="w-40 m-auto">
+          <Login />
         </div>
       </div>
     </section>

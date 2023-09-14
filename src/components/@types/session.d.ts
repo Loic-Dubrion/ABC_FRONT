@@ -10,4 +10,5 @@ export interface ISession {
   time: number;
   tool_name: string;
   color: string;
+  card_id: number;
 }

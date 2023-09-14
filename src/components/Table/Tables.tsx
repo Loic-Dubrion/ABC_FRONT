@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 // Module && Library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
+
 // React router
 import { useParams } from 'react-router-dom';
 // Redux

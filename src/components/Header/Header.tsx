@@ -1,5 +1,5 @@
 // React Hooks
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 // React Router
 import { Link } from 'react-router-dom';
 //Redux
@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGraduationCap, faBookOpen } from '@fortawesome/free-solid-svg-icons';
 // Composants
 import Login from '../Modals/Login';
-import Register from '../Modals/Register';
 import WhenIsLogged from '../Modals/WhenIsLogged';
 // Logo
 import logo from '../../assets/logo.png';
@@ -96,12 +95,7 @@ function Header() {
                 tabIndex={0}
                 className={`menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4`}
               >
-                {!isLogged && (
-                  <React.Fragment>
-                    <Login />
-                    <Register />
-                  </React.Fragment>
-                )}
+                {!isLogged && <Login />}
                 {isLogged && <WhenIsLogged />}
               </div>
             )}

@@ -24,7 +24,7 @@ function CreateSession({ isOpen, color, card_id }: ICreateSession) {
     is_group_work: false,
     equipment: '',
   });
-  console.log('sessionData :', sessionData);
+
   return (
     <dialog id="my_modal_2" className="modal" open={isOpen}>
       <div

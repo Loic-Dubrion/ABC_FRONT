@@ -58,7 +58,7 @@ export const updateSession = createAsyncThunk(
   'Session reducer / The session was updated', // nom de l'action
   async (sessionData: {
     name: string;
-    activity_id: number;
+    tool_id: number;
     comments: string;
     time: number;
     is_face_to_face: boolean;

@@ -9,14 +9,13 @@ interface IUpdate {
   isOpen: boolean;
 }
 
-function UpdateSession({ isOpen, sequence }: IUpdate) {
-  console.log('sequence :', sequence);
+function UpdateSession({ isOpen }: IUpdate) {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const [sessionData, setSessionData] = useState({
     name: '',
     sequence_id: Number(id),
-    activity_id: Number(localStorage.getItem('tool_id')),
+    tool_id: Number(localStorage.getItem('tool_id')),
     comments: '',
     time: 0,
     is_face_to_face: true,
