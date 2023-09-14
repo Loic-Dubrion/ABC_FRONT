@@ -40,7 +40,7 @@ function CreateSession({ isOpen, color, card_id }: ICreateSession) {
         <input
           name="name"
           placeholder="Ecrivez le nom de la session"
-          className="input input-bordered w-full mt-1 align-middle"
+          className="input input-bordered w-full mt-1 align-middle mb-4"
           onChange={(e) =>
             setSessionData({
               ...sessionData,
@@ -59,7 +59,7 @@ function CreateSession({ isOpen, color, card_id }: ICreateSession) {
         <textarea
           name="comments"
           placeholder="Ecrivez vos commentaire"
-          className="input input-bordered w-full mt-1 align-middle"
+          className="input input-bordered w-full mt-1 align-middle mb-4"
           onChange={(e) =>
             setSessionData({
               ...sessionData,
@@ -81,7 +81,7 @@ function CreateSession({ isOpen, color, card_id }: ICreateSession) {
           min={0}
           max={100}
           placeholder="Minutes"
-          className="input input-bordered w-full max-w-xs"
+          className="input input-bordered w-full max-w-xs mb-4"
           onChange={(e) =>
             setSessionData({
               ...sessionData,
@@ -95,7 +95,7 @@ function CreateSession({ isOpen, color, card_id }: ICreateSession) {
           Présentiel / Distanciel
         </label>
         <select
-          className="select select-bordered w-full max-w-xs"
+          className="select select-bordered w-full max-w-xs mb-4"
           onChange={(e) =>
             setSessionData({
               ...sessionData,
@@ -112,7 +112,7 @@ function CreateSession({ isOpen, color, card_id }: ICreateSession) {
           Individuel / Groupe
         </label>
         <select
-          className="select select-bordered w-full max-w-xs"
+          className="select select-bordered w-full max-w-xs mb-4"
           onChange={(e) =>
             setSessionData({
               ...sessionData,
