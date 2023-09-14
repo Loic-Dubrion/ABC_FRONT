@@ -16,4 +16,5 @@ export interface Session {
   equipment: string;
   level_name: string;
   color: string;
+  card_id: number;
 }

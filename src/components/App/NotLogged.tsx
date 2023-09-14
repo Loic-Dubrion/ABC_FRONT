@@ -17,7 +17,7 @@ function NotLogged() {
             </p>
           }
         </div>
-        <div className="w-40 m-auto">
+        <div className="w-40 m-auto my-4">
           <Login />
         </div>
       </div>

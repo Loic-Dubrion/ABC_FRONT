@@ -2,15 +2,15 @@ import { useState } from 'react';
 import { openModal, updateSession } from '../../redux/store/reducers/session';
 import { useAppDispatch } from '../../redux/hooks';
 import { useParams } from 'react-router-dom';
-import { ISequence } from '../@types/sequence';
+
 
 interface IUpdate {
-  sequence: ISequence[];
   isOpen: boolean;
 }
 
 function UpdateSession({ isOpen }: IUpdate) {
   const dispatch = useAppDispatch();
+  const color = localStorage.getItem('color');
   const { id } = useParams();
   const [sessionData, setSessionData] = useState({
     name: '',
@@ -27,7 +27,7 @@ function UpdateSession({ isOpen }: IUpdate) {
     <dialog id="my_modal_2" className="modal" open={isOpen}>
       <div
         className="modal-box w-full max-w-5xl"
-        style={{ backgroundColor: '#f0f' }}
+        style={{ backgroundColor: color ? color : '' }}
       >
         <label htmlFor="name" className="block  text-sm font-medium text-white">
           Nom de la session

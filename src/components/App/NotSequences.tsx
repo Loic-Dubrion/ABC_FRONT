@@ -9,7 +9,7 @@ function NotSequences() {
             Il n'y a pas de scénarios enregistrés.
           </p>
         </div>
-        <div className="w-48 m-auto mt-4">
+        <div className="w-48 m-auto my-4">
           <CreateSequence />
         </div>
       </div>

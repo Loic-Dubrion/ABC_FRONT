@@ -64,7 +64,7 @@ function Tables() {
           ))}
         </table>
       )}
-      <UpdateSession sequence={sequence} isOpen={isOpen} />
+      <UpdateSession isOpen={isOpen} />
     </div>
   );
 }
