@@ -1,3 +1,5 @@
+import CreateSequence from '../Modals/CreateSequence';
+
 function NotSequences() {
   return (
     <section className="container m-auto">
@@ -6,6 +8,9 @@ function NotSequences() {
           <p className="text-center font-bold">
             Il n'y a pas de scénarios enregistrés.
           </p>
+        </div>
+        <div className="w-48 m-auto mt-4">
+          <CreateSequence />
         </div>
       </div>
     </section>
