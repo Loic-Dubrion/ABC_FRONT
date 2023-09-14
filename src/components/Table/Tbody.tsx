@@ -11,6 +11,7 @@ interface ITbody {
 
 function Tbody({ sessions }: ITbody) {
   console.log('sessions :', sessions);
+  console.log('card_id :', localStorage.getItem('card_id'));
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.session.isOpen);
 

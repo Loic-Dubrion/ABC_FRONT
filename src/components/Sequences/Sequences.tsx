@@ -58,35 +58,28 @@ function Sequences() {
                     </button>
                   </td>
                   <td>
-                    <Link
-                      to={`/sequence/${sequence.id}`}
-                      className="table-row-link"
-                    >
-                      {sequence.id}
-                    </Link>
+                    <p className="table-row-link">{sequence.id}</p>
                   </td>
                   <td>
-                    <Link
-                      to={`/sequence/${sequence.id}`}
-                      className="table-row-link"
-                    >
-                      {sequence.name}
-                    </Link>
+                    <p className="table-row-link">{sequence.name}</p>
                   </td>
                   <td>
-                    <Link
-                      to={`/sequence/${sequence.id}`}
-                      className="table-row-link"
-                    >
+                    <p className="table-row-link">
                       {moment(sequence.created_at).format(
                         'DD/MM/YYYY HH:mm:ss'
                       )}
-                    </Link>
+                    </p>
                   </td>
                   <td>
                     <Link
                       to={`/sequence/${sequence.id}`}
                       className="table-row-link text-blue-700"
+                      onClick={() => {
+                        localStorage.setItem(
+                          'sequence_name',
+                          sequence.name as string
+                        );
+                      }}
                     >
                       Cliquez ici pour voir le scénario
                     </Link>

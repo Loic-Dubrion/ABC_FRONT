@@ -55,7 +55,7 @@ function Tables() {
       </div>
 
       {sequence.length > 0 && (
-        <table className="table w-full">
+        <table className="table w-full overflow-auto">
           <Colgroup />
           <Thead />
           {sequence.map((e, index) => (

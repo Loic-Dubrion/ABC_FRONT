@@ -9,7 +9,8 @@ interface IUpdate {
   isOpen: boolean;
 }
 
-function UpdateSession({ isOpen }: IUpdate) {
+function UpdateSession({ isOpen, sequence }: IUpdate) {
+  console.log('sequence :', sequence);
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const [sessionData, setSessionData] = useState({
@@ -29,37 +30,37 @@ function UpdateSession({ isOpen }: IUpdate) {
         className="modal-box w-full max-w-5xl"
         style={{ backgroundColor: '#f0f' }}
       >
-        <label
-          htmlFor="name"
-          className="block mb-2 text-sm font-medium text-white"
-        >
+        <label htmlFor="name" className="block  text-sm font-medium text-white">
           Nom de la session
         </label>
         <input
           name="name"
           placeholder="Ecrivez le nom de la session"
-          className="input input-bordered w-full mt-1 align-middle"
+          className="input input-bordered w-full mt-1 align-middle mb-4"
           onChange={(e) =>
-            setSessionData({ ...sessionData, name: e.target.value })
+            setSessionData({
+              ...sessionData,
+              name: e.target.value,
+            })
           }
         />
         <label
           htmlFor="comments"
-          className="block mb-2 text-sm font-medium text-white"
+          className="block  text-sm font-medium text-white "
         >
           Remarques
         </label>
         <textarea
           name="comments"
           placeholder="Ecrivez vos commentaire"
-          className="input input-bordered w-full mt-1 align-middle"
+          className="input input-bordered w-full mt-1 align-middle mb-4"
           onChange={(e) =>
             setSessionData({ ...sessionData, comments: e.target.value })
           }
         />
         <label
           htmlFor="number"
-          className="block mb-2 text-sm font-medium  text-white"
+          className="block  text-sm font-medium  text-white"
         >
           Durée en minutes
         </label>
@@ -69,16 +70,16 @@ function UpdateSession({ isOpen }: IUpdate) {
           min={0}
           max={100}
           placeholder="Minutes"
-          className="input input-bordered w-full max-w-xs"
+          className="input input-bordered w-full max-w-xs mb-4"
           onChange={(e) =>
             setSessionData({ ...sessionData, time: Number(e.target.value) })
           }
         />
-        <label className="block mb-2 text-sm font-medium text-white">
+        <label className="block  text-sm font-medium text-white">
           Présentiel / Distanciel
         </label>
         <select
-          className="select select-bordered w-full max-w-xs"
+          className="select select-bordered w-full max-w-xs mb-4"
           onChange={(e) =>
             setSessionData({
               ...sessionData,
@@ -89,11 +90,11 @@ function UpdateSession({ isOpen }: IUpdate) {
           <option>Présentiel</option>
           <option>Distanciel</option>
         </select>
-        <label className="block mb-2 text-sm font-medium  text-white">
+        <label className="block  text-sm font-medium  text-white">
           Individuel / Groupe
         </label>
         <select
-          className="select select-bordered w-full max-w-xs"
+          className="select select-bordered w-full max-w-xs mb-4"
           onChange={(e) =>
             setSessionData({
               ...sessionData,
@@ -106,14 +107,14 @@ function UpdateSession({ isOpen }: IUpdate) {
         </select>
         <label
           htmlFor="equipment"
-          className="block mb-2 text-sm font-medium text-white"
+          className="block text-sm font-medium text-white "
         >
           Matériel
         </label>
         <textarea
           name="equipement"
           placeholder="Ecrivez vos matériels"
-          className="input input-bordered w-2/5 mt-1 align-middle"
+          className="input input-bordered w-2/5 mt-1 align-middle mb-4"
           onChange={(e) =>
             setSessionData({ ...sessionData, equipment: e.target.value })
           }

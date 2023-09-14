@@ -74,20 +74,7 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(logout, (state) => {
       state.isOpen = false;
       state.isLogged = null;
-      state.username = null;
-      state.id = null;
-      state.accessToken = '';
-      state.refreshToken = '';
-      state.permissions = null;
-      state.roles = [];
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
-      localStorage.removeItem('roles');
-      localStorage.removeItem('permissions');
-      localStorage.removeItem('id');
-      localStorage.removeItem('username');
-      localStorage.removeItem('tool_id');
-      localStorage.removeItem('card_id');
+      localStorage.clear();
     })
     .addCase(toggleDropDown, (state) => {
       state.isOpen = !state.isOpen;
