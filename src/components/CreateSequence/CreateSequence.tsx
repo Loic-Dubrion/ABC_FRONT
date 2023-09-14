@@ -21,7 +21,7 @@ function CreateSequence() {
 
   if (location.pathname === '/sequence') {
     history.pushState(
-      { name: 'sequenceId' },
+      { name: 'exemple' },
       'pushState sequenceId',
       `/sequence/${sequenceId?.toString()}`
     );

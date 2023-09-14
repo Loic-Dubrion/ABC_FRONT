@@ -10,6 +10,7 @@ import { ICard } from '../../../components/@types/card';
 interface CardState {
   cards: ICards[] | null;
   card: ICard[] | null;
+  card_id: number;
   isChecked: boolean;
   toolId: string | number;
   isOpen: boolean;
@@ -21,6 +22,7 @@ const initialState: CardState = {
   isChecked: false,
   toolId: '',
   isOpen: false,
+  card_id: 0,
 };
 
 export const getAllCards = createAsyncThunk(
@@ -35,6 +37,9 @@ export const getOneCard = createAsyncThunk(
   'card/fetch a specific card',
   async (cardId: string) => {
     const response = await axiosInstance.get(`storyBoard/cards/${cardId}`);
+    response.data.map((e: { get_activities: { card_id: string } }) =>
+      localStorage.setItem('card_id', e.get_activities.card_id)
+    );
     return response.data;
   }
 );
@@ -61,9 +66,13 @@ const cardReducer = createReducer(initialState, (builder) => {
     })
     .addCase(getOneCard.fulfilled, (state, action) => {
       state.card = action.payload;
+      action.payload.map(
+        (e: { get_activities: { card_id: number } }) =>
+          (state.card_id = e.get_activities.card_id)
+      );
     })
     .addCase(getOneTool.fulfilled, (state, action) => {
-      state.toolId = action.payload.id;
+      state.toolId = action.payload;
     })
     .addCase(togglerCheckbox, (state) => {
       state.isChecked = !state.isChecked;

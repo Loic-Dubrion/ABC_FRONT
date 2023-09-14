@@ -24,9 +24,7 @@ function Tables() {
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const sequence = useAppSelector((state) => state.sequence.sequence);
-  console.log('sequence :', sequence);
   const toggleModal = useAppSelector((state) => state.sequence.toggle);
-  const sequenceName = localStorage.getItem('sequence_name');
   const isOpen = useAppSelector((state) => state.session.isOpen);
 
   useEffect(() => {
@@ -38,7 +36,9 @@ function Tables() {
   return (
     <div className="overflow-y-auto w-full">
       <div className="flex gap-3 items-center">
-        <h2 className="text-4xl m-3 font-bold">{sequenceName}</h2>
+        <h2 className="text-4xl m-3 font-bold">
+          {localStorage.getItem('sequence_name')}
+        </h2>
         <button
           onClick={() => {
             dispatch(toggleUpdateSequenceMenu(!toggleModal));

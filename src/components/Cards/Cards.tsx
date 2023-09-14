@@ -20,7 +20,7 @@ function Cards() {
   const allCards = useAppSelector((state) => state.card.cards);
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const isOpen = useAppSelector((state) => state.card.isOpen);
-  console.log('isOpen :', isOpen);
+  const cardId = useAppSelector((state) => state.card.card_id);
 
   useEffect(() => {
     if (!allCards && isLogged) {
@@ -48,7 +48,6 @@ function Cards() {
                       dispatch(getOneCard(card.id.toString()));
                       setTimeout(() => {
                         cardRef.current?.showModal();
-                        localStorage.setItem('card_id', card.id.toString());
                       }, 100);
                     }}
                     className={`btn ${isChecked && 'bg-[#f87272]'}`}
@@ -156,6 +155,7 @@ function Cards() {
                         : ''
                     }
                     isOpen={isOpen}
+                    card_id={cardId}
                   />
                 </div>
               </div>

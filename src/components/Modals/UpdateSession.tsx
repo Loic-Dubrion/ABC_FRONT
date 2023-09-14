@@ -9,8 +9,7 @@ interface IUpdate {
   isOpen: boolean;
 }
 
-function UpdateSession({ isOpen, sequence }: IUpdate) {
-  console.log('sequence :', sequence);
+function UpdateSession({ isOpen }: IUpdate) {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const [sessionData, setSessionData] = useState({

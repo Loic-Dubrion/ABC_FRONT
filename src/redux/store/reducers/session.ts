@@ -34,7 +34,7 @@ export const createSession = createAsyncThunk(
         sessionData
       );
 
-      console.log('response:', response);
+      localStorage.removeItem('card_id');
 
       return response.data;
     } catch (error) {

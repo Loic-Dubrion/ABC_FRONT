@@ -15,4 +15,5 @@ export interface Session {
   is_group_work: boolean;
   equipment: string;
   level_name: string;
+  color: string;
 }

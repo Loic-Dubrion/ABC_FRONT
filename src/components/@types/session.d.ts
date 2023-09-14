@@ -9,4 +9,5 @@ export interface ISession {
   session_name: string;
   time: number;
   tool_name: string;
+  color: string;
 }

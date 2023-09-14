@@ -3,15 +3,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { deleteSession, openModal } from '../../redux/store/reducers/session';
 import { ISession } from '../@types/session';
+import { getOneCard } from '../../redux/store/reducers/card';
 
 interface ITbody {
   sessions: ISession[];
 }
 
 function Tbody({ sessions }: ITbody) {
+  console.log('sessions :', sessions);
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.session.isOpen);
-  console.log('isOpen :', isOpen);
 
   return (
     <>
@@ -30,25 +31,26 @@ function Tbody({ sessions }: ITbody) {
               </button>
             </th>
             <td>
-              {session.session_id && (
-                <button
-                  className="btn"
-                  onClick={() => {
-                    dispatch(openModal(isOpen));
-                  }}
-                >
-                  <FontAwesomeIcon
-                    icon={faPencil}
-                    beat
-                    size="lg"
-                    style={{ color: '#000000' }}
-                  />
-                </button>
-              )}
+              <button
+                className="btn"
+                onClick={() => {
+                  dispatch(openModal(isOpen));
+                  dispatch(
+                    getOneCard(localStorage.getItem('card_id') as string)
+                  );
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={faPencil}
+                  beat
+                  size="lg"
+                  style={{ color: '#000000' }}
+                />
+              </button>
             </td>
             <td
               style={{
-                background: '#f0f',
+                background: session.color,
                 borderRadius: '1rem',
               }}
             >

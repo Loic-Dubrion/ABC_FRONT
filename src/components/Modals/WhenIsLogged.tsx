@@ -4,8 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 // Reducers actions
 import { logout, toggleDropDown } from '../../redux/store/reducers/user';
-// Module & Library
-import { motion } from 'framer-motion';
+
 // React Hooks
 import { useRef, useState } from 'react';
 import { createSequence } from '../../redux/store/reducers/sequence';
@@ -27,23 +26,8 @@ function WhenIsLogged() {
     }
   }
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        duration: 1,
-      },
-    },
-  };
-
   return (
-    <motion.div
-      animate="show"
-      variants={container}
-      initial="hidden"
-      className="whenIsLogged"
-    >
+    <div className="whenIsLogged">
       <button
         className="btn btn-ghost w-full"
         onClick={() => {
@@ -63,7 +47,7 @@ function WhenIsLogged() {
               dispatch(createSequence(scenarioData));
               setTimeout(() => {
                 window.location.reload();
-              }, 100);
+              }, 200);
             }}
           >
             <h3 className="font-bold text-lg mb-2">Créer un scénario</h3>
@@ -95,7 +79,7 @@ function WhenIsLogged() {
       >
         <Link to="/">Déconnexion</Link>
       </button>
-    </motion.div>
+    </div>
   );
 }
 
