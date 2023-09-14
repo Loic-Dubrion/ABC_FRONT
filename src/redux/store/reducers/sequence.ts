@@ -89,6 +89,7 @@ export const updateSequence = createAsyncThunk(
         `/user/${localStorage.getItem('id')}/sequence/${sequenceId}`,
         { name }
       );
+      console.log('response :', response);
       return response.data;
     } catch (error) {
       console.log('error :', error);
@@ -112,13 +113,19 @@ const sequenceReducer = createReducer(initialState, (builder) => {
     .addCase(createSequence.fulfilled, (state, action) => {
       action.payload.map((e: { id: number; name: string }) => {
         state.sequenceId = e.id;
-        state.sequenceName = e.name;
+        localStorage.setItem('sequence_name', e.name);
       });
     })
     .addCase(deleteSequence.fulfilled, (state, action) => {
       state.message = action.payload;
     })
-    .addCase(updateSequence.fulfilled, () => {})
+    .addCase(updateSequence.fulfilled, (state, action) => {
+      action.payload.map((element: { name: string; id: number }) => {
+        state.sequenceId = element.id;
+        localStorage.setItem('sequence_name', element.name);
+      });
+    })
+
     .addCase(toggleUpdateSequenceMenu, (state) => {
       state.toggle = !state.toggle;
     });

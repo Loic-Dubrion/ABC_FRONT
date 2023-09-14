@@ -70,7 +70,6 @@ function WhenIsLogged() {
               name="name"
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 setScenarioData({ ...scenarioData, name: event.target.value });
-                localStorage.setItem('sequence_name', event.target.value);
               }}
               placeholder="Entrez le nom de scénario"
               className="input input-bordered w-full max-w-xs"

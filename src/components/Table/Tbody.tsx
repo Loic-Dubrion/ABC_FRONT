@@ -1,15 +1,11 @@
-// React Hooks
-
-// Module & Library
+import { useState } from 'react';
 import { faTrashCan, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-// Redux
 import { useAppDispatch } from '../../redux/hooks';
 import { deleteSession } from '../../redux/store/reducers/session';
 import { ISession } from '../@types/session';
 import CreateSession from '../Modals/CreateSession';
-import { useState } from 'react';
+import UpdateSession from '../Modals/UpdateSession';
 
 interface ITbody {
   sessions: ISession[];
@@ -18,6 +14,7 @@ interface ITbody {
 function Tbody({ sessions }: ITbody) {
   const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
+  console.log('sessions :', sessions);
 
   return (
     <>
@@ -82,14 +79,15 @@ function Tbody({ sessions }: ITbody) {
               <p>{session.equipment}</p>
             </td>
           </tr>
-          <CreateSession
-            isOpen={isOpen}
-            onClose={() => {
-              setIsOpen(false);
-            }}
-          />
         </tbody>
       ))}
+      <UpdateSession
+        sessions={sessions}
+        isOpen={isOpen}
+        onClose={() => {
+          setIsOpen(false);
+        }}
+      />
     </>
   );
 }

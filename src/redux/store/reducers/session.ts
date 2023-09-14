@@ -48,6 +48,32 @@ export const deleteSession = createAsyncThunk(
   }
 );
 
+export const updateSession = createAsyncThunk(
+  'sessionReducer/createNewSession', // nom de l'action
+  async (sessionData: {
+    name: string;
+    activity_id: number;
+    comments: string;
+    time: number;
+    is_face_to_face: boolean;
+    is_group_work: boolean;
+    equipment: string;
+  }) => {
+    try {
+      const response = await axiosInstance.post(
+        `/user/${localStorage.getItem('id')}/session`,
+        sessionData
+      );
+
+      console.log('response:', response);
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 const sessionReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(createSession.fulfilled, (state, action) => {

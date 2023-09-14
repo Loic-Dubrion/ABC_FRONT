@@ -14,27 +14,15 @@ interface SequenceModal {
 
 function SequenceModal({ isOpen }: SequenceModal) {
   const { id } = useParams();
-  const dialogRef = useRef(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const dispatch = useAppDispatch();
   const [scenarioData, setScenarioData] = useState({
     name: '',
-    sequenceId: '',
+    sequenceId: id as string,
   });
 
-  function closeModal() {
-    isOpen === false;
-  }
-
   return (
-    <dialog
-      id="sqfqsfqsaz"
-      className="modal"
-      open={isOpen}
-      ref={dialogRef}
-      onClick={() => {
-        closeModal();
-      }}
-    >
+    <dialog id="sqfqsfqsaz" className="modal" open={isOpen} ref={dialogRef}>
       <div className="modal-box">
         <form action="post">
           <h3 className="font-bold text-lg mb-2">
@@ -49,7 +37,6 @@ function SequenceModal({ isOpen }: SequenceModal) {
                 name: event.target.value,
                 sequenceId: id as string,
               });
-              localStorage.setItem('sequence_name', event.target.value);
             }}
             placeholder="Entrez le nom de scénario"
             className="input input-bordered w-full max-w-xs"
@@ -59,6 +46,15 @@ function SequenceModal({ isOpen }: SequenceModal) {
             onClick={(event) => {
               event.preventDefault();
               dispatch(updateSequence(scenarioData));
+              dialogRef.current?.close();
+              dispatch(toggleUpdateSequenceMenu(isOpen));
+              setScenarioData({
+                name: '',
+                sequenceId: id as string,
+              });
+              setTimeout(() => {
+                window.location.reload();
+              }, 1);
             }}
           >
             Valider
@@ -69,6 +65,10 @@ function SequenceModal({ isOpen }: SequenceModal) {
         <button
           onClick={() => {
             dispatch(toggleUpdateSequenceMenu(isOpen));
+            setScenarioData({
+              name: '',
+              sequenceId: id as string,
+            });
           }}
         >
           close

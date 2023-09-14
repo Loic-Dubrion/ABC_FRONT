@@ -1,21 +1,21 @@
 import { useState } from 'react';
-import { createSession } from '../../redux/store/reducers/session';
+import { updateSession } from '../../redux/store/reducers/session';
 import { useAppDispatch } from '../../redux/hooks';
 import { useParams } from 'react-router-dom';
 
-interface ICreateSession {
+interface IUpdate {
+  sessions: [];
   isOpen: boolean;
   onClose: () => void;
 }
 
-function CreateSession({ isOpen, onClose }: ICreateSession) {
+function UpdateSession({ isOpen, onClose, sessions }: IUpdate) {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const [sessionData, setSessionData] = useState({
     name: '',
     sequence_id: Number(id),
-    card_id: Number(localStorage.getItem('card_id')),
-    tool_id: Number(localStorage.getItem('tool_id')),
+    activity_id: Number(localStorage.getItem('tool_id')),
     comments: '',
     time: 0,
     is_face_to_face: true,
@@ -122,7 +122,7 @@ function CreateSession({ isOpen, onClose }: ICreateSession) {
         <button
           className="btn float-right"
           onClick={() => {
-            dispatch(createSession(sessionData));
+            dispatch(updateSession(sessionData));
             onClose();
             window.location.reload();
           }}
@@ -137,4 +137,4 @@ function CreateSession({ isOpen, onClose }: ICreateSession) {
   );
 }
 
-export default CreateSession;
+export default UpdateSession;

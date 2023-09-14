@@ -21,12 +21,12 @@ import Tbody from './Tbody';
 import { container } from '../../utils/motion-container';
 
 function Tables() {
+  const { id } = useParams();
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const sequence = useAppSelector((state) => state.sequence.sequence);
   const toggleModal = useAppSelector((state) => state.sequence.toggle);
-  console.log('toggleModal :', toggleModal);
-  const { id } = useParams();
+  const sequenceName = localStorage.getItem('sequence_name');
 
   useEffect(() => {
     if (isLogged) {
@@ -42,9 +42,7 @@ function Tables() {
       initial="hidden"
     >
       <div className="flex gap-3 items-center">
-        <h2 className="text-4xl m-3 font-bold">
-          {localStorage.getItem('sequence_name')}
-        </h2>
+        <h2 className="text-4xl m-3 font-bold">{sequenceName}</h2>
         <button
           onClick={() => {
             dispatch(toggleUpdateSequenceMenu(!toggleModal));
