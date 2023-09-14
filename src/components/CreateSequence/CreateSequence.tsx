@@ -13,6 +13,7 @@ import { useLocation, useParams } from 'react-router-dom';
 
 import { getOneSequence } from '../../redux/store/reducers/sequence';
 import TogglerLevelButton from './TogglerLevelButton';
+import Radar from '../Graphiques/Radar';
 
 function CreateSequence() {
   const dispatch = useAppDispatch();
@@ -42,6 +43,7 @@ function CreateSequence() {
       {allCards && isLogged && <TogglerLevelButton />}
       <Cards />
       <Tables />
+      <Radar />
     </div>
   );
 }
