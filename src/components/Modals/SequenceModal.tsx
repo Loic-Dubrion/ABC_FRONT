@@ -54,7 +54,7 @@ function SequenceModal({ isOpen }: SequenceModal) {
               });
               setTimeout(() => {
                 window.location.reload();
-              }, 1);
+              }, 100);
             }}
           >
             Valider

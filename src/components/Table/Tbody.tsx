@@ -1,11 +1,8 @@
-import { useState } from 'react';
 import { faTrashCan, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useAppDispatch } from '../../redux/hooks';
-import { deleteSession } from '../../redux/store/reducers/session';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { deleteSession, openModal } from '../../redux/store/reducers/session';
 import { ISession } from '../@types/session';
-import CreateSession from '../Modals/CreateSession';
-import UpdateSession from '../Modals/UpdateSession';
 
 interface ITbody {
   sessions: ISession[];
@@ -13,8 +10,8 @@ interface ITbody {
 
 function Tbody({ sessions }: ITbody) {
   const dispatch = useAppDispatch();
-  const [isOpen, setIsOpen] = useState(false);
-  console.log('sessions :', sessions);
+  const isOpen = useAppSelector((state) => state.session.isOpen);
+  console.log('isOpen :', isOpen);
 
   return (
     <>
@@ -37,7 +34,7 @@ function Tbody({ sessions }: ITbody) {
                 <button
                   className="btn"
                   onClick={() => {
-                    setIsOpen(true);
+                    dispatch(openModal(isOpen));
                   }}
                 >
                   <FontAwesomeIcon
@@ -81,13 +78,6 @@ function Tbody({ sessions }: ITbody) {
           </tr>
         </tbody>
       ))}
-      <UpdateSession
-        sessions={sessions}
-        isOpen={isOpen}
-        onClose={() => {
-          setIsOpen(false);
-        }}
-      />
     </>
   );
 }

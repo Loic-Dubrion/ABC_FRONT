@@ -12,6 +12,7 @@ interface CardState {
   card: ICard[] | null;
   isChecked: boolean;
   toolId: string | number;
+  isOpen: boolean;
 }
 
 const initialState: CardState = {
@@ -19,6 +20,7 @@ const initialState: CardState = {
   card: null,
   isChecked: false,
   toolId: '',
+  isOpen: false,
 };
 
 export const getAllCards = createAsyncThunk(
@@ -50,6 +52,8 @@ export const togglerCheckbox = createAction<boolean>(
   'card/Toggle checkbox bouton'
 );
 
+export const modalIsOpen = createAction<boolean>('Card reducer/Modal toggler');
+
 const cardReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(getAllCards.fulfilled, (state, action) => {
@@ -63,6 +67,9 @@ const cardReducer = createReducer(initialState, (builder) => {
     })
     .addCase(togglerCheckbox, (state) => {
       state.isChecked = !state.isChecked;
+    })
+    .addCase(modalIsOpen, (state) => {
+      state.isOpen = !state.isOpen;
     });
 });
 

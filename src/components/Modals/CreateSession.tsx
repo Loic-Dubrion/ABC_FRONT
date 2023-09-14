@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { createSession } from '../../redux/store/reducers/session';
 import { useAppDispatch } from '../../redux/hooks';
 import { useParams } from 'react-router-dom';
+import { modalIsOpen } from '../../redux/store/reducers/card';
 
 interface ICreateSession {
   isOpen: boolean;
-  onClose: () => void;
+  color: string;
 }
 
-function CreateSession({ isOpen, onClose }: ICreateSession) {
+function CreateSession({ isOpen, color }: ICreateSession) {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const [sessionData, setSessionData] = useState({
@@ -27,7 +28,7 @@ function CreateSession({ isOpen, onClose }: ICreateSession) {
     <dialog id="my_modal_2" className="modal" open={isOpen}>
       <div
         className="modal-box w-full max-w-5xl"
-        style={{ backgroundColor: '#f0f' }}
+        style={{ backgroundColor: color }}
       >
         <label
           htmlFor="name"
@@ -123,15 +124,21 @@ function CreateSession({ isOpen, onClose }: ICreateSession) {
           className="btn float-right"
           onClick={() => {
             dispatch(createSession(sessionData));
-            onClose();
-            window.location.reload();
+            dispatch(modalIsOpen(isOpen));
+            setTimeout(() => {
+              window.location.reload();
+            }, 200);
           }}
         >
           Valider
         </button>
       </div>
       <form method="dialog" className="modal-backdrop">
-        <button onClick={onClose}></button>
+        <button
+          onClick={() => {
+            dispatch(modalIsOpen(isOpen));
+          }}
+        ></button>
       </form>
     </dialog>
   );

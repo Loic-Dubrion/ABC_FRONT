@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import { updateSession } from '../../redux/store/reducers/session';
+import { openModal, updateSession } from '../../redux/store/reducers/session';
 import { useAppDispatch } from '../../redux/hooks';
 import { useParams } from 'react-router-dom';
+import { ISequence } from '../@types/sequence';
 
 interface IUpdate {
-  sessions: [];
+  sequence: ISequence[];
   isOpen: boolean;
-  onClose: () => void;
 }
 
-function UpdateSession({ isOpen, onClose, sessions }: IUpdate) {
+function UpdateSession({ isOpen, sequence }: IUpdate) {
+  console.log('sequence :', sequence);
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const [sessionData, setSessionData] = useState({
@@ -123,15 +124,21 @@ function UpdateSession({ isOpen, onClose, sessions }: IUpdate) {
           className="btn float-right"
           onClick={() => {
             dispatch(updateSession(sessionData));
-            onClose();
-            window.location.reload();
+            dispatch(openModal(isOpen));
+            // window.location.reload();
           }}
         >
           Valider
         </button>
       </div>
       <form method="dialog" className="modal-backdrop">
-        <button onClick={onClose}></button>
+        <button
+          onClick={() => {
+            dispatch(openModal(isOpen));
+          }}
+        >
+          close
+        </button>
       </form>
     </dialog>
   );

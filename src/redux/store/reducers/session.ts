@@ -1,12 +1,18 @@
-import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
+import {
+  createAction,
+  createAsyncThunk,
+  createReducer,
+} from '@reduxjs/toolkit';
 import axiosInstance from '../../../utils/axios';
 
 interface SessionState {
   sessions: [];
+  isOpen: boolean;
 }
 
 const initialState: SessionState = {
   sessions: [],
+  isOpen: false,
 };
 
 export const createSession = createAsyncThunk(
@@ -49,7 +55,7 @@ export const deleteSession = createAsyncThunk(
 );
 
 export const updateSession = createAsyncThunk(
-  'sessionReducer/createNewSession', // nom de l'action
+  'Session reducer / The session was updated', // nom de l'action
   async (sessionData: {
     name: string;
     activity_id: number;
@@ -65,8 +71,6 @@ export const updateSession = createAsyncThunk(
         sessionData
       );
 
-      console.log('response:', response);
-
       return response.data;
     } catch (error) {
       console.log(error);
@@ -74,15 +78,17 @@ export const updateSession = createAsyncThunk(
   }
 );
 
+export const openModal = createAction<boolean>('Session reducer/Modal toggled');
+
 const sessionReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(createSession.fulfilled, (state, action) => {
       console.log('state :', state);
       console.log('action :', action);
     })
-    .addCase(deleteSession.fulfilled, (state, action) => {
-      console.log('state :', state);
-      console.log('action :', action);
+    .addCase(deleteSession.fulfilled, () => {})
+    .addCase(openModal, (state) => {
+      state.isOpen = !state.isOpen;
     });
 });
 

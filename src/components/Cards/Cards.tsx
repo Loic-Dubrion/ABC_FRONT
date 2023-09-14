@@ -1,27 +1,26 @@
 // React Hooks
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 // Redux functions
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-// Module & Library
-import { motion } from 'framer-motion';
 // Reducers actions
 import {
   getAllCards,
   getOneCard,
   getOneTool,
+  modalIsOpen,
 } from '../../redux/store/reducers/card';
-
-import { container } from '../../utils/motion-container';
+// Components
 import CreateSession from '../Modals/CreateSession';
 
 function Cards() {
   const dispatch = useAppDispatch();
   const oneCard = useAppSelector((state) => state.card.card);
   const cardRef = useRef<HTMLDialogElement | null>(null);
-  const [isCreateSessionOpen, setIsCreateSessionOpen] = useState(false);
   const isChecked = useAppSelector((state) => state.card.isChecked);
   const allCards = useAppSelector((state) => state.card.cards);
   const isLogged = useAppSelector((state) => state.user.isLogged);
+  const isOpen = useAppSelector((state) => state.card.isOpen);
+  console.log('isOpen :', isOpen);
 
   useEffect(() => {
     if (!allCards && isLogged) {
@@ -35,11 +34,8 @@ function Cards() {
         {allCards &&
           isLogged &&
           allCards.map((card, index) => (
-            <motion.div
-              animate="show"
+            <div
               key={index}
-              variants={container}
-              initial="hidden"
               style={{ background: `${card.color}` }}
               className={`card card-compact w-96 bg-base-100 shadow-xl md:w-full`}
             >
@@ -118,7 +114,7 @@ function Cards() {
                                             onClick={() => {
                                               cardRef.current?.close();
                                               dispatch(getOneTool(e.tool_id));
-                                              setIsCreateSessionOpen(true);
+                                              dispatch(modalIsOpen(isOpen));
                                             }}
                                           >
                                             {e.tool_name}
@@ -134,7 +130,7 @@ function Cards() {
                                             cardRef.current?.close();
                                             cardRef.current?.close();
                                             dispatch(getOneTool(e.tool_id));
-                                            setIsCreateSessionOpen(true);
+                                            dispatch(modalIsOpen(isOpen));
                                           }}
                                         >
                                           {e.tool_name}
@@ -152,12 +148,18 @@ function Cards() {
                       </dialog>
                     ))}
                   <CreateSession
-                    isOpen={isCreateSessionOpen}
-                    onClose={() => setIsCreateSessionOpen(false)}
+                    color={
+                      oneCard &&
+                      oneCard.length > 0 &&
+                      typeof oneCard[0]?.get_activities.color === 'string'
+                        ? oneCard[0]?.get_activities.color
+                        : ''
+                    }
+                    isOpen={isOpen}
                   />
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
       </section>
     )

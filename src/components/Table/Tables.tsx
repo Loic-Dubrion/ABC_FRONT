@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 // Module && Library
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
-import { motion } from 'framer-motion';
 // React router
 import { useParams } from 'react-router-dom';
 // Redux
@@ -18,15 +17,17 @@ import SequenceModal from '../Modals/SequenceModal';
 import Colgroup from './Colgroup';
 import Thead from './Thead';
 import Tbody from './Tbody';
-import { container } from '../../utils/motion-container';
+import UpdateSession from '../Modals/UpdateSession';
 
 function Tables() {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const sequence = useAppSelector((state) => state.sequence.sequence);
+  console.log('sequence :', sequence);
   const toggleModal = useAppSelector((state) => state.sequence.toggle);
   const sequenceName = localStorage.getItem('sequence_name');
+  const isOpen = useAppSelector((state) => state.session.isOpen);
 
   useEffect(() => {
     if (isLogged) {
@@ -35,12 +36,7 @@ function Tables() {
   }, [dispatch, id, isLogged]);
 
   return (
-    <motion.div
-      className="overflow-y-auto w-full"
-      animate="show"
-      variants={container}
-      initial="hidden"
-    >
+    <div className="overflow-y-auto w-full">
       <div className="flex gap-3 items-center">
         <h2 className="text-4xl m-3 font-bold">{sequenceName}</h2>
         <button
@@ -67,7 +63,8 @@ function Tables() {
           ))}
         </table>
       )}
-    </motion.div>
+      <UpdateSession sequence={sequence} isOpen={isOpen} />
+    </div>
   );
 }
 
