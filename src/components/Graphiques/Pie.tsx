@@ -1,6 +1,7 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { ISequence } from '../@types/sequence';
+import { ISession } from '../@types/session';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -9,16 +10,34 @@ interface PieGraph {
 }
 
 function PieGraph({ sequence }: PieGraph) {
-  const labels = sequence.map((e) => e.sessions.map((el) => el.card_name))
-    .flat();
-  console.log('labels :', labels);
+  function aggregateSessionsByChoice(sessions: ISession[]) {
+    const aggregatedData = {};
 
-  const times = sequence.map((e) => e.sessions.map((el) => el.time)).flat();
-  console.log('times :', times);
+    sessions.forEach((session) => {
+      const choice = session.card_name;
+      const time = session.time;
+
+      if (aggregatedData[choice]) {
+        // Si le choix existe déjà, ajoutez la durée à la somme existante
+        aggregatedData[choice] += time;
+      } else {
+        // Si le choix n'existe pas encore, créez-le avec la durée actuelle
+        aggregatedData[choice] = time;
+      }
+    });
+
+    return aggregatedData;
+  }
+  const sessions = sequence.map((e) => e.sessions).flat();
+  const aggregatedData = aggregateSessionsByChoice(sessions);
+
+  const labels = Object.keys(aggregatedData);
+  const times = Object.values(aggregatedData);
+
   const backgroundColor = sequence
     .map((e) => e.sessions.map((el) => el.color))
     .flat();
-  console.log('backgroundColor :', backgroundColor);
+
   const data = {
     labels: labels,
     datasets: [

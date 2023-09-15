@@ -1,11 +1,7 @@
 import { faTrashCan, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import {
-  deleteSession,
-  readOneSession,
-  openModal,
-} from '../../redux/store/reducers/session';
+import { deleteSession, openModal } from '../../redux/store/reducers/session';
 import { getOneCard } from '../../redux/store/reducers/card';
 import { Session } from '../@types/sequence';
 
@@ -14,7 +10,6 @@ interface ITbody {
 }
 
 function Tbody({ sessions }: ITbody) {
-  
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.session.isOpen);
 
@@ -39,7 +34,10 @@ function Tbody({ sessions }: ITbody) {
                 className="btn"
                 onClick={() => {
                   dispatch(getOneCard(session.card_id.toString()));
-                  dispatch(readOneSession(session.session_id));
+                  localStorage.setItem(
+                    'session_id',
+                    session.session_id.toString()
+                  );
                   setTimeout(() => {
                     dispatch(openModal(isOpen));
                   }, 100);

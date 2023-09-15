@@ -2,11 +2,10 @@ import { useState } from 'react';
 import { openModal, updateSession } from '../../redux/store/reducers/session';
 import { useAppDispatch } from '../../redux/hooks';
 import { useParams } from 'react-router-dom';
-import { ISequence } from '../@types/sequence';
+import { getOneSequence } from '../../redux/store/reducers/sequence';
 
 interface IUpdate {
   isOpen: boolean;
-  sequence: ISequence[];
 }
 
 function UpdateSession({ isOpen }: IUpdate) {
@@ -125,6 +124,7 @@ function UpdateSession({ isOpen }: IUpdate) {
           className="btn float-right"
           onClick={() => {
             dispatch(updateSession(sessionData));
+            dispatch(getOneSequence(id as string));
             dispatch(openModal(isOpen));
             // window.location.reload();
           }}
