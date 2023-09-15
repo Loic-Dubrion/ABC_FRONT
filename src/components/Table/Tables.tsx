@@ -19,12 +19,15 @@ import Colgroup from './Colgroup';
 import Thead from './Thead';
 import Tbody from './Tbody';
 import UpdateSession from '../Modals/UpdateSession';
+// import RadarGraph from '../Graphiques/Radar';
+import PieGraph from '../Graphiques/Pie';
 
 function Tables() {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const sequence = useAppSelector((state) => state.sequence.sequence);
+
   const toggleModal = useAppSelector((state) => state.sequence.toggle);
   const isOpen = useAppSelector((state) => state.session.isOpen);
 
@@ -64,7 +67,8 @@ function Tables() {
           ))}
         </table>
       )}
-      <UpdateSession isOpen={isOpen} />
+      {sequence.length > 0 && <PieGraph sequence={sequence} />}
+      <UpdateSession isOpen={isOpen} sequence={sequence} />
     </div>
   );
 }

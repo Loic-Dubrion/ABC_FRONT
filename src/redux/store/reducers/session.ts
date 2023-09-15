@@ -43,6 +43,18 @@ export const createSession = createAsyncThunk(
   }
 );
 
+export const readOneSession = createAsyncThunk(
+  'Session reducer / Get one session ', // nom de l'action
+  async (sessionId: number) => {
+    const response = await axiosInstance.get(
+      `/user/${localStorage.getItem('id')}/session/${sessionId}`
+    );
+    console.log('response :', response);
+    localStorage.setItem('tool_id', response.data.tool_id);
+    return response.data;
+  }
+);
+
 export const deleteSession = createAsyncThunk(
   'Session reducer/The session was deleted ', // nom de l'action
   async (sessionId: number) => {
@@ -82,11 +94,9 @@ export const openModal = createAction<boolean>('Session reducer/Modal toggled');
 
 const sessionReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(createSession.fulfilled, (state, action) => {
-      console.log('state :', state);
-      console.log('action :', action);
-    })
+    .addCase(createSession.fulfilled, () => {})
     .addCase(deleteSession.fulfilled, () => {})
+    .addCase(readOneSession.fulfilled, () => {})
     .addCase(openModal, (state) => {
       state.isOpen = !state.isOpen;
     });

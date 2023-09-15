@@ -13,7 +13,6 @@ import { useLocation, useParams } from 'react-router-dom';
 
 import { getOneSequence } from '../../redux/store/reducers/sequence';
 import TogglerLevelButton from './TogglerLevelButton';
-import Radar from '../Graphiques/Radar';
 
 function CreateSequence() {
   const dispatch = useAppDispatch();
@@ -29,6 +28,7 @@ function CreateSequence() {
   }
   const { id } = useParams();
   const allCards = useAppSelector((state) => state.card.cards);
+  const sequence = useAppSelector((state) => state.sequence.sequence);
   const isLogged = useAppSelector((state) => state.user.isLogged);
 
   useEffect(() => {
@@ -36,14 +36,13 @@ function CreateSequence() {
       dispatch(getAllCards());
       dispatch(getOneSequence(id as string));
     }
-  }, [dispatch, allCards, isLogged, id]);
+  }, [dispatch, allCards, isLogged, id, sequence]);
 
   return (
     <div className="CreateSequence flex flex-col flex-nowrap items-center gap-5">
       {allCards && isLogged && <TogglerLevelButton />}
       <Cards />
       <Tables />
-      <Radar />
     </div>
   );
 }

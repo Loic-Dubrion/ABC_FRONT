@@ -2,16 +2,18 @@ import { useState } from 'react';
 import { openModal, updateSession } from '../../redux/store/reducers/session';
 import { useAppDispatch } from '../../redux/hooks';
 import { useParams } from 'react-router-dom';
-
+import { ISequence } from '../@types/sequence';
 
 interface IUpdate {
   isOpen: boolean;
+  sequence: ISequence[];
 }
 
 function UpdateSession({ isOpen }: IUpdate) {
   const dispatch = useAppDispatch();
   const color = localStorage.getItem('color');
   const { id } = useParams();
+
   const [sessionData, setSessionData] = useState({
     name: '',
     sequence_id: Number(id),
@@ -36,12 +38,12 @@ function UpdateSession({ isOpen }: IUpdate) {
           name="name"
           placeholder="Ecrivez le nom de la session"
           className="input input-bordered w-full mt-1 align-middle mb-4"
-          onChange={(e) =>
+          onChange={(e) => {
             setSessionData({
               ...sessionData,
               name: e.target.value,
-            })
-          }
+            });
+          }}
         />
         <label
           htmlFor="comments"

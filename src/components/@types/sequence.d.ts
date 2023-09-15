@@ -17,4 +17,5 @@ export interface Session {
   level_name: string;
   color: string;
   card_id: number;
+  tool_id: number;
 }
