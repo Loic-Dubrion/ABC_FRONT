@@ -9,6 +9,7 @@ interface IUpdate {
 }
 
 function UpdateSession({ isOpen }: IUpdate) {
+  console.log('isOpen :', isOpen);
   const dispatch = useAppDispatch();
   const color = localStorage.getItem('color');
   const { id } = useParams();
@@ -24,113 +25,125 @@ function UpdateSession({ isOpen }: IUpdate) {
     equipment: '',
   });
 
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Empêche la soumission normale du formulaire
+    dispatch(updateSession(sessionData));
+    dispatch(getOneSequence(id as string));
+    dispatch(openModal(isOpen));
+    // window.location.reload(); // Vous pouvez décommenter cette ligne si vous avez besoin de recharger la page après la soumission
+  };
+
   return (
     <dialog id="my_modal_2" className="modal" open={isOpen}>
       <div
         className="modal-box w-full max-w-5xl"
         style={{ backgroundColor: color ? color : '' }}
       >
-        <label htmlFor="name" className="block  text-sm font-medium text-white">
-          Nom de la session
-        </label>
-        <input
-          name="name"
-          placeholder="Ecrivez le nom de la session"
-          className="input input-bordered w-full mt-1 align-middle mb-4"
-          onChange={(e) => {
-            setSessionData({
-              ...sessionData,
-              name: e.target.value,
-            });
-          }}
-        />
-        <label
-          htmlFor="comments"
-          className="block  text-sm font-medium text-white "
-        >
-          Remarques
-        </label>
-        <textarea
-          name="comments"
-          placeholder="Ecrivez vos commentaire"
-          className="input input-bordered w-full mt-1 align-middle mb-4"
-          onChange={(e) =>
-            setSessionData({ ...sessionData, comments: e.target.value })
-          }
-        />
-        <label
-          htmlFor="number"
-          className="block  text-sm font-medium  text-white"
-        >
-          Durée en minutes
-        </label>
-        <input
-          type="number"
-          defaultValue={0}
-          min={0}
-          max={100}
-          placeholder="Minutes"
-          className="input input-bordered w-full max-w-xs mb-4"
-          onChange={(e) =>
-            setSessionData({ ...sessionData, time: Number(e.target.value) })
-          }
-        />
-        <label className="block  text-sm font-medium text-white">
-          Présentiel / Distanciel
-        </label>
-        <select
-          className="select select-bordered w-full max-w-xs mb-4"
-          onChange={(e) =>
-            setSessionData({
-              ...sessionData,
-              is_face_to_face: e.target.value === 'Présentiel',
-            })
-          }
-        >
-          <option>Présentiel</option>
-          <option>Distanciel</option>
-        </select>
-        <label className="block  text-sm font-medium  text-white">
-          Individuel / Groupe
-        </label>
-        <select
-          className="select select-bordered w-full max-w-xs mb-4"
-          onChange={(e) =>
-            setSessionData({
-              ...sessionData,
-              is_group_work: e.target.value === 'Groupe',
-            })
-          }
-        >
-          <option>Individuel</option>
-          <option>Groupe</option>
-        </select>
-        <label
-          htmlFor="equipment"
-          className="block text-sm font-medium text-white "
-        >
-          Matériel
-        </label>
-        <textarea
-          name="equipement"
-          placeholder="Ecrivez vos matériels"
-          className="input input-bordered w-2/5 mt-1 align-middle mb-4"
-          onChange={(e) =>
-            setSessionData({ ...sessionData, equipment: e.target.value })
-          }
-        />
-        <label htmlFor="button"></label>
-        <button
-          className="btn float-right"
-          onClick={() => {
-            dispatch(updateSession(sessionData));
-            dispatch(getOneSequence(id as string));
-            dispatch(openModal(isOpen));
-            // window.location.reload();
-          }}
-        >
-          Valider
-        </button>
+        <form onSubmit={handleFormSubmit}>
+          <label
+            htmlFor="name"
+            className="block  text-sm font-medium text-white"
+          >
+            Nom de la session
+          </label>
+          <input
+            name="name"
+            placeholder="Ecrivez le nom de la session"
+            className="input input-bordered w-full mt-1 align-middle mb-4"
+            onChange={(e) => {
+              setSessionData({
+                ...sessionData,
+                name: e.target.value,
+              });
+            }}
+            required
+          />
+          <label
+            htmlFor="comments"
+            className="block  text-sm font-medium text-white "
+          >
+            Remarques
+          </label>
+          <textarea
+            name="comments"
+            placeholder="Ecrivez vos commentaire"
+            className="input input-bordered w-full mt-1 align-middle mb-4"
+            onChange={(e) =>
+              setSessionData({ ...sessionData, comments: e.target.value })
+            }
+          />
+          <label
+            htmlFor="number"
+            className="block  text-sm font-medium  text-white"
+          >
+            Durée en minutes
+          </label>
+          <input
+            type="number"
+            defaultValue={0}
+            min={0}
+            max={100}
+            placeholder="Minutes"
+            className="input input-bordered w-full max-w-xs mb-4"
+            onChange={(e) =>
+              setSessionData({ ...sessionData, time: Number(e.target.value) })
+            }
+          />
+          <label className="block  text-sm font-medium text-white">
+            Présentiel / Distanciel
+          </label>
+          <select
+            className="select select-bordered w-full max-w-xs mb-4"
+            onChange={(e) =>
+              setSessionData({
+                ...sessionData,
+                is_face_to_face: e.target.value === 'Présentiel',
+              })
+            }
+          >
+            <option>Présentiel</option>
+            <option>Distanciel</option>
+          </select>
+          <label className="block  text-sm font-medium  text-white">
+            Individuel / Groupe
+          </label>
+          <select
+            className="select select-bordered w-full max-w-xs mb-4"
+            onChange={(e) =>
+              setSessionData({
+                ...sessionData,
+                is_group_work: e.target.value === 'Groupe',
+              })
+            }
+          >
+            <option>Individuel</option>
+            <option>Groupe</option>
+          </select>
+          <label
+            htmlFor="equipment"
+            className="block text-sm font-medium text-white "
+          >
+            Matériel
+          </label>
+          <textarea
+            name="equipement"
+            placeholder="Ecrivez vos matériels"
+            className="input input-bordered w-2/5 mt-1 align-middle mb-4"
+            onChange={(e) =>
+              setSessionData({ ...sessionData, equipment: e.target.value })
+            }
+          />
+          <label htmlFor="button"></label>
+          <button
+            className="btn float-right"
+            onClick={() => {
+              dispatch(openModal(isOpen));
+            }}
+          >
+            Annuler
+          </button>
+          <button className="btn float-right mr-2">Valider</button>
+        </form>
       </div>
       <form method="dialog" className="modal-backdrop">
         <button
