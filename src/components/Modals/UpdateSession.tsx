@@ -1,19 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { openModal, updateSession } from '../../redux/store/reducers/session';
 import { useAppDispatch } from '../../redux/hooks';
 import { useParams } from 'react-router-dom';
 import { getOneSequence } from '../../redux/store/reducers/sequence';
 import { ISequence } from '../@types/sequence';
-import { ISession } from '../@types/session';
 
 interface IUpdate {
   isOpen: boolean;
   sequence: ISequence[];
-  session: ISession;
 }
 
-function UpdateSession({ isOpen, session }: IUpdate) {
-  console.log('isOpen :', isOpen);
+function UpdateSession({ isOpen }: IUpdate) {
   const dispatch = useAppDispatch();
   const color = localStorage.getItem('color');
   const { id } = useParams();
@@ -85,7 +82,6 @@ function UpdateSession({ isOpen, session }: IUpdate) {
           </label>
           <textarea
             name="comments"
-            defaultValue={session.comments}
             placeholder="Ecrivez vos commentaire"
             className="input input-bordered w-full mt-1 align-middle mb-4"
             onChange={(e) =>
@@ -100,7 +96,6 @@ function UpdateSession({ isOpen, session }: IUpdate) {
           </label>
           <input
             type="number"
-            defaultValue={session.time}
             min={0}
             max={100}
             placeholder="Minutes"
@@ -152,7 +147,6 @@ function UpdateSession({ isOpen, session }: IUpdate) {
             onChange={(e) =>
               setSessionData({ ...sessionData, equipment: e.target.value })
             }
-            defaultValue={session.equipment}
           />
           <label htmlFor="button"></label>
           <button
@@ -175,7 +169,7 @@ function UpdateSession({ isOpen, session }: IUpdate) {
           </button>
         </form>
       </div>
-      {/* <form method="dialog" className="modal-backdrop">
+      <form method="dialog" className="modal-backdrop">
         <button
           onClick={() => {
             dispatch(openModal(isOpen));
@@ -183,7 +177,7 @@ function UpdateSession({ isOpen, session }: IUpdate) {
         >
           close
         </button>
-      </form> */}
+      </form>
     </dialog>
   );
 }

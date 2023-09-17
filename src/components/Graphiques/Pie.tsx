@@ -9,19 +9,21 @@ interface PieGraph {
   sequence: ISequence[];
 }
 
+interface AggregatedData {
+  [choice: string]: number;
+}
+
 function PieGraph({ sequence }: PieGraph) {
-  function aggregateSessionsByChoice(sessions: ISession[]) {
-    const aggregatedData = {};
+  function aggregateSessionsByChoice(sessions: ISession[]): AggregatedData {
+    const aggregatedData: AggregatedData = {};
 
     sessions.forEach((session) => {
       const choice = session.card_name;
       const time = session.time;
 
       if (aggregatedData[choice]) {
-        // Si le choix existe déjà, ajoutez la durée à la somme existante
         aggregatedData[choice] += time;
       } else {
-        // Si le choix n'existe pas encore, créez-le avec la durée actuelle
         aggregatedData[choice] = time;
       }
     });
@@ -50,7 +52,7 @@ function PieGraph({ sequence }: PieGraph) {
     ],
   };
   const pieStyle = {
-    maxWidth: '100%',
+    maxWidth: '50%',
     maxHeight: '50vh',
     marginTop: '4rem',
   };

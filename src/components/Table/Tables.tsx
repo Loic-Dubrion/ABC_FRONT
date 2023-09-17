@@ -21,13 +21,14 @@ import Tbody from './Tbody';
 import UpdateSession from '../Modals/UpdateSession';
 // import RadarGraph from '../Graphiques/Radar';
 import PieGraph from '../Graphiques/Pie';
+import BarGraphFirst from '../Graphiques/Bar';
+import BarGraphSecond from '../Graphiques/Bar-copy';
 
 function Tables() {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const sequence = useAppSelector((state) => state.sequence.sequence);
-  const session = useAppSelector((state) => state.session.session);
   const toggleModal = useAppSelector((state) => state.sequence.toggle);
   const isOpen = useAppSelector((state) => state.session.isOpen);
 
@@ -67,8 +68,15 @@ function Tables() {
           ))}
         </table>
       )}
-      {sequence.length > 0 && <PieGraph sequence={sequence} />}
-      <UpdateSession isOpen={isOpen} sequence={sequence} session={session} />
+      {sequence.length > 0 && (
+        <section className="flex justify-evenly">
+          <BarGraphFirst sequence={sequence} />
+          <PieGraph sequence={sequence} />
+          <BarGraphSecond sequence={sequence} />
+        </section>
+      )}
+
+      <UpdateSession isOpen={isOpen} sequence={sequence} />
     </div>
   );
 }

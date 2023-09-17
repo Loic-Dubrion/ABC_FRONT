@@ -4,18 +4,17 @@ export interface ISequence {
   sessions: Session[];
 }
 
-export interface Session {
-  session_id: number;
-  session_name: string;
+export interface ISession {
   card_name: string;
-  tool_name: string;
   comments: string;
-  time: number;
+  equipment: string;
   is_face_to_face: boolean;
   is_group_work: boolean;
-  equipment: string;
   level_name: string;
+  session_id: number;
+  session_name: string;
+  time: number;
+  tool_name: string;
   color: string;
   card_id: number;
-  tool_id: number;
 }
