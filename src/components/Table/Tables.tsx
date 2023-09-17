@@ -27,7 +27,7 @@ function Tables() {
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const sequence = useAppSelector((state) => state.sequence.sequence);
-  console.log('sequence :', sequence);
+  const session = useAppSelector((state) => state.session.session);
   const toggleModal = useAppSelector((state) => state.sequence.toggle);
   const isOpen = useAppSelector((state) => state.session.isOpen);
 
@@ -68,7 +68,7 @@ function Tables() {
         </table>
       )}
       {sequence.length > 0 && <PieGraph sequence={sequence} />}
-      <UpdateSession isOpen={isOpen} />
+      <UpdateSession isOpen={isOpen} sequence={sequence} session={session} />
     </div>
   );
 }

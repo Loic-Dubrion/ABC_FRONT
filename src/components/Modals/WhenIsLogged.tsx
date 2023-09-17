@@ -75,7 +75,7 @@ function WhenIsLogged() {
         className="btn btn-ghost w-full"
         onClick={() => {
           dispatch(logout());
-          navigate('/');
+          window.location.href = '/';
         }}
       >
         <Link to="/">Déconnexion</Link>

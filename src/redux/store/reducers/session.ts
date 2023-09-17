@@ -4,11 +4,12 @@ import {
   createReducer,
 } from '@reduxjs/toolkit';
 import axiosInstance from '../../../utils/axios';
+import { ISession } from '../../../components/@types/session';
 
 interface SessionState {
   sessions: [];
   isOpen: boolean;
-  session: [];
+  session: ISession[];
 }
 
 const initialState: SessionState = {

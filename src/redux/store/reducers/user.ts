@@ -75,6 +75,7 @@ const userReducer = createReducer(initialState, (builder) => {
       state.isOpen = false;
       state.isLogged = null;
       localStorage.clear();
+      window.location.href = '/';
     })
     .addCase(toggleDropDown, (state) => {
       state.isOpen = !state.isOpen;

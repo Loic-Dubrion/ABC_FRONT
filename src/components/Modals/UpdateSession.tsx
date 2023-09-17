@@ -1,18 +1,23 @@
-import { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { openModal, updateSession } from '../../redux/store/reducers/session';
 import { useAppDispatch } from '../../redux/hooks';
 import { useParams } from 'react-router-dom';
 import { getOneSequence } from '../../redux/store/reducers/sequence';
+import { ISequence } from '../@types/sequence';
+import { ISession } from '../@types/session';
 
 interface IUpdate {
   isOpen: boolean;
+  sequence: ISequence[];
+  session: ISession;
 }
 
-function UpdateSession({ isOpen }: IUpdate) {
+function UpdateSession({ isOpen, session }: IUpdate) {
   console.log('isOpen :', isOpen);
   const dispatch = useAppDispatch();
   const color = localStorage.getItem('color');
   const { id } = useParams();
+  const focusRef = useRef<HTMLInputElement>(null);
 
   const [sessionData, setSessionData] = useState({
     name: '',
@@ -33,11 +38,25 @@ function UpdateSession({ isOpen }: IUpdate) {
     // window.location.reload(); // Vous pouvez décommenter cette ligne si vous avez besoin de recharger la page après la soumission
   };
 
+  const onKeyPress = (e: React.KeyboardEvent<HTMLDialogElement>) => {
+    if (e.code === 'Enter') {
+      if (sessionData.name === '') {
+        alert('Veuillez entrer un nom de la session');
+      }
+    }
+  };
+
   return (
-    <dialog id="my_modal_2" className="modal" open={isOpen}>
+    <dialog
+      id="my_modal_2"
+      className="modal"
+      open={isOpen}
+      onKeyDown={onKeyPress}
+    >
       <div
         className="modal-box w-full max-w-5xl"
         style={{ backgroundColor: color ? color : '' }}
+        ref={focusRef}
       >
         <form onSubmit={handleFormSubmit}>
           <label
@@ -48,7 +67,7 @@ function UpdateSession({ isOpen }: IUpdate) {
           </label>
           <input
             name="name"
-            placeholder="Ecrivez le nom de la session"
+            placeholder="Modifier le nom de la session"
             className="input input-bordered w-full mt-1 align-middle mb-4"
             onChange={(e) => {
               setSessionData({
@@ -66,6 +85,7 @@ function UpdateSession({ isOpen }: IUpdate) {
           </label>
           <textarea
             name="comments"
+            defaultValue={session.comments}
             placeholder="Ecrivez vos commentaire"
             className="input input-bordered w-full mt-1 align-middle mb-4"
             onChange={(e) =>
@@ -80,7 +100,7 @@ function UpdateSession({ isOpen }: IUpdate) {
           </label>
           <input
             type="number"
-            defaultValue={0}
+            defaultValue={session.time}
             min={0}
             max={100}
             placeholder="Minutes"
@@ -132,6 +152,7 @@ function UpdateSession({ isOpen }: IUpdate) {
             onChange={(e) =>
               setSessionData({ ...sessionData, equipment: e.target.value })
             }
+            defaultValue={session.equipment}
           />
           <label htmlFor="button"></label>
           <button
@@ -142,10 +163,19 @@ function UpdateSession({ isOpen }: IUpdate) {
           >
             Annuler
           </button>
-          <button className="btn float-right mr-2">Valider</button>
+          <button
+            className="btn float-right mr-2"
+            onClick={() => {
+              if (sessionData.name === '') {
+                alert('Veuillez entrer un nom de session');
+              }
+            }}
+          >
+            Valider
+          </button>
         </form>
       </div>
-      <form method="dialog" className="modal-backdrop">
+      {/* <form method="dialog" className="modal-backdrop">
         <button
           onClick={() => {
             dispatch(openModal(isOpen));
@@ -153,7 +183,7 @@ function UpdateSession({ isOpen }: IUpdate) {
         >
           close
         </button>
-      </form>
+      </form> */}
     </dialog>
   );
 }

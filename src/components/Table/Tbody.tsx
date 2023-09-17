@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { deleteSession, openModal } from '../../redux/store/reducers/session';
 import { getOneCard } from '../../redux/store/reducers/card';
 import { Session } from '../@types/sequence';
+import { useRef } from 'react';
 
 interface ITbody {
   sessions: Session[];
@@ -12,6 +13,11 @@ interface ITbody {
 function Tbody({ sessions }: ITbody) {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.session.isOpen);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const handleBlurButtonClick = () => {
+    buttonRef.current?.blur();
+  };
 
   return (
     <>
@@ -33,6 +39,7 @@ function Tbody({ sessions }: ITbody) {
               <button
                 className="btn"
                 onClick={() => {
+                  handleBlurButtonClick();
                   dispatch(getOneCard(session.card_id.toString()));
                   localStorage.setItem(
                     'session_id',
@@ -42,6 +49,7 @@ function Tbody({ sessions }: ITbody) {
                     dispatch(openModal(isOpen));
                   }, 100);
                 }}
+                ref={buttonRef}
               >
                 <FontAwesomeIcon
                   icon={faPencil}
@@ -63,7 +71,7 @@ function Tbody({ sessions }: ITbody) {
               <p>{session.session_name}</p>
             </td>
             <td>{session.tool_name}</td>
-            <td>
+            <td className="overflow-auto">
               <p>{session.comments}</p>
             </td>
             <td>
