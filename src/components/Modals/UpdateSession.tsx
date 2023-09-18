@@ -69,12 +69,12 @@ function UpdateSession({ isOpen }: IUpdate) {
               type="number"
               id="time"
               name="time"
-              defaultValue={session ? session?.time : 0}
               min={0}
               max={100}
               placeholder="Minutes"
               className="input input-bordered w-full max-w-xs mb-4 text-black"
-              autoComplete="off"
+              defaultValue={session?.time}
+              autoComplete="on"
             />
           </label>
           <label className="flex flex-col mb-2 text-sm font-medium text-white">
@@ -133,6 +133,7 @@ function UpdateSession({ isOpen }: IUpdate) {
                   name="equipment"
                   placeholder="Ecrivez vos matériels"
                   className="input input-bordered w-full mt-1 align-middle text-black"
+                  defaultValue={session ? session?.equipment : ''}
                   autoComplete="off"
                 />
               </div>
