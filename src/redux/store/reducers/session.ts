@@ -70,27 +70,17 @@ export const deleteSession = createAsyncThunk(
 );
 
 export const updateSession = createAsyncThunk(
-  'Session reducer / The session was updated', // nom de l'action
-  async (sessionData: {
-    name: string;
-    tool_id: number;
-    comments: string;
-    time: number | null;
-    is_face_to_face: boolean;
-    is_group_work: boolean;
-    equipment: string;
-  }) => {
-    try {
-      const response = await axiosInstance.put(
-        `/user/${localStorage.getItem('id')}/session/${localStorage.getItem(
-          'session_id'
-        )}`,
-        sessionData
-      );
-      return response.data;
-    } catch (error) {
-      console.log(error);
-    }
+  'Session reducer/updateSession', // nom de l'action
+  async (formData: FormData) => {
+    const objData = Object.fromEntries(formData);
+    console.log('objData :', objData);
+    const response = await axiosInstance.put(
+      `/user/${localStorage.getItem('id')}/session/${localStorage.getItem(
+        'session_id'
+      )}`,
+      objData
+    );
+    return response.data;
   }
 );
 
