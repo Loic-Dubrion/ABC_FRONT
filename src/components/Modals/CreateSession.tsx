@@ -40,33 +40,20 @@ function CreateSession({ isOpen, color }: ICreateSession) {
         <form onSubmit={handleFormSubmit}>
           <label
             htmlFor="name"
-            className="block mb-2 text-sm font-medium text-white"
+            className="flex flex-col mb-2 text-sm font-medium text-white"
           >
             Nom de la session
             <input
               id="name"
               name="name"
               placeholder="Ecrivez le nom de la session"
-              className="input input-bordered w-full mt-1 align-middle mb-4"
-              autoComplete="off" // Ajout de l'attribut autocomplete
-            />
-          </label>
-          <label
-            htmlFor="comments"
-            className="block mb-2 text-sm font-medium text-white"
-          >
-            Remarques
-            <textarea
-              id="comments"
-              name="comments"
-              placeholder="Ecrivez vos commentaire"
-              className="input input-bordered w-full mt-1 align-middle mb-4"
-              autoComplete="off" // Ajout de l'attribut autocomplete
+              className="input input-bordered w-full max-w-xs mt-1 align-middle mb-4 text-black"
+              autoComplete="off"
             />
           </label>
           <label
             htmlFor="time"
-            className="block mb-2 text-sm font-medium text-white"
+            className="flex flex-col mb-2 text-sm font-medium text-white "
           >
             Durée en minutes
             <input
@@ -77,54 +64,71 @@ function CreateSession({ isOpen, color }: ICreateSession) {
               min={0}
               max={100}
               placeholder="Minutes"
-              className="input input-bordered w-full max-w-xs mb-4"
-              autoComplete="off" // Ajout de l'attribut autocomplete
+              className="input input-bordered w-full max-w-xs mb-4 text-black"
+              autoComplete="off"
             />
           </label>
-          <label className="block mb-2 text-sm font-medium text-white">
+          <label className="flex flex-col mb-2 text-sm font-medium text-white">
             Présentiel / Distanciel
             <select
               id="presentiel"
               name="presentiel"
-              className="select select-bordered w-full max-w-xs mb-4"
+              className="select select-bordered w-full max-w-xs mb-4 text-black"
               onChange={(e) => {
                 setIsPresentiel(e.target.value === 'Présentiel');
               }}
-              autoComplete="off" // Ajout de l'attribut autocomplete
+              autoComplete="off"
             >
               <option value="Présentiel">Présentiel</option>
               <option value="Distanciel">Distanciel</option>
             </select>
           </label>
-          <label className="block mb-2 text-sm font-medium text-white">
+          <label className="flex flex-col mb-2 text-sm font-medium text-white">
             Individuel / Groupe
             <select
               id="groupe"
               name="groupe"
-              className="select select-bordered w-full max-w-xs mb-4"
+              className="select select-bordered w-full max-w-xs mb-4 text-black"
               onChange={(e) => {
                 setIsGroupe(e.target.value === 'Groupe');
               }}
-              autoComplete="off" // Ajout de l'attribut autocomplete
+              autoComplete="off"
             >
               <option value="Individuel">Individuel</option>
               <option value="Groupe">Groupe</option>
             </select>
           </label>
           <label
-            htmlFor="equipment"
+            htmlFor="comments"
             className="block mb-2 text-sm font-medium text-white"
           >
-            Matériel
+            Remarques
             <textarea
-              id="equipment"
-              name="equipment"
-              placeholder="Ecrivez vos matériels"
-              className="input input-bordered w-2/5 mt-1 align-middle"
-              autoComplete="off" // Ajout de l'attribut autocomplete
+              id="comments"
+              name="comments"
+              placeholder="Ecrivez vos commentaire"
+              className="input input-bordered w-full h-24 mt-1 align-middle mb-4 text-black"
+              autoComplete="off"
             />
           </label>
-          <button className="btn float-right">Valider</button>
+          <label
+            htmlFor="equipment"
+            className="flex flex-col  text-sm font-medium text-white"
+          >
+            Matériel
+            <div className="flex flex-row items-end">
+              <div className="flex-grow">
+                <textarea
+                  id="equipment"
+                  name="equipment"
+                  placeholder="Ecrivez vos matériels"
+                  className="input input-bordered w-full mt-1 align-middle text-black"
+                  autoComplete="off"
+                />
+              </div>
+              <button className="btn ml-2">Valider</button>
+            </div>
+          </label>
         </form>
       </div>
       <form method="dialog" className="modal-backdrop">

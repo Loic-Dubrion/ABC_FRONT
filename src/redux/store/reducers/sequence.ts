@@ -60,7 +60,6 @@ export const getOneSequence = createAsyncThunk(
       const response = await axiosInstance.get(
         `/user/${localStorage.getItem('id')}/sequence/${sequenceId}`
       );
-      console.log('response :', response);
       return response.data;
     } catch (error) {
       console.log('error :', error);
