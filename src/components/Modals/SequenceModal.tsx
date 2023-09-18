@@ -1,7 +1,5 @@
-// React Hooks
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-// Reducers actions
 import {
   toggleUpdateSequenceMenu,
   updateSequence,
@@ -27,7 +25,7 @@ function SequenceModal({ isOpen }: SequenceModal) {
   };
 
   return (
-    <dialog id="sqfqsfqsaz" className="modal" open={isOpen}>
+    <dialog id="sequence-modal" className="modal" open={isOpen}>
       <div className="modal-box">
         <form action="post" onSubmit={handleSubmit}>
           <h3 className="font-bold text-lg mb-2">
@@ -35,6 +33,7 @@ function SequenceModal({ isOpen }: SequenceModal) {
           </h3>
           <input
             type="text"
+            id="sequence-name"
             name="name"
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setScenarioData({
@@ -46,6 +45,7 @@ function SequenceModal({ isOpen }: SequenceModal) {
             }}
             placeholder="Entrez le nom de scénario"
             className="input input-bordered w-full max-w-xs"
+            autoComplete="off"
           />
           <button className="btn btn-success ml-5 text-white">Valider</button>
         </form>

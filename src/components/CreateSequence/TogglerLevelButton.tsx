@@ -12,6 +12,8 @@ function TogglerLevelButton() {
         Novice
       </p>
       <input
+        id="toggler"
+        name="toggler"
         type="checkbox"
         className="toggle toggle-error toggle-lg"
         checked={isChecked}

@@ -19,30 +19,15 @@ const initialState: SessionState = {
 };
 
 export const createSession = createAsyncThunk(
-  'sessionReducer/createNewSession', // nom de l'action
-  async (sessionData: {
-    name: string;
-    sequence_id: number;
-    card_id: number;
-    tool_id: number;
-    comments: string;
-    time: number;
-    is_face_to_face: boolean;
-    is_group_work: boolean;
-    equipment: string;
-  }) => {
-    try {
-      const response = await axiosInstance.post(
-        `/user/${localStorage.getItem('id')}/session`,
-        sessionData
-      );
-
-      localStorage.removeItem('card_id');
-
-      return response.data;
-    } catch (error) {
-      console.log(error);
-    }
+  'Session reducer/createSession', // nom de l'action
+  async (formData: FormData) => {
+    const objData = Object.fromEntries(formData);
+    console.log('objData :', objData);
+    const response = await axiosInstance.post(
+      `/user/${localStorage.getItem('id')}/session`,
+      objData
+    );
+    return response.data;
   }
 );
 

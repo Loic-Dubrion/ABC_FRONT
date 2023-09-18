@@ -11,7 +11,6 @@ import Cards from '../Cards/Cards';
 import Tables from '../Table/Tables';
 import { useLocation, useParams } from 'react-router-dom';
 
-import { getOneSequence } from '../../redux/store/reducers/sequence';
 import TogglerLevelButton from './TogglerLevelButton';
 
 function CreateSequence() {
@@ -34,7 +33,6 @@ function CreateSequence() {
   useEffect(() => {
     if (!allCards && isLogged) {
       dispatch(getAllCards());
-      dispatch(getOneSequence(id as string));
     }
   }, [dispatch, allCards, isLogged, id, sequence]);
 

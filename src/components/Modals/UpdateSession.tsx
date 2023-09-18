@@ -40,7 +40,7 @@ function UpdateSession({ isOpen }: IUpdate) {
   };
 
   return (
-    <dialog id="my_modal_2" className="modal" open={isOpen}>
+    <dialog id="update_modal" className="modal" open={isOpen}>
       <div
         className="modal-box w-full max-w-5xl"
         style={{ backgroundColor: color ? color : '' }}
@@ -48,77 +48,94 @@ function UpdateSession({ isOpen }: IUpdate) {
         <form onSubmit={handleFormSubmit}>
           <label
             htmlFor="name"
-            className="block  text-sm font-medium text-white"
+            className="block text-sm font-medium text-white"
           >
             Nom de la session
+            <input
+              id="name"
+              name="name"
+              placeholder="Modifier le nom de la session"
+              className="input input-bordered w-full mt-1 align-middle mb-4"
+              defaultValue={session ? session.name : ''}
+              required
+              autoComplete="on"
+            />
           </label>
-          <input
-            name="name"
-            placeholder="Modifier le nom de la session"
-            className="input input-bordered w-full mt-1 align-middle mb-4"
-            defaultValue={session ? session.name : ''}
-            required
-          />
           <label
             htmlFor="comments"
-            className="block  text-sm font-medium text-white "
+            className="block text-sm font-medium text-white"
           >
             Remarques
+            <textarea
+              id="comments"
+              name="comments"
+              placeholder="Ecrivez vos commentaire"
+              className="input input-bordered w-full mt-1 align-middle mb-4 max-h-16"
+              defaultValue={session ? session.comments : ''}
+              autoComplete="on"
+            />
           </label>
-          <textarea
-            name="comments"
-            placeholder="Ecrivez vos commentaire"
-            className="input input-bordered w-full mt-1 align-middle mb-4 max-h-16"
-            defaultValue={session ? session.comments : ''}
-          />
           <label
-            htmlFor="number"
+            htmlFor="time"
             className="block text-sm font-medium text-white"
           >
             Durée en minutes
+            <input
+              type="number"
+              id="time"
+              name="time"
+              placeholder="Minutes"
+              className="input input-bordered w-full max-w-xs mb-4"
+              defaultValue={session?.time}
+              autoComplete="on"
+            />
           </label>
-          <input
-            type="number"
-            name="time"
-            placeholder="Minutes"
-            className="input input-bordered w-full max-w-xs mb-4"
-            defaultValue={session?.time}
-          />
-          <label className="block  text-sm font-medium text-white">
+          <label
+            htmlFor="presentiel"
+            className="block text-sm font-medium text-white"
+          >
             Présentiel / Distanciel
+            <select
+              id="presentiel"
+              name="presentiel"
+              className="select select-bordered w-full max-w-xs mb-4"
+              onChange={(e) => setIsPresentiel(e.target.value === 'Présentiel')}
+              autoComplete="on"
+            >
+              <option value="Présentiel">Présentiel</option>
+              <option value="Distanciel">Distanciel</option>
+            </select>
           </label>
-          <select
-            className="select select-bordered w-full max-w-xs mb-4"
-            onChange={(e) => setIsPresentiel(e.target.value === 'Présentiel')}
+          <label
+            htmlFor="groupe"
+            className="block text-sm font-medium text-white"
           >
-            <option value="Présentiel">Présentiel</option>
-            <option value="Distanciel">Distanciel</option>
-          </select>
-
-          <label className="block  text-sm font-medium  text-white">
             Individuel / Groupe
+            <select
+              id="groupe"
+              name="groupe"
+              className="select select-bordered w-full max-w-xs mb-4"
+              onChange={(e) => setIsGroupe(e.target.value === 'Groupe')}
+              autoComplete="on"
+            >
+              <option value="Individuel">Individuel</option>
+              <option value="Groupe">Groupe</option>
+            </select>
           </label>
-          <select
-            className="select select-bordered w-full max-w-xs mb-4"
-            onChange={(e) => setIsGroupe(e.target.value === 'Groupe')}
-          >
-            <option value="Individuel">Individuel</option>
-            <option value="Groupe">Groupe</option>
-          </select>
-
           <label
             htmlFor="equipment"
-            className="block text-sm font-medium text-white "
+            className="block text-sm font-medium text-white"
           >
             Matériel
+            <textarea
+              id="equipment"
+              name="equipment"
+              placeholder="Ecrivez vos matériels"
+              className="input input-bordered w-2/5 mt-1 align-middle mb-4"
+              defaultValue={session ? session.equipment : ''}
+              autoComplete="on"
+            />
           </label>
-          <textarea
-            name="equipment"
-            placeholder="Ecrivez vos matériels"
-            className="input input-bordered w-2/5 mt-1 align-middle mb-4"
-            defaultValue={session ? session.equipment : ''}
-          />
-          <label htmlFor="button"></label>
           <button
             className="btn float-right"
             onClick={() => {
