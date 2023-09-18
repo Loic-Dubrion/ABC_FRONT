@@ -9,13 +9,13 @@ import { ISession } from '../../../components/@types/session';
 interface SessionState {
   sessions: [];
   isOpen: boolean;
-  session: ISession[];
+  session: ISession | null;
 }
 
 const initialState: SessionState = {
   sessions: [],
   isOpen: false,
-  session: [],
+  session: null,
 };
 
 export const createSession = createAsyncThunk(
@@ -52,6 +52,7 @@ export const readOneSession = createAsyncThunk(
     const response = await axiosInstance.get(
       `/user/${localStorage.getItem('id')}/session/${sessionId}`
     );
+    localStorage.setItem('session_id', response.data.id);
     localStorage.setItem('tool_id', response.data.tool_id);
     return response.data;
   }
@@ -74,7 +75,7 @@ export const updateSession = createAsyncThunk(
     name: string;
     tool_id: number;
     comments: string;
-    time: number;
+    time: number | null;
     is_face_to_face: boolean;
     is_group_work: boolean;
     equipment: string;

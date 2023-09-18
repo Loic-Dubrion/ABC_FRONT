@@ -24,7 +24,7 @@ interface IBarGraph {
 }
 
 function BarGraphFirst({ sequence }: IBarGraph) {
-  console.log('sequence :', sequence);
+  
   let totalDureeIndividuel = 0;
   let totalDureeGroupe = 0;
 

@@ -1,14 +1,14 @@
 export interface ISession {
-  card_name: string;
+  card_id: number;
   comments: string;
+  card_name: string;
   equipment: string;
   is_face_to_face: boolean;
   is_group_work: boolean;
   level_name: string;
   session_id: number;
-  session_name: string;
+  name: string;
   time: number;
   tool_name: string;
   color: string;
-  card_id: number;
 }
