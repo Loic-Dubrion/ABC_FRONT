@@ -3,6 +3,7 @@ import userReducer from './reducers/user';
 import cardReducer from './reducers/card';
 import scenarioReducer from './reducers/sequence';
 import sessionReducer from './reducers/session';
+import convertReducer from './reducers/convert';
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     card: cardReducer,
     sequence: scenarioReducer,
     session: sessionReducer,
+    convert: convertReducer,
   },
 });
 

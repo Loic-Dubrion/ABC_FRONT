@@ -24,13 +24,14 @@ interface IBarGraph {
 }
 
 function BarGraphFirst({ sequence }: IBarGraph) {
+  console.log('sequence :', sequence);
   let totalDureeIndividuel = 0;
   let totalDureeGroupe = 0;
 
   if (sequence) {
     sequence.forEach((sequenceItem) =>
       sequenceItem.sessions.forEach((session) => {
-        if (session.is_face_to_face) {
+        if (!session.is_group_work) {
           totalDureeIndividuel += session.time;
         } else {
           totalDureeGroupe += session.time;
