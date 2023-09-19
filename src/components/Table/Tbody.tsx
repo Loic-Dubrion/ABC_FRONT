@@ -1,10 +1,14 @@
 import { faTrashCan, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { deleteSession, openModal } from '../../redux/store/reducers/session';
+import {
+  openDeleteSessionModal,
+  openModal,
+} from '../../redux/store/reducers/session';
 import { getOneCard } from '../../redux/store/reducers/card';
 import { ISession } from '../@types/sequence';
 import { useRef } from 'react';
+import SuppressionSessionModal from '../Modals/SuppressionSessionModal';
 
 interface ITbody {
   sessions: ISession[];
@@ -14,9 +18,17 @@ function Tbody({ sessions }: ITbody) {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.session.isOpen);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const modalRef = useRef<HTMLButtonElement>(null);
+  const isDeleteSessionModalOpen = useAppSelector(
+    (state) => state.session.deleteSessionModal
+  );
 
   const handleBlurButtonClick = () => {
     buttonRef.current?.blur();
+  };
+
+  const handleBlurModalClick = () => {
+    modalRef.current?.blur();
   };
 
   return (
@@ -26,13 +38,19 @@ function Tbody({ sessions }: ITbody) {
           <tr>
             <th>
               <button
+                ref={modalRef}
                 className="btn"
                 onClick={() => {
-                  dispatch(deleteSession(session.session_id));
+                  handleBlurModalClick();
+                  dispatch(openDeleteSessionModal(isDeleteSessionModalOpen));
                 }}
               >
                 <FontAwesomeIcon icon={faTrashCan} size="lg" />
               </button>
+              <SuppressionSessionModal
+                isOpen={isDeleteSessionModalOpen}
+                sessionId={session.session_id}
+              />
             </th>
             <td>
               <button

@@ -11,6 +11,7 @@ interface SessionState {
   isOpen: boolean;
   session: ISession | null;
   alert: string | null;
+  deleteSessionModal: boolean;
 }
 
 const initialState: SessionState = {
@@ -18,6 +19,7 @@ const initialState: SessionState = {
   isOpen: false,
   session: null,
   alert: null,
+  deleteSessionModal: false,
 };
 
 export const createSession = createAsyncThunk(
@@ -50,7 +52,6 @@ export const deleteSession = createAsyncThunk(
     const response = await axiosInstance.delete(
       `/user/${localStorage.getItem('id')}/session/${sessionId}`
     );
-    console.log('response :', response);
     return response.data;
   }
 );
@@ -72,6 +73,9 @@ export const updateSession = createAsyncThunk(
 
 export const openModal = createAction<boolean>('Session reducer/Modal toggled');
 export const resetSessionAlert = createAction('Session reducer/Alert clear');
+export const openDeleteSessionModal = createAction<boolean>(
+  'Session reducer/Toggle delete session modal'
+);
 
 const sessionReducer = createReducer(initialState, (builder) => {
   builder
@@ -92,6 +96,9 @@ const sessionReducer = createReducer(initialState, (builder) => {
     })
     .addCase(resetSessionAlert, (state) => {
       state.alert = null;
+    })
+    .addCase(openDeleteSessionModal, (state) => {
+      state.deleteSessionModal = !state.deleteSessionModal;
     });
 });
 

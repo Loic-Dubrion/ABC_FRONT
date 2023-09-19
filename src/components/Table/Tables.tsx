@@ -102,7 +102,6 @@ function Tables() {
           <BarGraphSecond sequence={sequence} />
         </section>
       )}
-
       <UpdateSession isOpen={isOpen} sequence={sequence} />
     </div>
   );
