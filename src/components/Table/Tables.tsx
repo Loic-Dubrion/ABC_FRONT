@@ -64,16 +64,16 @@ function Tables() {
         {sessions.length > 0 && (
           <div className="ml-auto">
             <button
-              className="btn btn-success mr-3"
+              className="btn mr-3"
               onClick={() => {
                 dispatch(convertToExcel(id as string));
               }}
             >
-              XLS
+              EXCEL
               <FontAwesomeIcon icon={faDownload} />
             </button>
             <button
-              className="btn btn-error"
+              className="btn"
               onClick={() => {
                 dispatch(convertToPdf(id as string));
               }}

@@ -13,7 +13,7 @@ import { faGraduationCap, faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import Login from '../Modals/Login';
 import WhenIsLogged from '../Modals/WhenIsLogged';
 // Logo
-import logo from '../../assets/logo.png';
+import logo from '../../assets/logo 2.png';
 
 function Header() {
   const dispatch = useAppDispatch();
@@ -48,9 +48,8 @@ function Header() {
     <header className="navbar bg-base-300 mb-5 w-full sticky top-0 z-10">
       <div className="flex-1 px-2 lg:flex-none">
         <Link to="/" className="text-lg font-bold">
-          <img src={logo} alt="logo" width={50} />
+          <img src={logo} alt="logo" width={120} />
         </Link>
-        <p className="font-bold ml-5">ABC Learning</p>
         <p className="font-bold ml-10">Création de scénario d'apprentissage</p>
       </div>
 
