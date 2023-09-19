@@ -71,7 +71,7 @@ export const updateSession = createAsyncThunk(
 );
 
 export const openModal = createAction<boolean>('Session reducer/Modal toggled');
-export const resetAlert = createAction('Session reducer/Alert clear');
+export const resetSessionAlert = createAction('Session reducer/Alert clear');
 
 const sessionReducer = createReducer(initialState, (builder) => {
   builder
@@ -90,7 +90,7 @@ const sessionReducer = createReducer(initialState, (builder) => {
     .addCase(openModal, (state) => {
       state.isOpen = !state.isOpen;
     })
-    .addCase(resetAlert, (state) => {
+    .addCase(resetSessionAlert, (state) => {
       state.alert = null;
     });
 });

@@ -8,7 +8,7 @@ import NotSequences from './NotSequences';
 import HasSequences from './HasSequences';
 import {
   getAllSequences,
-  resetAlert,
+  resetSequenceAlert,
 } from '../../redux/store/reducers/sequence';
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
     }
     if (alert) {
       dispatch(getAllSequences());
-      dispatch(resetAlert());
+      dispatch(resetSequenceAlert());
     }
   }, [dispatch, isLogged, alert]);
 

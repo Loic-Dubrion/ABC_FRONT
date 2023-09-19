@@ -12,14 +12,18 @@ import Tables from '../Table/Tables';
 import { useLocation, useParams } from 'react-router-dom';
 
 import TogglerLevelButton from './TogglerLevelButton';
-import { getOneSequence } from '../../redux/store/reducers/sequence';
-import { resetAlert } from '../../redux/store/reducers/session';
+import {
+  getOneSequence,
+  resetSequenceAlert,
+} from '../../redux/store/reducers/sequence';
+import { resetSessionAlert } from '../../redux/store/reducers/session';
 
 function CreateSequence() {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const sequenceId = useAppSelector((state) => state.sequence.sequenceId);
-  const alert = useAppSelector((state) => state.session.alert);
+  const sessionAlert = useAppSelector((state) => state.session.alert);
+  const sequenceAlert = useAppSelector((state) => state.sequence.alert);
 
   if (location.pathname === '/sequence') {
     history.pushState(
@@ -37,11 +41,16 @@ function CreateSequence() {
     if (!allCards && isLogged) {
       dispatch(getAllCards());
     }
-    if (alert) {
-      dispatch(resetAlert());
+    if (sessionAlert) {
+      dispatch(resetSessionAlert());
       dispatch(getOneSequence(id as string));
     }
-  }, [dispatch, allCards, isLogged, id, sequence, alert]);
+
+    if (sequenceAlert) {
+      dispatch(resetSequenceAlert());
+      dispatch(getOneSequence(id as string));
+    }
+  }, [dispatch, allCards, isLogged, id, sequence, sessionAlert, sequenceAlert]);
 
   return (
     <div className="CreateSequence flex flex-col flex-nowrap items-center gap-5">

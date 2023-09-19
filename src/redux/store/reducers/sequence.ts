@@ -84,15 +84,19 @@ export const deleteSequence = createAsyncThunk(
 
 export const updateSequence = createAsyncThunk(
   'Sequence reducer / Sequence was updated',
-  async ({ name, sequenceId }: { name: string; sequenceId: string }) => {
+  async (formData: FormData) => {
     try {
+      const objData = Object.fromEntries(formData);
+      const { sequenceId } = objData;
       const response = await axiosInstance.put(
         `/user/${localStorage.getItem('id')}/sequence/${sequenceId}`,
-        { name }
+        objData
       );
       return response.data;
     } catch (error) {
       console.log('error :', error);
+      // Vous pouvez également renvoyer une valeur de rejet ici si nécessaire
+      throw error;
     }
   }
 );
@@ -101,7 +105,9 @@ export const toggleUpdateSequenceMenu = createAction<boolean>(
   'Sequence reducer/Toggle modal state'
 );
 
-export const resetAlert = createAction('Sequence reducer/Reset alert state');
+export const resetSequenceAlert = createAction(
+  'Sequence reducer/Reset alert state'
+);
 
 const sequenceReducer = createReducer(initialState, (builder) => {
   builder
@@ -131,7 +137,7 @@ const sequenceReducer = createReducer(initialState, (builder) => {
     .addCase(toggleUpdateSequenceMenu, (state) => {
       state.toggle = !state.toggle;
     })
-    .addCase(resetAlert, (state) => {
+    .addCase(resetSequenceAlert, (state) => {
       state.alert = null;
     });
 });
