@@ -11,7 +11,7 @@ interface SequenceState {
   sequenceId: number | null;
   sequences: ISequences[];
   sequence: ISequence[];
-  message: string | null;
+  alert: string | null;
   toggle: boolean;
 }
 
@@ -20,7 +20,7 @@ const initialState: SequenceState = {
   sequenceId: null,
   sequences: [],
   sequence: [],
-  message: null,
+  alert: null,
   toggle: false,
 };
 
@@ -100,11 +100,12 @@ export const toggleUpdateSequenceMenu = createAction<boolean>(
   'Sequence reducer/Toggle modal state'
 );
 
+export const resetAlert = createAction('Sequence reducer/Reset alert state');
+
 const sequenceReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(getAllSequences.fulfilled, (state, action) => {
       state.sequences = action.payload;
-      state.message = null;
     })
     .addCase(getOneSequence.fulfilled, (state, action) => {
       state.sequence = action.payload;
@@ -114,19 +115,23 @@ const sequenceReducer = createReducer(initialState, (builder) => {
         state.sequenceId = e.id;
         localStorage.setItem('sequence_name', e.name);
       });
+      state.alert = 'Le scénario a été crée';
     })
-    .addCase(deleteSequence.fulfilled, (state, action) => {
-      state.message = action.payload;
+    .addCase(deleteSequence.fulfilled, (state) => {
+      state.alert = 'Le scénario a été supprimé';
     })
     .addCase(updateSequence.fulfilled, (state, action) => {
+      state.alert = 'Le scénario a été mis à jour';
       action.payload.map((element: { name: string; id: number }) => {
         state.sequenceId = element.id;
         localStorage.setItem('sequence_name', element.name);
       });
     })
-
     .addCase(toggleUpdateSequenceMenu, (state) => {
       state.toggle = !state.toggle;
+    })
+    .addCase(resetAlert, (state) => {
+      state.alert = null;
     });
 });
 

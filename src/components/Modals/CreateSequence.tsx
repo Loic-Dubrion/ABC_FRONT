@@ -11,18 +11,12 @@ function CreateSequence() {
     user_id: localStorage.getItem('id') || '',
   });
 
-  function openModal() {
-    if (dialogRef.current) {
-      dialogRef.current.showModal();
-    }
-  }
-
   return (
     <div className="whenIsLogged">
       <button
         className="btn btn-ghost w-full"
         onClick={() => {
-          openModal();
+          dialogRef.current?.showModal();
         }}
       >
         Créer un scénario
@@ -35,9 +29,6 @@ function CreateSequence() {
               e.preventDefault();
               dialogRef.current?.close();
               dispatch(createSequence(scenarioData));
-              setTimeout(() => {
-                window.location.reload();
-              }, 200);
             }}
           >
             <h3 className="font-bold text-lg mb-2">Créer un scénario</h3>

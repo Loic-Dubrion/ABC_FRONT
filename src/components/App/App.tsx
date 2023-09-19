@@ -6,18 +6,26 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import NotLogged from './NotLogged';
 import NotSequences from './NotSequences';
 import HasSequences from './HasSequences';
-import { getAllSequences } from '../../redux/store/reducers/sequence';
+import {
+  getAllSequences,
+  resetAlert,
+} from '../../redux/store/reducers/sequence';
 
 function App() {
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const scenarios = useAppSelector((state) => state.sequence.sequences);
+  const alert = useAppSelector((state) => state.sequence.alert);
 
   useEffect(() => {
     if (isLogged) {
       dispatch(getAllSequences());
     }
-  }, [dispatch, isLogged]);
+    if (alert) {
+      dispatch(getAllSequences());
+      dispatch(resetAlert());
+    }
+  }, [dispatch, isLogged, alert]);
 
   return (
     <div className="home">

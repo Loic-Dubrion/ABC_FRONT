@@ -46,9 +46,9 @@ function WhenIsLogged() {
               dispatch(toggleDropDown(isOpen));
               dialogRef.current?.close();
               dispatch(createSequence(scenarioData));
-              setTimeout(() => {
-                window.location.reload();
-              }, 200);
+              // setTimeout(() => {
+              //   window.location.reload();
+              // }, 200);
             }}
           >
             <h3 className="font-bold text-lg mb-2">Créer un scénario</h3>
