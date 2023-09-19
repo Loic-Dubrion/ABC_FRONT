@@ -55,9 +55,20 @@ function BarGraphFirst({ sequence }: IBarGraph) {
     labels: labels,
     datasets: [
       {
-        label: 'Durée',
-        data: [totalDureePresentiel, totalDureeDistanciel],
-        backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(75, 192, 192, 0.5)'],
+        label: 'Présentiel',
+        data: [totalDureePresentiel, 0],
+        backgroundColor: ['rgba(255, 99, 132, 0.5)'],
+        borderColor: ['rgb(255, 99, 132)'],
+        borderWidth: 1,
+        barThickness: 80,
+      },
+      {
+        label: 'Distanciel',
+        data: [0, totalDureeDistanciel],
+        backgroundColor: ['rgba(75, 192, 192, 0.5)'],
+        borderColor: ['rgb(75, 192, 192)'],
+        borderWidth: 1,
+        barThickness: 80,
       },
     ],
   };
