@@ -72,10 +72,14 @@ function CreateSession({ isOpen, color }: ICreateSession) {
             Présentiel / Distanciel
             <select
               id="presentiel"
-              name="presentiel"
+              name="is_face_to_face"
               className="select select-bordered w-full max-w-xs mb-4 text-black"
               onChange={(e) => {
-                setIsPresentiel(e.target.value === 'Présentiel');
+                if (e.target.value === 'Présentiel') {
+                  setIsPresentiel(true);
+                } else {
+                  setIsPresentiel(false);
+                }
               }}
               autoComplete="off"
             >
@@ -87,15 +91,19 @@ function CreateSession({ isOpen, color }: ICreateSession) {
             Individuel / Groupe
             <select
               id="groupe"
-              name="groupe"
+              name="is_group_work"
               className="select select-bordered w-full max-w-xs mb-4 text-black"
               onChange={(e) => {
-                setIsGroupe(e.target.value === 'Groupe');
+                if (e.target.value === 'Groupe') {
+                  setIsGroupe(true);
+                } else {
+                  setIsGroupe(false);
+                }
               }}
               autoComplete="off"
             >
-              <option value="Individuel">Individuel</option>
               <option value="Groupe">Groupe</option>
+              <option value="Individuel">Individuel</option>
             </select>
           </label>
           <label

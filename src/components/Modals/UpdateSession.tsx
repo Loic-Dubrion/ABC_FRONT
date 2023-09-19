@@ -19,7 +19,7 @@ function UpdateSession({ isOpen }: IUpdate) {
   const session = useAppSelector((state) => state.session.session);
   const [isPresentiel, setIsPresentiel] = useState(true);
   const [isGroupe, setIsGroupe] = useState(true);
-  console.log('isGroupe :', isGroupe);
+  
 
   useEffect(() => {
     if (sessionId) {

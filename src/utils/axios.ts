@@ -5,7 +5,6 @@ const instance = axios.create({
   timeout: 10000,
 });
 
-// Ajout automatique de l'accessToken aux headers de chaque requête
 instance.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem('accessToken');
@@ -15,8 +14,10 @@ instance.interceptors.request.use(
     return config;
   },
   (error) => {
+    console.log('Error in request interceptor:', error);
     return Promise.reject(error);
   }
 );
+
 
 export default instance;
