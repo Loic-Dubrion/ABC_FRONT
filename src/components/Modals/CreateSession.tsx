@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { createSession } from '../../redux/store/reducers/session';
 import { useAppDispatch } from '../../redux/hooks';
 import { modalIsOpen } from '../../redux/store/reducers/card';
@@ -14,6 +14,7 @@ function CreateSession({ isOpen, color }: ICreateSession) {
   const { id } = useParams();
   const [isPresentiel, setIsPresentiel] = useState(true);
   const [isGroupe, setIsGroupe] = useState(true);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,6 +29,7 @@ function CreateSession({ isOpen, color }: ICreateSession) {
     dispatch(modalIsOpen(isOpen));
     localStorage.removeItem('card_id');
     localStorage.removeItem('tool_id');
+    formRef.current?.reset();
   };
 
   return (
@@ -36,7 +38,7 @@ function CreateSession({ isOpen, color }: ICreateSession) {
         className="modal-box w-full max-w-5xl"
         style={{ backgroundColor: color }}
       >
-        <form onSubmit={handleFormSubmit}>
+        <form onSubmit={handleFormSubmit} ref={formRef}>
           <label
             htmlFor="name"
             className="flex flex-col mb-2 text-sm font-medium text-white"
