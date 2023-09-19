@@ -27,6 +27,10 @@ function Cards() {
     }
   }, [dispatch, allCards, isLogged]);
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  }
+
   return (
     isLogged && (
       <section className="cards flex m-3 gap-2">
@@ -49,9 +53,11 @@ function Cards() {
                         cardRef.current?.showModal();
                       }, 100);
                     }}
-                    className={`btn ${isChecked && 'bg-[#f87272]'}`}
+                    className={`btn btn-sm normal-case ${
+                      isChecked ? 'bg-[#f87272]' : 'bg-[#3abff8]'
+                    }`}
                   >
-                    CHOISIR
+                    Activités
                   </button>
 
                   {oneCard &&
