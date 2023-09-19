@@ -19,5 +19,16 @@ instance.interceptors.request.use(
   }
 );
 
+instance.interceptors.response.use(
+  (response) => {
+    console.log('response :', response);
+    return response;
+  },
+  (error) => {
+    // Gérer les erreurs ici
+    console.log('Error in response interceptor:', error);
+    return Promise.reject(error);
+  }
+);
 
 export default instance;
