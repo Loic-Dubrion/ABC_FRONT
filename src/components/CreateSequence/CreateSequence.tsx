@@ -12,11 +12,14 @@ import Tables from '../Table/Tables';
 import { useLocation, useParams } from 'react-router-dom';
 
 import TogglerLevelButton from './TogglerLevelButton';
+import { getOneSequence } from '../../redux/store/reducers/sequence';
+import { resetAlert } from '../../redux/store/reducers/session';
 
 function CreateSequence() {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const sequenceId = useAppSelector((state) => state.sequence.sequenceId);
+  const alert = useAppSelector((state) => state.session.alert);
 
   if (location.pathname === '/sequence') {
     history.pushState(
@@ -34,7 +37,11 @@ function CreateSequence() {
     if (!allCards && isLogged) {
       dispatch(getAllCards());
     }
-  }, [dispatch, allCards, isLogged, id, sequence]);
+    if (alert) {
+      dispatch(resetAlert());
+      dispatch(getOneSequence(id as string));
+    }
+  }, [dispatch, allCards, isLogged, id, sequence, alert]);
 
   return (
     <div className="CreateSequence flex flex-col flex-nowrap items-center gap-5">

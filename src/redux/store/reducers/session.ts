@@ -10,19 +10,20 @@ interface SessionState {
   sessions: [];
   isOpen: boolean;
   session: ISession | null;
+  alert: string | null;
 }
 
 const initialState: SessionState = {
   sessions: [],
   isOpen: false,
   session: null,
+  alert: null,
 };
 
 export const createSession = createAsyncThunk(
   'Session reducer/createSession', // nom de l'action
   async (formData: FormData) => {
     const objData = Object.fromEntries(formData);
-    console.log('objData :', objData);
     const response = await axiosInstance.post(
       `/user/${localStorage.getItem('id')}/session`,
       objData
@@ -70,17 +71,27 @@ export const updateSession = createAsyncThunk(
 );
 
 export const openModal = createAction<boolean>('Session reducer/Modal toggled');
+export const resetAlert = createAction('Session reducer/Alert clear');
 
 const sessionReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(createSession.fulfilled, () => {})
-    .addCase(deleteSession.fulfilled, () => {})
-    .addCase(updateSession.fulfilled, () => {})
+    .addCase(createSession.fulfilled, (state) => {
+      state.alert = 'La session a été créée';
+    })
+    .addCase(deleteSession.fulfilled, (state) => {
+      state.alert = 'La session a été supprimée';
+    })
+    .addCase(updateSession.fulfilled, (state) => {
+      state.alert = 'La session a été mise à jour';
+    })
     .addCase(readOneSession.fulfilled, (state, action) => {
       state.session = action.payload;
     })
     .addCase(openModal, (state) => {
       state.isOpen = !state.isOpen;
+    })
+    .addCase(resetAlert, (state) => {
+      state.alert = null;
     });
 });
 

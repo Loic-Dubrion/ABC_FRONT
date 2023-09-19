@@ -20,7 +20,6 @@ function Cards() {
   const allCards = useAppSelector((state) => state.card.cards);
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const isOpen = useAppSelector((state) => state.card.isOpen);
-  const cardId = useAppSelector((state) => state.card.card_id);
 
   useEffect(() => {
     if (!allCards && isLogged) {
@@ -155,7 +154,6 @@ function Cards() {
                         : ''
                     }
                     isOpen={isOpen}
-                    card_id={cardId}
                   />
                 </div>
               </div>

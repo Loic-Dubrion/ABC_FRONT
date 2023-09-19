@@ -38,7 +38,7 @@ function Tables() {
   const isOpen = useAppSelector((state) => state.session.isOpen);
 
   useEffect(() => {
-    if (isLogged && id) {
+    if (isLogged) {
       dispatch(getOneSequence(id as string));
     }
   }, [dispatch, id, isLogged]);

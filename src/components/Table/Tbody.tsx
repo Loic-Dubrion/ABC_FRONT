@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { deleteSession, openModal } from '../../redux/store/reducers/session';
 import { getOneCard } from '../../redux/store/reducers/card';
-import { Session } from '../@types/sequence';
+import { ISession } from '../@types/sequence';
 import { useRef } from 'react';
 
 interface ITbody {
-  sessions: Session[];
+  sessions: ISession[];
 }
 
 function Tbody({ sessions }: ITbody) {
@@ -29,7 +29,6 @@ function Tbody({ sessions }: ITbody) {
                 className="btn"
                 onClick={() => {
                   dispatch(deleteSession(session.session_id));
-                  window.location.reload();
                 }}
               >
                 <FontAwesomeIcon icon={faTrashCan} size="lg" />

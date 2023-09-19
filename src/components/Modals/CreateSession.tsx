@@ -28,7 +28,6 @@ function CreateSession({ isOpen, color }: ICreateSession) {
     dispatch(modalIsOpen(isOpen));
     localStorage.removeItem('card_id');
     localStorage.removeItem('tool_id');
-    window.location.reload();
   };
 
   return (
