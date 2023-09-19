@@ -116,7 +116,7 @@ function CreateSession({ isOpen, color }: ICreateSession) {
               id="comments"
               name="comments"
               placeholder="Ecrivez vos commentaire"
-              className="input input-bordered w-full h-24 mt-1 align-middle mb-4 text-black"
+              className="input input-bordered w-full h-24 mt-1 align-middle mb-4 text-black overflow-hidden"
               autoComplete="off"
             />
           </label>
@@ -131,7 +131,7 @@ function CreateSession({ isOpen, color }: ICreateSession) {
                   id="equipment"
                   name="equipment"
                   placeholder="Ecrivez vos matériels"
-                  className="input input-bordered w-full mt-1 align-middle text-black"
+                  className="input input-bordered w-full mt-1 align-middle text-black overflow-hidden"
                   autoComplete="off"
                 />
               </div>

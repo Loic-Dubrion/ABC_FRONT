@@ -28,7 +28,7 @@ function App() {
   }, [dispatch, isLogged, alert]);
 
   return (
-    <div className="home">
+    <div className="main">
       {!isLogged && <NotLogged />}
       {isLogged && scenarios.length === 0 && <NotSequences />}
       {isLogged && scenarios.length > 0 && <HasSequences />}

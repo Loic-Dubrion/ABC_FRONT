@@ -53,11 +53,11 @@ function CreateSequence() {
   }, [dispatch, allCards, isLogged, id, sequence, sessionAlert, sequenceAlert]);
 
   return (
-    <div className="CreateSequence flex flex-col flex-nowrap items-center gap-5">
+    <main className="flex flex-col flex-nowrap items-center gap-5 mb-28">
       {allCards && isLogged && <TogglerLevelButton />}
       <Cards />
       <Tables />
-    </div>
+    </main>
   );
 }
 
