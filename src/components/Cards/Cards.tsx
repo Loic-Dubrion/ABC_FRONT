@@ -51,7 +51,7 @@ function Cards() {
                     }}
                     className={`btn ${isChecked && 'bg-[#f87272]'}`}
                   >
-                    Open
+                    CHOISIR
                   </button>
 
                   {oneCard &&

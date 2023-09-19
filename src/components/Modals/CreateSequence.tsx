@@ -43,7 +43,7 @@ function CreateSequence() {
                     <input
                       id="name"
                       name="name"
-                      placeholder="Ecrivez vos matériels"
+                      placeholder="Entrez le nom du scénario"
                       className="input input-bordered w-full align-middle text-black"
                       autoComplete="off"
                     />
