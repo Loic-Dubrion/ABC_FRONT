@@ -4,6 +4,7 @@ import cardReducer from './reducers/card';
 import scenarioReducer from './reducers/sequence';
 import sessionReducer from './reducers/session';
 import convertReducer from './reducers/convert';
+import errorReducer from './reducers/error';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     sequence: scenarioReducer,
     session: sessionReducer,
     convert: convertReducer,
+    error: errorReducer,
   },
 });
 

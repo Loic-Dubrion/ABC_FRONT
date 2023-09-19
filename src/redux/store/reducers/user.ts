@@ -44,7 +44,7 @@ export const login = createAsyncThunk(
       const response = await axiosInstance.post('/log/in', formData);
       return response.data.data;
     } catch (error) {
-      console.log('error :', error);
+      throw new Error();
     }
   }
 );
@@ -54,9 +54,6 @@ export const toggleDropDown = createAction<boolean>('Toggle Dropdown Menu');
 
 const userReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(login.pending, (state) => {
-      state.isLogged = null;
-    })
     .addCase(login.fulfilled, (state, action) => {
       state.isOpen = false;
       state.isLogged = action.payload.accessToken;
@@ -70,6 +67,11 @@ const userReducer = createReducer(initialState, (builder) => {
       localStorage.setItem('permissions', permissions as string);
       state.username = username;
       state.roles = roles as string[];
+    })
+    .addCase(login.rejected, (state) => {
+      state.isOpen = false;
+      state.isLogged = null;
+      localStorage.clear();
     })
     .addCase(logout, (state) => {
       state.isOpen = false;

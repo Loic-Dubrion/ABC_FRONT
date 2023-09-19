@@ -1,4 +1,13 @@
-import axios from 'axios';
+// Dans votre fichier où vous utilisez Axios (par exemple, api.ts)
+import axios, { AxiosError } from 'axios';
+import store from '../redux/store';
+import { setError } from '../redux/store/reducers/error';
+
+interface ICustomError extends AxiosError {
+  message: string;
+  status: number;
+  code: string;
+}
 
 const instance = axios.create({
   baseURL: 'http://localhost:3000/api',
@@ -14,7 +23,6 @@ instance.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.log('Error in request interceptor:', error);
     return Promise.reject(error);
   }
 );
@@ -24,9 +32,20 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
-    // Gérer les erreurs ici
-    console.log('Error in response interceptor:', error);
-    return Promise.reject(error);
+    const axiosError: ICustomError = error.response.data; // Use the custom ICustomError type
+    console.log('axiosError :', axiosError);
+    const errorData: ICustomError = {
+      code: axiosError.code as string,
+      message: axiosError.message as string,
+      status: axiosError.status as number,
+      // Other relevant data you want to store
+      isAxiosError: axiosError.isAxiosError, // Add missing properties
+      toJSON: axiosError.toJSON,
+      name: axiosError.name,
+    };
+
+    store.dispatch(setError(errorData));
+    return Promise.reject(axiosError);
   }
 );
 

@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 // React Router
 import { Link } from 'react-router-dom';
-//Redux
+// Redux
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 // Reducers actions
 import { toggleDropDown } from '../../redux/store/reducers/user';
@@ -76,17 +76,17 @@ function Header() {
             >
               <span
                 className={`block h-1 w-6 bg-base-content rounded-full transition-all duration-1000 transform ${
-                  isOpen && 'rotate-45 translate-y-2'
+                  isOpen ? 'rotate-45 translate-y-2' : ''
                 }`}
               ></span>
               <span
                 className={`block h-1 w-6 bg-base-content rounded-full mt-1 transition-all duration-1000 ${
-                  isOpen && 'opacity-0'
+                  isOpen ? 'opacity-0' : ''
                 }`}
               ></span>
               <span
                 className={`block h-1 w-6 bg-base-content rounded-full mt-1 transition-all duration-1000 transform ${
-                  isOpen && '-rotate-45 -translate-y-2'
+                  isOpen ? '-rotate-45 -translate-y-2' : ''
                 }`}
               ></span>
             </button>

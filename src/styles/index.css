@@ -6,3 +6,7 @@
   position: static;
   margin-top: 7%;
 }
+
+.my-cubic-bezier {
+  transition-timing-function: cubic-bezier(0.66, 0.67, 0.52, 0.52);
+}

@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="footer p-6 bg-[#e5e6e6] text-base-content rounded-box">
+    <footer className="footer p-6 bg-[#e5e6e6] text-base-content fixed bottom-0">
       <p className="m-auto">© 2023 Castor™. All Rights Reserved.</p>
     </footer>
   );
