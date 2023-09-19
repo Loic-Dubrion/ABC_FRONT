@@ -26,11 +26,12 @@ const initialState: SequenceState = {
 
 export const createSequence = createAsyncThunk(
   'sequence reducer / Creating a new sequence',
-  async (sequenceData: { name: string; user_id: string }) => {
+  async (formData: FormData) => {
     try {
+      const objData = Object.fromEntries(formData);
       const response = await axiosInstance.post(
         `/user/${localStorage.getItem('id')}/sequence`,
-        sequenceData
+        objData
       );
       return response.data;
     } catch (error) {
