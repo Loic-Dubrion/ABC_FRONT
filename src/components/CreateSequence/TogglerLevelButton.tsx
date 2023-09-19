@@ -8,14 +8,14 @@ function TogglerLevelButton() {
   const isChecked = useAppSelector((state) => state.card.isChecked);
   return (
     <div className="flex justify-center items-center gap-3 mt-3">
-      <p className={`${!isChecked ? 'font-bold text-[#8f949b]' : ''}`}>
+      <p className={`${!isChecked ? 'font-bold text-[#3abff8]' : ''}`}>
         Novice
       </p>
       <input
         id="toggler"
         name="toggler"
         type="checkbox"
-        className="toggle toggle-error toggle-lg"
+        className="toggle toggle-error toggle-lg bg-[#3abff8]"
         checked={isChecked}
         onChange={() => {
           dispatch(togglerCheckbox(isChecked));
