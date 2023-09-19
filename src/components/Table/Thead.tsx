@@ -8,7 +8,7 @@ function Thead() {
         <th>Nom de la session</th>
         <th>Activités</th>
         <th>Remarques</th>
-        <th>Durée</th>
+        <th>Durée / minutes</th>
         <th>Présentiel / Distanciel</th>
         <th>Individuel / Groupe</th>
         <th>Matériel</th>
