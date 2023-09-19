@@ -75,6 +75,7 @@ const sessionReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(createSession.fulfilled, () => {})
     .addCase(deleteSession.fulfilled, () => {})
+    .addCase(updateSession.fulfilled, () => {})
     .addCase(readOneSession.fulfilled, (state, action) => {
       state.session = action.payload;
     })

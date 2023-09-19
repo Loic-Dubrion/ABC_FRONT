@@ -77,10 +77,7 @@ export const convertToPdf = createAsyncThunk(
 );
 
 const convertReducer = createReducer(initialState, (builder) => {
-  builder.addCase(convertToPdf.fulfilled, (state, action) => {
-    console.log('state :', state);
-    console.log('action :', action);
-  });
+  builder;
 });
 
 export default convertReducer;
