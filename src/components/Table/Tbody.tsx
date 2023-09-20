@@ -39,7 +39,7 @@ function Tbody({ sessions }: ITbody) {
             <th>
               <button
                 ref={modalRef}
-                className="btn"
+                className="btn bg-transparent border-none"
                 onClick={() => {
                   handleBlurModalClick();
                   dispatch(openDeleteSessionModal(isDeleteSessionModalOpen));
@@ -54,7 +54,7 @@ function Tbody({ sessions }: ITbody) {
             </th>
             <td>
               <button
-                className="btn"
+                className="btn bg-transparent border-none"
                 onClick={() => {
                   handleBlurButtonClick();
                   dispatch(getOneCard(session.card_id.toString()));

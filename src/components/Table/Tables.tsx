@@ -64,7 +64,7 @@ function Tables() {
         {sessions.length > 0 && (
           <div className="ml-auto">
             <button
-              className="btn mr-3"
+              className="btn btn-sm mr-3 hover:btn-md transition-all"
               onClick={() => {
                 dispatch(convertToExcel(id as string));
               }}
@@ -73,7 +73,7 @@ function Tables() {
               <FontAwesomeIcon icon={faDownload} />
             </button>
             <button
-              className="btn"
+              className="btn btn-sm hover:btn-md transition-all"
               onClick={() => {
                 dispatch(convertToPdf(id as string));
               }}

@@ -1,5 +1,5 @@
 // React Router
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // Redux
 import { useAppDispatch } from '../../redux/hooks';
 // Reducers actions
@@ -10,6 +10,7 @@ import CreateSequence from '../Modals/CreateSequence';
 
 function WhenIsLogged() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   return (
     <div className="whenIsLogged">
@@ -21,7 +22,7 @@ function WhenIsLogged() {
         className="btn btn-ghost w-full"
         onClick={() => {
           dispatch(logout());
-          window.location.href = '/';
+          navigate('/');
         }}
       >
         <Link to="/">Déconnexion</Link>

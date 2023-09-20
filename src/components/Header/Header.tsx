@@ -66,7 +66,9 @@ function Header() {
           </Link>
         </div>
         <div className="flex items-stretch">
-          {username && <p className="mr-10 font-bold">Hi {username}</p>}
+          {isLogged && username && (
+            <p className="mr-10 font-bold">Hi {username}</p>
+          )}
           <div className="dropdown dropdown-end" ref={dropdownRef}>
             <button
               type="button"
