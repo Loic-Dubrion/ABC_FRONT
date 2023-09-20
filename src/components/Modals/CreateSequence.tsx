@@ -8,6 +8,7 @@ function CreateSequence() {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const isOpen = useAppSelector((state) => state.user.isOpen);
 
+
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formElement = e.currentTarget;

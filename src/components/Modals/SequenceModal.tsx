@@ -49,7 +49,13 @@ function SequenceModal({ isOpen }: SequenceModal) {
         </form>
       </div>
       <form method="dialog" className="modal-backdrop">
-        <button>close</button>
+        <button
+          onClick={() => {
+            dispatch(toggleUpdateSequenceMenu(isOpen));
+          }}
+        >
+          close
+        </button>
       </form>
     </dialog>
   );

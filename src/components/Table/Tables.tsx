@@ -35,6 +35,7 @@ function Tables() {
   const sequence = useAppSelector((state) => state.sequence.sequence);
   const sessions = sequence.map((e) => e.sessions);
   const toggleModal = useAppSelector((state) => state.sequence.toggle);
+  
   const isOpen = useAppSelector((state) => state.session.isOpen);
 
   useEffect(() => {

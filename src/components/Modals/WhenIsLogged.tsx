@@ -16,7 +16,7 @@ function WhenIsLogged() {
     <div className="whenIsLogged">
       <CreateSequence />
       <button className="btn btn-ghost w-full">
-        <a href="#">Profil</a>
+        <a href="/admin">Profil</a>
       </button>
       <button
         className="btn btn-ghost w-full"

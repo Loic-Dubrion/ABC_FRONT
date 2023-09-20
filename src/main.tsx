@@ -15,6 +15,7 @@ import Layout from './components/Layout/Layout';
 // Styles
 import './styles/index.css';
 import CreateSequence from './components/CreateSequence/CreateSequence';
+import Admin from './components/Profil/Admin';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +23,7 @@ const router = createBrowserRouter(
       <Route errorElement={'Rien à afficher 404'}>
         <Route path="/" element={<App />} />
         <Route path="/sequence/:id" element={<CreateSequence />} />
+        <Route path="/admin" element={<Admin />} />
       </Route>
     </Route>
   )
