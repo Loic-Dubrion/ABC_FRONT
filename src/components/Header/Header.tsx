@@ -45,16 +45,18 @@ function Header() {
   }, [isOpen, dispatch]);
 
   return (
-    <header className="navbar bg-base-300 mb-5 w-full sticky top-0 z-10">
-      <div className="flex-1 px-2 lg:flex-none">
+    <header className="flex items-center text-sm lg:navbar bg-base-300 mb-5 w-full sticky top-0 z-10">
+      <div className="md:flex items-center mr-2 text lg:flex-none">
         <Link to="/" className="text-lg font-bold">
-          <img src={logo} alt="logo" width={120} />
+          <img src={logo} alt="logo" className="md:w-24 lg:w-28" />
         </Link>
-        <p className="font-bold ml-10">Création de scénario d'apprentissage</p>
+        <p className="md:hidden lg:block lg:font-bold ml-10">
+          Création de scénario d'apprentissage
+        </p>
       </div>
 
       <div className="flex justify-end flex-1 px-2">
-        <div className="liens flex gap-5 mr-10">
+        <div className="md:text-sm lg:liens flex gap-5 mr-10">
           <Link to={'https://moodletoolguide.net/fr/'} target="_blank">
             Guide des outils Moodle <FontAwesomeIcon icon={faGraduationCap} />
           </Link>
@@ -72,7 +74,7 @@ function Header() {
           <div className="dropdown dropdown-end" ref={dropdownRef}>
             <button
               type="button"
-              className="focus:outline-none"
+              className="lg:focus:outline-none"
               onClick={handleMenu}
             >
               <span
@@ -94,7 +96,7 @@ function Header() {
             {isOpen && (
               <div
                 tabIndex={0}
-                className={`menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4`}
+                className={`lg:menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4`}
               >
                 {!isLogged && <Login />}
                 {isLogged && <WhenIsLogged />}

@@ -29,7 +29,7 @@ function Cards() {
 
   return (
     isLogged && (
-      <section className="cards flex m-3 gap-2">
+      <section className="lg:flex-row lg:cards flex m-3 gap-2 md:flex-col">
         {allCards &&
           isLogged &&
           allCards.map((card, index) => (
