@@ -1,15 +1,20 @@
 import moment from 'moment';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { deleteSequence } from '../../redux/store/reducers/sequence';
+import {
+  deleteSequence,
+  openDeleteSequenceModal,
+} from '../../redux/store/reducers/sequence';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import 'moment/locale/fr';
+import SuppressionSequenceModal from '../Modals/SuppressionSequenceModal';
 
 function HasSequences() {
   const dispatch = useAppDispatch();
   const sequences = useAppSelector((state) => state.sequence.sequences);
   const isLogged = useAppSelector((state) => state.user.isLogged);
+  const isOpen = useAppSelector((state) => state.sequence.isOpen);
 
   const handleDeleteSequence = (sequenceId: number) => {
     dispatch(deleteSequence(sequenceId));
@@ -35,12 +40,16 @@ function HasSequences() {
                     <button
                       className="btn bg-transparent border-none"
                       onClick={() => {
-                        handleDeleteSequence(sequence.id as number);
                         localStorage.removeItem('sequence_name');
+                        dispatch(openDeleteSequenceModal(isOpen));
                       }}
                     >
                       <FontAwesomeIcon icon={faTrashCan} size="lg" />
                     </button>
+                    <SuppressionSequenceModal
+                      isOpen={isOpen}
+                      sequenceId={sequence.id}
+                    />
                   </td>
                   <td>
                     <p className="table-row-link">{sequence.id}</p>

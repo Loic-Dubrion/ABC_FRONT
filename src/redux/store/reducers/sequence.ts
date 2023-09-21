@@ -13,6 +13,7 @@ interface SequenceState {
   sequence: ISequence[];
   alert: string | null;
   toggle: boolean;
+  isOpen: boolean;
 }
 
 const initialState: SequenceState = {
@@ -22,6 +23,7 @@ const initialState: SequenceState = {
   sequence: [],
   alert: null,
   toggle: false,
+  isOpen: false,
 };
 
 export const createSequence = createAsyncThunk(
@@ -109,6 +111,10 @@ export const resetSequenceAlert = createAction(
   'Sequence reducer/Reset alert state'
 );
 
+export const openDeleteSequenceModal = createAction<boolean>(
+  'Sequence reducer/Toggle suppresion modal'
+);
+
 const sequenceReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(getAllSequences.fulfilled, (state, action) => {
@@ -139,6 +145,9 @@ const sequenceReducer = createReducer(initialState, (builder) => {
     })
     .addCase(resetSequenceAlert, (state) => {
       state.alert = null;
+    })
+    .addCase(openDeleteSequenceModal, (state) => {
+      state.isOpen = !state.isOpen;
     });
 });
 
