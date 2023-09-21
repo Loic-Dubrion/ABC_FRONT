@@ -49,7 +49,7 @@ function Cards() {
                         cardRef.current?.showModal();
                       }, 100);
                     }}
-                    className={`btn btn-sm normal-case hover:btn-md transition-all`}
+                    className={`btn btn-sm normal-case`}
                     //  ${isChecked ? 'bg-[#f87272]' : 'bg-[#3abff8]'}
                   >
                     Activités

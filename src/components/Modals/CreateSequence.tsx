@@ -2,12 +2,13 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import React, { useRef } from 'react';
 import { createSequence } from '../../redux/store/reducers/sequence';
 import { toggleDropDown } from '../../redux/store/reducers/user';
+import { useNavigate } from 'react-router-dom';
 
 function CreateSequence() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const isOpen = useAppSelector((state) => state.user.isOpen);
-
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,6 +20,7 @@ function CreateSequence() {
     if (isOpen === true) {
       dispatch(toggleDropDown(isOpen));
     }
+    navigate(`/`);
   };
   return (
     <div className="whenIsLogged">
