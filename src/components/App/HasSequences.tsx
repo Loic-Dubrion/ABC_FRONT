@@ -1,9 +1,6 @@
 import moment from 'moment';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import {
-  deleteSequence,
-  openDeleteSequenceModal,
-} from '../../redux/store/reducers/sequence';
+import { openDeleteSequenceModal } from '../../redux/store/reducers/sequence';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
@@ -15,10 +12,6 @@ function HasSequences() {
   const sequences = useAppSelector((state) => state.sequence.sequences);
   const isLogged = useAppSelector((state) => state.user.isLogged);
   const isOpen = useAppSelector((state) => state.sequence.isOpen);
-
-  const handleDeleteSequence = (sequenceId: number) => {
-    dispatch(deleteSequence(sequenceId));
-  };
 
   return (
     <div className="lg:card card-compact w-3/6 bg-base-100 shadow-xl m-auto md:w-9/12">
@@ -48,7 +41,7 @@ function HasSequences() {
                     </button>
                     <SuppressionSequenceModal
                       isOpen={isOpen}
-                      sequenceId={sequence.id}
+                      sequenceId={sequence.id as number}
                     />
                   </td>
                   <td>

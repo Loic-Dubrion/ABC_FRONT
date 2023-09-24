@@ -2,7 +2,6 @@ import { useAppSelector } from '../../redux/hooks';
 
 function MessageIndication() {
   const message = useAppSelector((state) => state.error.error);
-  console.log('message :', message);
 
   const messageStyle = {
     opacity: message ? 1 : 0, // Afficher le message uniquement s'il est présent

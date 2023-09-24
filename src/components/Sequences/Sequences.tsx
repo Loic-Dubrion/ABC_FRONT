@@ -12,26 +12,15 @@ import 'moment/locale/fr';
 
 function Sequences() {
   const dispatch = useAppDispatch();
-  const message = useAppSelector((state) => state.sequence.message);
   const sequences = useAppSelector((state) => state.sequence.sequences);
   const isLogged = useAppSelector((state) => state.user.isLogged);
-
-  useEffect(() => {
-    function fetchSequences() {
-      dispatch(getAllSequences());
-    }
-    fetchSequences();
-    if (message !== null) {
-      dispatch(getAllSequences());
-    }
-  }, [dispatch, message]);
 
   const handleDeleteSequence = (sequenceId: number) => {
     dispatch(deleteSequence(sequenceId));
   };
 
   return (
-    <div className="overflow-x-auto">
+    <div className="table-container">
       {isLogged && sequences.length > 0 && (
         <table className="table">
           <thead>

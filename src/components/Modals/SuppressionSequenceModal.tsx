@@ -4,7 +4,6 @@ import {
   deleteSequence,
   openDeleteSequenceModal,
 } from '../../redux/store/reducers/sequence';
-import { useParams } from 'react-router-dom';
 
 interface Props {
   sequenceId: number;
