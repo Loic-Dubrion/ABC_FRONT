@@ -16,10 +16,16 @@ function Login() {
       loginModalRef.current.showModal();
     }
   }
+  function closeModal() {
+    if (loginModalRef.current) {
+      loginModalRef.current.close();
+    }
+  }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     dispatch(login(formData));
+    closeModal();
   }
 
   return (

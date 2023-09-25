@@ -1,36 +1,57 @@
+import { useEffect, useState } from 'react';
 import { useAppSelector } from '../../redux/hooks';
 
 function MessageIndication() {
-  const message = useAppSelector((state) => state.error.error);
+  const userError = useAppSelector((state) => state.user.userMessage);
+  const [showMessage, setShowMessage] = useState(false);
 
-  const messageStyle = {
-    opacity: message ? 1 : 0, // Afficher le message uniquement s'il est présent
-    transform: `translateX(${message ? '0' : '100%'})`, // Déplacer de droite à gauche
-    transition: 'opacity 0.5s ease-in-out, transform 0.5s ease-in-out', // Ajouter une transition
-  };
+  useEffect(() => {
+    if (userError) {
+      setShowMessage(true);
+
+      // Utilisez setTimeout pour nettoyer le message après 5 secondes
+      const timer = setTimeout(() => {
+        setShowMessage(false);
+      }, 7000);
+
+      // Retournez une fonction de nettoyage pour annuler le timer si le composant est démonté avant 5 secondes
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [userError]);
 
   return (
-    <div
-      className={`alert alert-${message?.status} w-1/4 ml-auto`}
-      style={messageStyle}
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="stroke-current shrink-0 h-6 w-6 m-auto"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-        />
-      </svg>
-      <p className="font-bold text-right">
-        {message?.message || 'Vous êtes connecté(e)'}
-      </p>
-    </div>
+    <>
+      {showMessage && (
+        <div
+          className={`alert ${
+            userError?.name === 'error'
+              ? 'alert-error'
+              : userError?.name === 'success'
+              ? 'alert-success'
+              : 'alert-info'
+          } w-1/4 m-auto mr-2 ${
+            showMessage ? 'slide-from-right' : 'slide-from-left'
+          }`}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="stroke-current shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <span>{userError?.message}</span>
+        </div>
+      )}
+    </>
   );
 }
 

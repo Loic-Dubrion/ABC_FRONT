@@ -32,8 +32,8 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
+    console.log('error :', error);
     const axiosError: ICustomError = error.response.data; // Use the custom ICustomError type
-    console.log('axiosError :', axiosError);
     const errorData: ICustomError = {
       code: axiosError.code as string,
       message: axiosError.message as string,
@@ -43,8 +43,11 @@ instance.interceptors.response.use(
       toJSON: axiosError.toJSON,
       name: axiosError.name,
     };
+    if (error.status === 403) {
+      console.log('error :', error);
+      store.dispatch(setError(errorData));
+    }
 
-    store.dispatch(setError(errorData));
     return Promise.reject(axiosError);
   }
 );
