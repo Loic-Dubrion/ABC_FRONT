@@ -8,27 +8,21 @@
 }
 
 .slide-from-right {
-  animation: slideFromRight 0.5s ease-in-out;
+  animation: slideFromRight 7s ease-in-out;
 }
 
 @keyframes slideFromRight {
-  from {
-    transform: translateX(50%);
+  0% {
+    transform: translateX(100%);
   }
-  to {
-    transform: translateX(0);
-  }
-}
-
-/* .slide-from-left {
-  animation: slideFromLeft 0.5s ease-in-out;
-}
-
-@keyframes slideFromLeft {
-  from {
+  10% {
     transform: translateX(0%);
   }
-  to {
-    transform: translateX(-100%);
+
+  90% {
+    transform: translateX(0%);
   }
-} */
+  100% {
+    transform: translateX(100%);
+  }
+}

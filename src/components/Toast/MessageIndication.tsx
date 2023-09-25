@@ -12,7 +12,7 @@ function MessageIndication() {
       // Utilisez setTimeout pour nettoyer le message après 5 secondes
       const timer = setTimeout(() => {
         setShowMessage(false);
-      }, 7000);
+      }, 6900);
 
       // Retournez une fonction de nettoyage pour annuler le timer si le composant est démonté avant 5 secondes
       return () => {
@@ -31,9 +31,8 @@ function MessageIndication() {
               : userError?.name === 'success'
               ? 'alert-success'
               : 'alert-info'
-          } w-1/4 m-auto mr-2 ${
-            showMessage ? 'slide-from-right' : 'slide-from-left'
-          }`}
+          } w-1/5 m-auto mr-2
+          slide-from-right`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
