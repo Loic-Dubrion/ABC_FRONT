@@ -32,7 +32,6 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.log('error :', error);
     const axiosError: ICustomError = error.response.data; // Use the custom ICustomError type
     const errorData: ICustomError = {
       code: axiosError.code as string,
