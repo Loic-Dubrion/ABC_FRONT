@@ -14,7 +14,10 @@ function HasSequences() {
   const isOpen = useAppSelector((state) => state.sequence.isOpen);
 
   return (
-    <div className="lg:card card-compact w-3/6 bg-base-100 shadow-xl m-auto md:w-9/12">
+    <div
+      data-testid="has-sequences"
+      className="lg:card card-compact w-3/6 bg-base-100 shadow-xl m-auto md:w-9/12"
+    >
       {isLogged && sequences.length > 0 && (
         <table className="table">
           <thead>
