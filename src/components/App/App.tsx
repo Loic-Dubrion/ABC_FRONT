@@ -1,5 +1,6 @@
 // React component
 import { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 // Redux
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 // Components
@@ -29,6 +30,15 @@ function App() {
 
   return (
     <div className="main mb-20">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <meta
+          name="description"
+          content="La méthode ABC Learning Design est une solution développée depuis 2014 par Clive Young and Nataša Perović (UCL Digital Education) pour offrir un cadre méthodologique et des outils pour la conduite d’ateliers de scénarisation pédagogique efficaces et collaboratifs"
+        />
+        <title>ABC Learning</title>
+      </Helmet>
+
       {!isLogged && <NotLogged />}
       {isLogged && scenarios.length === 0 && <NotSequences />}
       {isLogged && scenarios.length > 0 && <HasSequences />}

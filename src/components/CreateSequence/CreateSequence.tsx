@@ -1,7 +1,7 @@
 // React Hooks
 import { useEffect } from 'react';
 // Module & Library
-
+import { Helmet } from 'react-helmet';
 // Redux functions
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 // Reducers actions
@@ -45,7 +45,6 @@ function CreateSequence() {
       dispatch(resetSessionAlert());
       dispatch(getOneSequence(id as string));
     }
-
     if (sequenceAlert) {
       dispatch(resetSequenceAlert());
       dispatch(getOneSequence(id as string));
@@ -54,6 +53,15 @@ function CreateSequence() {
 
   return (
     <main className="flex flex-col flex-nowrap items-center gap-5 mb-28">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <meta
+          name="description"
+          content="Créez vos sessions à l'aide de 6 modalités d'apprentissage : l'acquisition, la discussion, l'exercice ou l'entraînement, l'enquête, la production, la collaboration."
+        />
+        <title>Créez vos sessions</title>
+      </Helmet>
+
       {allCards && isLogged && <TogglerLevelButton />}
       <Cards />
       <Tables />
