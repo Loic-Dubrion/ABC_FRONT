@@ -19,7 +19,6 @@ function UpdateSession({ isOpen }: IUpdate) {
   const session = useAppSelector((state) => state.session.session);
   const [isPresentiel, setIsPresentiel] = useState(true);
   const [isGroupe, setIsGroupe] = useState(true);
-  
 
   useEffect(() => {
     if (sessionId) {
@@ -84,6 +83,7 @@ function UpdateSession({ isOpen }: IUpdate) {
               id="presentiel"
               name="is_face_to_face"
               className="select select-bordered w-full max-w-xs mb-4 text-black"
+              value={session?.is_face_to_face ? 'Présentiel' : 'Distanciel'}
               onChange={(e) => {
                 if (e.target.value === 'Présentiel') {
                   setIsPresentiel(true);
@@ -103,6 +103,7 @@ function UpdateSession({ isOpen }: IUpdate) {
               id="groupe"
               name="is_group_work"
               className="select select-bordered w-full max-w-xs mb-4 text-black"
+              value={session?.is_group_work ? 'Groupe' : 'Individuel'}
               onChange={(e) => {
                 if (e.target.value === 'Groupe') {
                   setIsGroupe(true);
