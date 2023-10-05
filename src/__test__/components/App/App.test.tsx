@@ -4,6 +4,11 @@ import { render as rtlRender, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import store from '../../../redux/store';
 import App from '../../../components/App/App';
+import userReducer, {
+  login,
+  logout,
+  toggleDropDown,
+} from '../../../redux/store/reducers/user';
 
 const render = (component: React.ReactElement) =>
   rtlRender(
@@ -11,12 +16,6 @@ const render = (component: React.ReactElement) =>
       <App />
     </Provider>
   );
-
-import userReducer, {
-  login,
-  logout,
-  toggleDropDown,
-} from '../../../redux/store/reducers/user';
 
 describe('userReducer', () => {
   it('should handle login.fulfilled', () => {

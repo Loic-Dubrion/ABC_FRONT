@@ -108,7 +108,7 @@ function Cards() {
                                         .map((e) => (
                                           <button
                                             key={e.tool_name}
-                                            className="btn btn-sm m-1"
+                                            className="btn btn-sm normal-case m-1"
                                             type="button"
                                             onClick={() => {
                                               cardRef.current?.close();
