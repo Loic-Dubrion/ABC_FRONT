@@ -31,7 +31,7 @@ function MessageIndication() {
               : userError?.name === 'success'
               ? 'alert-success'
               : 'alert-info'
-          } w-1/5 m-auto mr-2
+          } w-[400px] m-auto mr-2
           slide-from-right`}
         >
           <svg
