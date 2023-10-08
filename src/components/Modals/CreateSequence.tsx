@@ -1,8 +1,8 @@
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import React, { useRef } from 'react';
-import { createSequence } from '../../redux/store/reducers/sequence';
-import { toggleDropDown } from '../../redux/store/reducers/user';
-import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import React, { useRef } from "react";
+import { createSequence } from "../../redux/store/reducers/sequence";
+import { toggleDropDown } from "../../redux/store/reducers/user";
+import { useNavigate } from "react-router-dom";
 
 function CreateSequence() {
   const dispatch = useAppDispatch();
@@ -14,7 +14,7 @@ function CreateSequence() {
     e.preventDefault();
     const formElement = e.currentTarget;
     const formData = new FormData(formElement);
-    formData.append('user_id', localStorage.getItem('id') as string);
+    formData.append("user_id", localStorage.getItem("id") as string);
     dispatch(createSequence(formData));
     dialogRef.current?.close();
     if (isOpen === true) {
@@ -49,6 +49,7 @@ function CreateSequence() {
                       placeholder="Entrez le nom du scénario"
                       className="input input-bordered w-full align-middle text-black"
                       autoComplete="off"
+                      required
                     />
                   </div>
                   <button className="btn btn-success ml-2">Valider</button>
