@@ -1,11 +1,14 @@
-import moment from 'moment';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { openDeleteSequenceModal } from '../../redux/store/reducers/sequence';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import 'moment/locale/fr';
-import SuppressionSequenceModal from '../Modals/SuppressionSequenceModal';
+import moment from "moment";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { openDeleteSequenceModal } from "../../redux/store/reducers/sequence";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowRightLong,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
+import "moment/locale/fr";
+import SuppressionSequenceModal from "../Modals/SuppressionSequenceModal";
 
 function HasSequences() {
   const dispatch = useAppDispatch();
@@ -36,7 +39,7 @@ function HasSequences() {
                     <button
                       className="btn bg-transparent border-none"
                       onClick={() => {
-                        localStorage.removeItem('sequence_name');
+                        localStorage.removeItem("sequence_name");
                         dispatch(openDeleteSequenceModal(isOpen));
                       }}
                     >
@@ -56,7 +59,7 @@ function HasSequences() {
                   <td>
                     <p className="table-row-link">
                       {moment(sequence.created_at).format(
-                        'DD/MM/YYYY HH:mm:ss'
+                        "DD/MM/YYYY HH:mm:ss"
                       )}
                     </p>
                   </td>
@@ -66,12 +69,17 @@ function HasSequences() {
                       className="table-row-link text-blue-700"
                       onClick={() => {
                         localStorage.setItem(
-                          'sequence_name',
+                          "sequence_name",
                           sequence.name as string
                         );
                       }}
                     >
-                      Cliquez ici pour voir le scénario
+                      <FontAwesomeIcon
+                        icon={faArrowRightLong}
+                        size="sm"
+                        style={{ marginRight: "1rem" }}
+                      />
+                      Voir le scénario
                     </Link>
                   </td>
                 </tr>
