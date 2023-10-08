@@ -58,9 +58,7 @@ function HasSequences() {
                   </td>
                   <td>
                     <p className="table-row-link">
-                      {moment(sequence.created_at).format(
-                        "DD/MM/YYYY HH:mm:ss"
-                      )}
+                      {moment(sequence.created_at).format("DD/MM/YYYY HH[h]mm")}
                     </p>
                   </td>
                   <td>
