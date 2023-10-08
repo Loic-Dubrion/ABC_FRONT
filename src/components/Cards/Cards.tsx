@@ -1,16 +1,16 @@
 // React Hooks
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 // Redux functions
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 // Reducers actions
 import {
   getAllCards,
   getOneCard,
   getOneTool,
   modalIsOpen,
-} from '../../redux/store/reducers/card';
+} from "../../redux/store/reducers/card";
 // Components
-import CreateSession from '../Modals/CreateSession';
+import CreateSession from "../Modals/CreateSession";
 
 function Cards() {
   const dispatch = useAppDispatch();
@@ -123,7 +123,7 @@ function Cards() {
                                       tool.tools.map((e) => (
                                         <button
                                           key={e.tool_name}
-                                          className="btn btn-sm m-1"
+                                          className="btn btn-sm normal-case m-1"
                                           type="button"
                                           onClick={() => {
                                             cardRef.current?.close();
@@ -150,9 +150,9 @@ function Cards() {
                     color={
                       oneCard &&
                       oneCard.length > 0 &&
-                      typeof oneCard[0]?.get_activities.color === 'string'
+                      typeof oneCard[0]?.get_activities.color === "string"
                         ? oneCard[0]?.get_activities.color
-                        : ''
+                        : ""
                     }
                     isOpen={isOpen}
                   />
