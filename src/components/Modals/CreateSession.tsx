@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react';
-import { createSession } from '../../redux/store/reducers/session';
-import { useAppDispatch } from '../../redux/hooks';
-import { modalIsOpen } from '../../redux/store/reducers/card';
-import { useParams } from 'react-router-dom';
+import React, { useRef, useState } from "react";
+import { createSession } from "../../redux/store/reducers/session";
+import { useAppDispatch } from "../../redux/hooks";
+import { modalIsOpen } from "../../redux/store/reducers/card";
+import { useParams } from "react-router-dom";
 
 interface ICreateSession {
   isOpen: boolean;
@@ -20,15 +20,15 @@ function CreateSession({ isOpen, color }: ICreateSession) {
     e.preventDefault();
     const formElement = e.currentTarget;
     const formData = new FormData(formElement);
-    formData.append('is_face_to_face', isPresentiel.toString());
-    formData.append('is_group_work', isGroupe.toString());
-    formData.append('card_id', localStorage.getItem('card_id') as string);
-    formData.append('tool_id', localStorage.getItem('tool_id') as string);
-    formData.append('sequence_id', id?.toString() as string);
+    formData.append("is_face_to_face", isPresentiel.toString());
+    formData.append("is_group_work", isGroupe.toString());
+    formData.append("card_id", localStorage.getItem("card_id") as string);
+    formData.append("tool_id", localStorage.getItem("tool_id") as string);
+    formData.append("sequence_id", id?.toString() as string);
     dispatch(createSession(formData));
     dispatch(modalIsOpen(isOpen));
-    localStorage.removeItem('card_id');
-    localStorage.removeItem('tool_id');
+    localStorage.removeItem("card_id");
+    localStorage.removeItem("tool_id");
     formRef.current?.reset();
   };
 
@@ -50,6 +50,7 @@ function CreateSession({ isOpen, color }: ICreateSession) {
               placeholder="Ecrivez le nom de la session"
               className="input input-bordered w-full max-w-xs mt-1 align-middle mb-4 text-black"
               autoComplete="off"
+              required
             />
           </label>
           <label
@@ -76,7 +77,7 @@ function CreateSession({ isOpen, color }: ICreateSession) {
               name="is_face_to_face"
               className="select select-bordered w-full max-w-xs mb-4 text-black"
               onChange={(e) => {
-                if (e.target.value === 'Présentiel') {
+                if (e.target.value === "Présentiel") {
                   setIsPresentiel(true);
                 } else {
                   setIsPresentiel(false);
@@ -95,7 +96,7 @@ function CreateSession({ isOpen, color }: ICreateSession) {
               name="is_group_work"
               className="select select-bordered w-full max-w-xs mb-4 text-black"
               onChange={(e) => {
-                if (e.target.value === 'Groupe') {
+                if (e.target.value === "Groupe") {
                   setIsGroupe(true);
                 } else {
                   setIsGroupe(false);
