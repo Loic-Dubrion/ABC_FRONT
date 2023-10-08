@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 import {
   deleteSession,
   openDeleteSessionModal,
-} from '../../redux/store/reducers/session';
-import { useAppDispatch } from '../../redux/hooks';
+} from "../../redux/store/reducers/session";
+import { useAppDispatch } from "../../redux/hooks";
 
 interface Props {
   isOpen: boolean;
@@ -16,7 +16,7 @@ function SuppressionSessionModal({ isOpen, sessionId }: Props) {
   return (
     <React.Fragment>
       <dialog id="Delete-session-modal" className="modal" open={isOpen}>
-        <div className="modal-box">
+        <div className="modal-box mt-10">
           <h3 className="font-bold text-lg text-center text-[#f87272] error-line mb-5">
             Vous êtes sur le point de supprimer la session !
           </h3>

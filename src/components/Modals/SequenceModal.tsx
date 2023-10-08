@@ -1,9 +1,9 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import {
   toggleUpdateSequenceMenu,
   updateSequence,
-} from '../../redux/store/reducers/sequence';
-import { useAppDispatch } from '../../redux/hooks';
+} from "../../redux/store/reducers/sequence";
+import { useAppDispatch } from "../../redux/hooks";
 
 interface SequenceModal {
   isOpen: boolean;
@@ -17,7 +17,7 @@ function SequenceModal({ isOpen }: SequenceModal) {
     event.preventDefault();
     const formElement = event.currentTarget;
     const formData = new FormData(formElement);
-    formData.append('sequenceId', id as string);
+    formData.append("sequenceId", id as string);
     dispatch(updateSequence(formData));
     dispatch(toggleUpdateSequenceMenu(isOpen));
   };
@@ -40,6 +40,7 @@ function SequenceModal({ isOpen }: SequenceModal) {
                     placeholder="Nom du scénario"
                     className="input input-bordered w-full align-middle text-black"
                     autoComplete="off"
+                    required
                   />
                 </div>
                 <button className="btn btn-success ml-2">Valider</button>
