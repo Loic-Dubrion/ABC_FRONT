@@ -10,7 +10,7 @@ interface ICustomError extends AxiosError {
 }
 
 const instance = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: "https://www.lodev.tech/api",
   timeout: 10000,
 });
 
